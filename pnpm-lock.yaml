@@ -12,6 +12,22 @@ importers:
         specifier: 5.8.2
         version: 5.8.2
 
+  packages/core: {}
+
+  packages/shared: {}
+
+  packages/test: {}
+
+  plugins/krc: {}
+
+  plugins/lrc: {}
+
+  plugins/qrc: {}
+
+  plugins/ttml: {}
+
+  plugins/yrc: {}
+
 packages:
 
   typescript@5.8.2:

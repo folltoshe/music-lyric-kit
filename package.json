@@ -3,7 +3,7 @@
   "author": "Folltoshe",
   "description": "Music Lyric Parser And Exporter",
   "private": true,
-  "packageManager": "pnpm@10.18.3",
+  "packageManager": "pnpm@10.19.0",
   "scripts": {},
   "type": "module",
   "license": "MIT",
