@@ -1,0 +1,18 @@
+{
+  "name": "@music-lyric-kit/plugin-krc",
+  "version": "1.0.0",
+  "description": "Music Lyric Kit - KRC Plugin",
+  "author": "Folltoshe",
+  "license": "MIT",
+  "scripts": {},
+  "keywords": [
+    "music",
+    "lyric",
+    "kit"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/folltoshe/music-lyric-kit.git",
+    "directory": "plugins/krc"
+  }
+}

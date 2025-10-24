@@ -1,0 +1,26 @@
+{
+  "name": "music-lyric-kit",
+  "author": "Folltoshe",
+  "description": "Music Lyric Parser And Exporter",
+  "private": true,
+  "packageManager": "pnpm@10.18.3",
+  "scripts": {},
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "music",
+    "lyric",
+    "kit"
+  ],
+  "homepage": "https://github.com/folltoshe/music-lyric-kit#readme",
+  "bugs": {
+    "url": "https://github.com/folltoshe/music-lyric-kit/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/folltoshe/music-lyric-kit.git"
+  },
+  "devDependencies": {
+    "typescript": "5.8.2"
+  }
+}
