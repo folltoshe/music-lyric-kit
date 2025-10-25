@@ -1,10 +1,21 @@
 import type { DeepRequired } from '../utils'
 import type { LyricInfo } from '../lyric'
+import type { CommonOptionsRequired } from '../options'
+
+import { COMMON_OPTIONS } from '@root/constants'
 
 import { OptionsManager } from '@root/utils'
 
-export interface Context<Options extends Record<string, any>> {
-  options: OptionsManager<Options>
+export interface MusicInfoProps {
+  name: string
+  singer: string[]
+}
+
+export interface Context<T extends Record<string, any>> {
+  options: {
+    common: OptionsManager<CommonOptionsRequired>
+    plugin: OptionsManager<T>
+  }
 }
 
 export abstract class BasePlugin<Options extends Record<string, any>, Props> {
@@ -12,11 +23,14 @@ export abstract class BasePlugin<Options extends Record<string, any>, Props> {
 
   constructor(defaultConfig: DeepRequired<Options>) {
     this.context = {
-      options: new OptionsManager(defaultConfig),
+      options: {
+        common: new OptionsManager(COMMON_OPTIONS),
+        plugin: new OptionsManager(defaultConfig),
+      },
     }
   }
 
-  abstract parse(props: Props): LyricInfo
+  abstract parse(props: Props, musicInfo: MusicInfoProps): LyricInfo
 
   abstract export(info: LyricInfo): string
 }
