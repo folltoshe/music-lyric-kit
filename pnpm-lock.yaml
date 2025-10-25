@@ -36,7 +36,11 @@ importers:
         specifier: ^4.17.12
         version: 4.17.12
 
-  packages/test: {}
+  packages/test:
+    dependencies:
+      '@music-lyric-kit/plugin-lrc':
+        specifier: workspace:*
+        version: link:../../plugins/lrc
 
   plugins/krc: {}
 
