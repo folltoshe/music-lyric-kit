@@ -4,7 +4,9 @@
   "description": "Music Lyric Kit",
   "author": "Folltoshe",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "vite build"
+  },
   "keywords": [
     "music",
     "lyric",
