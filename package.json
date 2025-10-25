@@ -8,6 +8,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo watch dev",
+    "publish": "node ./scripts/publish.js",
     "update:version": "node ./scripts/update-version.js"
   },
   "type": "module",
