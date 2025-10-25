@@ -5,7 +5,9 @@
   "author": "Folltoshe",
   "license": "MIT",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "dev": "vite dev"
+  },
   "keywords": [
     "music",
     "lyric",
