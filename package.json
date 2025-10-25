@@ -10,8 +10,8 @@
     "dev": "turbo watch dev",
     "publish": "node ./scripts/publish.js",
     "update:version": "node ./scripts/update-version.js",
-    "build:changeLog": "node ./scripts/build-change-log.js",
-    "build:changeLog:current": "node ./scripts/build-change-log.js --current"
+    "build:change-log": "node ./scripts/build-change-log.js",
+    "build:change-log:current": "node ./scripts/build-change-log.js --current"
   },
   "type": "module",
   "license": "MIT",
