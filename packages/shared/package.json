@@ -14,5 +14,11 @@
     "type": "git",
     "url": "git+https://github.com/folltoshe/music-lyric-kit.git",
     "directory": "packages/shared"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.12"
   }
 }
