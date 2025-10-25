@@ -51,7 +51,7 @@ export const matchTextIsValid = (content: string, rules: (string | RegExp)[], qu
  */
 export const matchTextWithPercentage = (content: string, rules: (string | RegExp)[]) => {
   const normalize = normalizeText(content)
-  if (!normalize) return false
+  if (!normalize) return 0
 
   let percentage = 0
   let process = normalize

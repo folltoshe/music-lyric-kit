@@ -1,4 +1,3 @@
-export * from './lyric'
-export * from './options'
+export * from './interlude'
 export * from './producer'
 export * from './purification'

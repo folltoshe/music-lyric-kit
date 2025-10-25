@@ -1,4 +1,4 @@
-import type { DeepRequired, CommonInterludeOptions, CommonDuetOptions, CommonLineOptions } from '@root/types'
+import type { DeepRequired, CommonInterludeOptions, CommonDuetOptions, CommonPurificationOptions, CommonLineOptions } from '@root/types'
 
 import { INSERT_TEXT_SPACE_TYPES } from '@root/utils'
 
@@ -13,37 +13,38 @@ export const COMMON_DUET_OPTIONS: DeepRequired<CommonDuetOptions> = {
   replace: true,
 } as const
 
-export const COMMON_LINE_OPTIONS: DeepRequired<CommonLineOptions> = {
-  purification: {
-    enable: true,
-    match: {
-      mode: 'FUZZY',
-      exact: {
-        check: {
-          percentage: 50,
-        },
-      },
-      fuzzy: {},
-      rule: {
-        useDefault: true,
-        custom: [],
+export const COMMON_PURIFICATION_OPTIONS: DeepRequired<CommonPurificationOptions> = {
+  enable: true,
+  match: {
+    mode: 'FUZZY',
+    exact: {
+      check: {
+        percentage: 50,
       },
     },
-    firstLine: {
-      useMusicInfo: true,
-      mode: 'EXACT',
-      exact: {
-        check: {
-          percentage: 30,
-        },
-      },
-      fuzzy: {},
-      rule: {
-        useDefault: true,
-        custom: [],
-      },
+    fuzzy: {},
+    rule: {
+      useDefault: true,
+      custom: [],
     },
   },
+  firstLine: {
+    useMusicInfo: true,
+    mode: 'EXACT',
+    exact: {
+      check: {
+        percentage: 30,
+      },
+    },
+    fuzzy: {},
+    rule: {
+      useDefault: true,
+      custom: [],
+    },
+  },
+}
+
+export const COMMON_LINE_OPTIONS: DeepRequired<CommonLineOptions> = {
   replace: {
     enable: true,
     punctuation: true,

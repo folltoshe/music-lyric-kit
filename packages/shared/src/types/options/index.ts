@@ -2,19 +2,20 @@ import type { DeepRequired } from '../utils'
 
 import type { CommonMatchOptions } from './match'
 import type { CommonMetaOptions } from './meta'
-import type { CommonInterludeOptions, CommonDuetOptions, CommonLineOptions } from './line'
+import type { CommonInterludeOptions, CommonDuetOptions, CommonPurificationOptions, CommonLineOptions } from './line'
 
 export type { CommonMatchOptions }
 
 export type { CommonMetaOptions }
 
-export type { CommonInterludeOptions, CommonDuetOptions, CommonLineOptions }
+export type { CommonInterludeOptions, CommonDuetOptions, CommonPurificationOptions, CommonLineOptions }
 
 export interface CommonOptions {
   meta?: CommonMetaOptions
   content?: {
     interlude?: CommonInterludeOptions
     duet?: CommonDuetOptions
+    purification?: CommonPurificationOptions
     normal?: {
       original?: CommonLineOptions
       dynamic?: CommonLineOptions

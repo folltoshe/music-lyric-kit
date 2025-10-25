@@ -18,6 +18,8 @@ export interface Context<T extends Record<string, any>> {
   }
 }
 
+export type ContextCommon = Context<any>
+
 export abstract class BasePlugin<Options extends Record<string, any>, Props> {
   protected context: Context<DeepRequired<Options>>
 

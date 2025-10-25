@@ -33,28 +33,29 @@ export interface CommonDuetOptions {
   replace?: boolean
 }
 
-export interface CommonLineOptions {
-  purification?: {
+export interface CommonPurificationOptions {
+  /**
+   * is enable purification lyric
+   * @default true
+   */
+  enable?: boolean
+  /**
+   * match options
+   */
+  match?: CommonMatchOptions
+  /**
+   * some lyrics have the song title and singer as the first line
+   */
+  firstLine: CommonMatchOptions & {
     /**
-     * is enable purification lyric
+     * is use music info to match
      * @default true
      */
-    enable?: boolean
-    /**
-     * match options
-     */
-    match?: CommonMatchOptions
-    /**
-     * some lyrics have the song title and singer as the first line
-     */
-    firstLine: CommonMatchOptions & {
-      /**
-       * is use music info to match
-       * @default true
-       */
-      useMusicInfo?: boolean
-    }
+    useMusicInfo?: boolean
   }
+}
+
+export interface CommonLineOptions {
   replace?: {
     /**
      * @default true
