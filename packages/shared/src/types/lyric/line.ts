@@ -45,7 +45,7 @@ export namespace Line {
     dynamic?: Dynamic.Info
   }
 
-  export interface Item {
+  export interface Info {
     /** line id */
     id: string
     /** line type */
@@ -56,12 +56,5 @@ export namespace Line {
     group: GroupLine
     /** line content */
     content: Content
-  }
-
-  export interface Info {
-    /** item count */
-    total: number
-    /** item list */
-    items: Item[]
   }
 }

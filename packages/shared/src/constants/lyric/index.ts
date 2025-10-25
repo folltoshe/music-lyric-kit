@@ -4,22 +4,16 @@ export * from './time'
 export * from './line'
 
 export const EMPTY_LYRIC_INFO: LyricInfo = {
+  config: {
+    isInstrumental: false,
+    isSupportAutoScroll: false,
+  },
   meta: {
     offset: {
       raw: '',
       parsed: 0,
     },
   },
-  line: {
-    total: 0,
-    items: [],
-  },
-  group: {
-    total: 0,
-    items: [],
-  },
-  config: {
-    isInstrumental: false,
-    isSupportAutoScroll: false,
-  },
+  lines: [],
+  groups: [],
 } as const

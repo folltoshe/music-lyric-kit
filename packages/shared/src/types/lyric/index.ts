@@ -1,11 +1,11 @@
 import type { TimeInfo } from './time'
-import type { MetaInfo } from './meta'
-import type { GroupInfo, GroupItem, GroupLine } from './group'
+import type { MetaInfo, ProducerItem } from './meta'
+import type { GroupItem, GroupLine } from './group'
 import type { Dynamic, Extended, Line } from './line'
 
 export type { TimeInfo }
-export type { MetaInfo }
-export type { GroupInfo, GroupItem, GroupLine }
+export type { MetaInfo, ProducerItem }
+export type { GroupItem, GroupLine }
 export type { Dynamic, Extended, Line }
 
 export interface LyricConfig {
@@ -17,7 +17,7 @@ export interface LyricConfig {
 
 export interface LyricInfo {
   config: LyricConfig
-  group: GroupInfo
   meta: MetaInfo
-  line: Line.Info
+  lines: Line.Info[]
+  groups: GroupItem[]
 }

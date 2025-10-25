@@ -2,7 +2,7 @@ import type { Line, Dynamic } from '@root/types'
 
 import { EMPTY_TIME_INFO } from './time'
 
-export const LYRIC_LINE_TYPES: Record<Line.Type, Line.Type> = {
+export const LINE_TYPES: Record<Line.Type, Line.Type> = {
   NORMAL: 'NORMAL',
   INTERLUDE: 'INTERLUDE',
   BACKGROUND: 'BACKGROUND',
@@ -27,9 +27,9 @@ export const EMPTY_DYNAMIC_INFO: Dynamic.Info = {
   items: [],
 } as const
 
-export const EMPTY_LINE_ITEM: Line.Item = {
+export const EMPTY_LINE_ITEM: Line.Info = {
   id: '',
-  type: LYRIC_LINE_TYPES.NORMAL,
+  type: LINE_TYPES.NORMAL,
   time: EMPTY_TIME_INFO,
   group: {
     id: '',
@@ -41,9 +41,4 @@ export const EMPTY_LINE_ITEM: Line.Item = {
   content: {
     original: '',
   },
-} as const
-
-export const EMPTY_LINE_INFO: Line.Info = {
-  total: 0,
-  items: [],
 } as const

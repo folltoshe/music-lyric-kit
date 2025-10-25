@@ -1,10 +1,3 @@
-export interface GroupInfo {
-  /** item count */
-  total: number
-  /** item list */
-  items: GroupItem[]
-}
-
 export interface GroupItem {
   /** id (crc32) */
   id: string
