@@ -1,7 +1,5 @@
 import type { DeepRequired, CommonMetaOptions } from '@root/types'
 
-import { freezeDeep } from '@root/utils'
-
 export const COMMON_META_OPTIONS: DeepRequired<CommonMetaOptions> = {
   tag: {
     enable: true,
@@ -40,4 +38,3 @@ export const COMMON_META_OPTIONS: DeepRequired<CommonMetaOptions> = {
     },
   },
 } as const
-freezeDeep(COMMON_META_OPTIONS)
