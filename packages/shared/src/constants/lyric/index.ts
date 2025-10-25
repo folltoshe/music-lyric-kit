@@ -1,7 +1,5 @@
 import type { LyricInfo } from '@root/types'
 
-import { freezeDeep } from '@root/utils'
-
 export * from './time'
 export * from './line'
 
@@ -25,4 +23,3 @@ export const EMPTY_LYRIC_INFO: LyricInfo = {
     isSupportAutoScroll: false,
   },
 } as const
-freezeDeep(EMPTY_LYRIC_INFO)
