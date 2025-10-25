@@ -1,4 +1,5 @@
 export type * from './lyric'
+export type * from './options'
 export type * from './plugin'
 export type * from './utils'
 
