@@ -26,5 +26,8 @@
     "type": "git",
     "url": "git+https://github.com/folltoshe/music-lyric-kit.git",
     "directory": "packages/core"
+  },
+  "dependencies": {
+    "@music-lyric-kit/plugin-lrc": "workspace:*"
   }
 }
