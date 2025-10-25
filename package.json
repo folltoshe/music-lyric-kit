@@ -1,12 +1,14 @@
 {
   "name": "music-lyric-kit",
+  "version": "1.0.0",
   "author": "Folltoshe",
   "description": "Music Lyric Parser And Exporter",
   "private": true,
   "packageManager": "pnpm@10.19.0",
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo watch dev"
+    "dev": "turbo watch dev",
+    "update:version": "node ./scripts/update-version.js"
   },
   "type": "module",
   "license": "MIT",
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.9.1",
+    "enquirer": "^2.4.1",
     "turbo": "^2.5.8",
     "typescript": "5.8.2",
     "vite": "^7.1.12",
