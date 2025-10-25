@@ -40,7 +40,11 @@ importers:
 
   plugins/krc: {}
 
-  plugins/lrc: {}
+  plugins/lrc:
+    dependencies:
+      '@music-lyric-kit/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
 
   plugins/qrc: {}
 
