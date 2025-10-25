@@ -1,6 +1,23 @@
 import type { CommonMatchOptions } from './match'
 
 export interface CommonMetaOptions {
+  tag?: {
+    /**
+     * @default true
+     */
+    enable?: boolean
+    /**
+     * people name
+     */
+    name?: {
+      split?: {
+        /**
+         * @default "/"
+         */
+        rule?: string | RegExp
+      }
+    }
+  }
   producer?: {
     /**
      * @default true
