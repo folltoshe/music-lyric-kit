@@ -15,7 +15,7 @@ export interface LyricConfig {
   isSupportAutoScroll: boolean
 }
 
-export interface LyricConfig {
+export interface LyricInfo {
   config: LyricConfig
   group: GroupInfo
   meta: MetaInfo

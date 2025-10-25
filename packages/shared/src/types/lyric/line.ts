@@ -34,7 +34,7 @@ export namespace Dynamic {
   export interface Info {
     /** time info (relative to the time of this lyrics) */
     time: TimeInfo
-    words: WordItem[]
+    items: WordItem[]
   }
 }
 
