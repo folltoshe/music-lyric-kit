@@ -7,6 +7,8 @@ import { spawn } from 'node:child_process'
 
 export const require = createRequire(import.meta.url)
 
+export const root = process.cwd()
+
 export const packagesRoot = join(process.cwd(), 'packages')
 export const pluginsRoot = join(process.cwd(), 'plugins')
 
