@@ -1,10 +1,10 @@
-import type { LrcParseProps } from '@music-lyric-kit/plugin-lrc'
+import type { LrcParseProps } from 'music-lyric-kit'
 
-import { LrcParser } from '@music-lyric-kit/plugin-lrc'
+import { LyricParser } from 'music-lyric-kit'
 
 const LOCAL_HISTORY_KEY = 'last-parse'
 
-const lrc = new LrcParser()
+const parser = new LyricParser()
 
 document.addEventListener('DOMContentLoaded', () => {
   const parseBtn = document.getElementById('parse-btn')
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!resultContainer || !resultElement) return
 
   const handleParse = (content: LrcParseProps) => {
-    const result = lrc.parse(content)
+    const result = parser.lrc.parse(content)
 
     console.log('Parse Result: ', result)
 

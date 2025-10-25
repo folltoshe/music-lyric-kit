@@ -42,9 +42,9 @@ importers:
 
   packages/test:
     dependencies:
-      '@music-lyric-kit/plugin-lrc':
+      music-lyric-kit:
         specifier: workspace:*
-        version: link:../../plugins/lrc
+        version: link:../core
 
   plugins/krc: {}
 
