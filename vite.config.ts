@@ -6,22 +6,33 @@ import { defineConfig, mergeConfig } from 'vite'
 const root = join(process.cwd())
 const src = join(root, 'src')
 
+const external = ['lodash-es', '@music-lyric-kit']
+
 const DefaultConfig = defineConfig({
   root,
   build: {
-    outDir: join(root, 'dist'),
     lib: {
       entry: join(src, 'index.ts'),
       formats: ['es', 'cjs'],
       fileName: 'index',
     },
+    rollupOptions: {
+      external(source, importer, isResolved) {
+        for (const name of external) {
+          if (source.includes(name)) {
+            return true
+          }
+        }
+        return false
+      },
+    },
+    outDir: join(root, 'dist'),
     minify: 'esbuild',
     reportCompressedSize: false,
     emptyOutDir: true,
     sourcemap: true,
   },
   resolve: {
-    external: [],
     alias: {
       '@root': src,
     },
