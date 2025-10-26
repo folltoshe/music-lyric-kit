@@ -1,9 +1,12 @@
+import type { ValueOf } from '@root/utils'
+import type { MATCH_MODE } from '@root/utils'
+
 export interface CommonMatchOptions {
   /**
    * match mode
    * @default FUZZY
    */
-  mode?: 'FUZZY' | 'EXACT'
+  mode?: ValueOf<typeof MATCH_MODE>
   /**
    * exact mode options
    */

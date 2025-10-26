@@ -1,10 +1,5 @@
 import { buildQuickWords } from '../utils'
 
-export const PRODUCER_MATCH_MODE = {
-  EXACT: 'EXACT',
-  FUZZY: 'FUZZY',
-} as const
-
 export const DEFAULT_PRODUCER_RULES: RegExp[] = [
   /(?:钢琴|Piano|Pno)/giu,
   /(?:电钢琴|ElectricPiano|Wurlitzer|Rhodes|EP)/giu,

@@ -1,7 +1,7 @@
 import type { DeepRequired } from '@root/utils'
 import type { CommonInterludeOptions, CommonDuetOptions, CommonPurificationOptions, CommonLineOptions } from '../types'
 
-import { INSERT_TEXT_SPACE_TYPES } from '@root/utils'
+import { INSERT_TEXT_SPACE_TYPES, MATCH_MODE } from '@root/utils'
 
 export const COMMON_INTERLUDE_OPTIONS: DeepRequired<CommonInterludeOptions> = {
   enable: true,
@@ -17,7 +17,7 @@ export const COMMON_DUET_OPTIONS: DeepRequired<CommonDuetOptions> = {
 export const COMMON_PURIFICATION_OPTIONS: DeepRequired<CommonPurificationOptions> = {
   enable: true,
   match: {
-    mode: 'FUZZY',
+    mode: MATCH_MODE.FUZZY,
     exact: {
       check: {
         percentage: 50,
@@ -31,7 +31,7 @@ export const COMMON_PURIFICATION_OPTIONS: DeepRequired<CommonPurificationOptions
   },
   firstLine: {
     useMusicInfo: true,
-    mode: 'EXACT',
+    mode: MATCH_MODE.EXACT,
     exact: {
       check: {
         percentage: 30,

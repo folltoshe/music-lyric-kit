@@ -1,7 +1,8 @@
 import type { Line, ProducerItem } from '@root/lyric'
 import type { ContextCommon } from '@root/plugin'
 
-import { DEFAULT_PRODUCER_RULES, DEFAULT_PRODUCER_RULES_QUICK_KEYWORDS, PRODUCER_MATCH_MODE } from '../constants'
+import { MATCH_MODE } from '@root/utils'
+import { DEFAULT_PRODUCER_RULES, DEFAULT_PRODUCER_RULES_QUICK_KEYWORDS } from '../constants'
 
 import { matchTextIsValid, matchTextWithPercentage, replaceFromText } from '@root/utils'
 
@@ -52,7 +53,7 @@ export const processProducer = (context: ContextCommon, infos: Line.Info[]): [Li
       continue
     }
 
-    if (options.match.mode === PRODUCER_MATCH_MODE.EXACT) {
+    if (options.match.mode === MATCH_MODE.EXACT) {
       const percentage = matchTextWithPercentage(role, matchRules)
       if (percentage < options.match.exact.check.percentage) {
         lines.push(line)

@@ -3,7 +3,8 @@ import type { CommonPurificationOptions } from '@root/options'
 import type { DeepRequired } from '@root/utils'
 import type { ContextCommon, MusicInfoProps } from '@root/plugin'
 
-import { PURIFICATION_MATCH_MODE, DEFAULT_PURIFICATION_RULES, DEFAULT_PURIFICATION_RULES_QUICK_KEYWORDS } from '../constants'
+import { MATCH_MODE } from '@root/utils'
+import { DEFAULT_PURIFICATION_RULES, DEFAULT_PURIFICATION_RULES_QUICK_KEYWORDS } from '../constants'
 
 import { matchTextIsValid, matchTextWithPercentage } from '@root/utils'
 
@@ -40,7 +41,7 @@ const handleCheck = (
   const mode = isFirstLine ? options.firstLine.mode : options.match.mode
   const exact = isFirstLine ? options.firstLine.exact : options.match.exact
 
-  if (mode === PURIFICATION_MATCH_MODE.EXACT) {
+  if (mode === MATCH_MODE.EXACT) {
     const percentage = matchTextWithPercentage(content, targetRules)
     const check = exact.check.percentage
     if (percentage > check) {
