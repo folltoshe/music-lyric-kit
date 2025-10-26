@@ -1,5 +1,5 @@
 import type { DeepRequired } from '@music-lyric-kit/shared'
 
-export interface LrcOptions {}
+export interface LrcParserOptions {}
 
-export type LrcOptionsRequired = DeepRequired<LrcOptions>
+export type LrcParserOptionsRequired = DeepRequired<LrcParserOptions>

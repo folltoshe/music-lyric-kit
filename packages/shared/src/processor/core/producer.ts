@@ -16,7 +16,7 @@ const splitNameWithRule = (name: string, rule: string | RegExp) => {
 }
 
 export const processProducer = (context: ContextCommon, infos: Line.Info[]): [Line.Info[], ProducerItem[]] => {
-  const options = context.options.common.get('meta.producer')
+  const options = context.common.options.get('meta.producer')
   if (!options.enable) {
     return [infos, []]
   }

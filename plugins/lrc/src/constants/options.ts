@@ -1,3 +1,3 @@
-import { LrcOptionsRequired } from '@root/types'
+import { LrcParserOptionsRequired } from '@root/types'
 
-export const DEFAULT_OPTIONS: LrcOptionsRequired = {} as const
+export const DEFAULT_OPTIONS: LrcParserOptionsRequired = {} as const

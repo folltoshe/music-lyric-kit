@@ -1,5 +1,5 @@
-import type { LyricInfo, MusicInfoProps } from '@music-lyric-kit/shared'
-import type { LrcOptions, LrcOptionsRequired, LrcParseProps } from '@root/types'
+import type { ConfigManager, CommonOptions, LyricInfo, MusicInfoProps } from '@music-lyric-kit/shared'
+import type { LrcParserOptions, LrcParseProps } from '@root/types'
 
 import { DEFAULT_OPTIONS } from '@root/constants/options'
 
@@ -11,10 +11,9 @@ import { processMeta } from './meta'
 import { processMainLyric, processExtendedLyric } from './line'
 import { purificationLyric, insertDuet, insertInterlude } from '@music-lyric-kit/shared'
 
-export class LrcParser extends BasePlugin<LrcOptionsRequired, LrcParseProps> {
-  constructor(options?: LrcOptions) {
-    super(DEFAULT_OPTIONS)
-
+export class LrcParser extends BasePlugin<LrcParserOptions, LrcParseProps> {
+  constructor(options?: LrcParserOptions, global?: ConfigManager<CommonOptions>) {
+    super(DEFAULT_OPTIONS, global)
     if (options) {
       this.updatePluginOptions(options)
     }

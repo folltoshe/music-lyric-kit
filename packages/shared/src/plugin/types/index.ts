@@ -1,4 +1,4 @@
-import type { CommonOptionsRequired, OptionsManager } from '@root/options'
+import type { CommonOptions, ConfigManager } from '@root/options'
 
 export interface MusicInfoProps {
   name: string
@@ -6,9 +6,12 @@ export interface MusicInfoProps {
 }
 
 export interface Context<T extends Record<string, any>> {
-  options: {
-    common: OptionsManager<CommonOptionsRequired>
-    plugin: OptionsManager<T>
+  common: {
+    global: boolean
+    options: ConfigManager<CommonOptions>
+  }
+  plugin: {
+    options: ConfigManager<T>
   }
 }
 

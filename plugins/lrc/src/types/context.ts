@@ -1,4 +1,4 @@
 import type { Context as BaseContext } from '@music-lyric-kit/shared'
-import type { LrcOptionsRequired } from './options'
+import type { LrcParserOptions } from './options'
 
-export type Context = BaseContext<LrcOptionsRequired>
+export type Context = BaseContext<LrcParserOptions>

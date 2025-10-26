@@ -41,11 +41,11 @@ const processNormal = (options: DeepRequired<CommonLineOptions>, lines: MatchIte
 }
 
 export const processOriginal = (context: Context, lines: MatchItem[]) => {
-  const options = context.options.common.get('content.normal.original')
+  const options = context.common.options.get('content.normal.original')
   return processNormal(options, lines)
 }
 
 export const processExtended = (context: Context, key: keyof CommonOptionsRequired['content']['extended'], lines: MatchItem[]) => {
-  const options = context.options.common.get(`content.extended.${key}`)
+  const options = context.common.options.get(`content.extended.${key}`)
   return processNormal(options, lines)
 }

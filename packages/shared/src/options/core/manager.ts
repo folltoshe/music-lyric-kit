@@ -1,8 +1,8 @@
-import type { DeepPartial, PathValue, NestedKeys, DeepRequired } from '@root/utils'
+import type { PathValue, NestedKeys, DeepRequired, DeepPartial } from '@root/utils'
 
 import { get, merge } from '@root/utils'
 
-export class OptionsManager<T extends Record<string, any>> {
+export class ConfigManager<T extends Record<string, any>> {
   private default: DeepRequired<T>
   private current: T
 
@@ -15,19 +15,19 @@ export class OptionsManager<T extends Record<string, any>> {
     }
   }
 
-  get<K extends NestedKeys<T>>(key: K): PathValue<DeepRequired<T>, K>
   get(): T
-  get<K extends NestedKeys<T> | undefined>(key?: K): any {
+  get<K extends NestedKeys<DeepRequired<T>>>(key: K): PathValue<DeepRequired<T>, K>
+  get<RK extends DeepRequired<T>, K extends RK | undefined>(key?: K): any {
     if (!key) {
       return this.current
     }
 
-    const current = get(this.current, key as NestedKeys<T>)
+    const current = get(this.current, key as RK)
     if (current !== void 0) {
       return current
     }
 
-    return get(this.default, key as NestedKeys<T>)
+    return get(this.default, key as RK)
   }
 
   set(opt: DeepPartial<T>) {

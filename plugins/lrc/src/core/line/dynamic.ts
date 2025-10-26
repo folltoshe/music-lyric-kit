@@ -99,7 +99,7 @@ const processLine = (options: DeepRequired<CommonLineOptions>, line: MatchItem) 
 export const processDynamic = (context: Context, matched: MatchItem[]) => {
   if (matched.length <= 0) return null
 
-  const options = context.options.common.get('content.normal.dynamic')
+  const options = context.common.options.get('content.normal.dynamic')
   const result: Line.Info[] = []
   for (const line of matched) {
     const item = processLine(options, line)
