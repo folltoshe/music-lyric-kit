@@ -1,3 +1,12 @@
+# [1.1.0](https://github.com/folltoshe/music-lyric-kit/compare/v1.0.0...v1.1.0) (2025-10-26)
+
+
+### Features
+
+* **shared:** optimize match mode ([88ba7a0](https://github.com/folltoshe/music-lyric-kit/commit/88ba7a0bb15b7faa8ccf7e608a8c7fa0d6db0a8e))
+
+
+
 # 1.0.0 (2025-10-25)
 
 
