@@ -10,7 +10,10 @@
   "keywords": [
     "music",
     "lyric",
-    "kit"
+    "kit",
+    "parser",
+    "exporter",
+    "qrc"
   ],
   "exports": {
     ".": {

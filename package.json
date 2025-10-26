@@ -19,7 +19,14 @@
   "keywords": [
     "music",
     "lyric",
-    "kit"
+    "kit",
+    "parser",
+    "exporter",
+    "lrc",
+    "qrc",
+    "yrc",
+    "krc",
+    "ttml"
   ],
   "homepage": "https://github.com/folltoshe/music-lyric-kit#readme",
   "bugs": {
