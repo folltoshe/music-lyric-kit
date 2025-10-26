@@ -1,38 +1,37 @@
-import type { DeepPartial, PathValue, NestedKeys } from '@root/utils'
+import type { DeepPartial, PathValue, NestedKeys, DeepRequired } from '@root/utils'
 
-import { get, set, merge, cloneDeep } from '@root/utils'
+import { get, merge } from '@root/utils'
 
-import { EventListener } from '@root/utils'
-
-interface Events {
-  'config-update': () => void
-}
-
-export class OptionsManager<T extends Record<string, any>> extends EventListener<Events> {
+export class OptionsManager<T extends Record<string, any>> {
+  private default: DeepRequired<T>
   private current: T
 
-  constructor(def: T) {
-    super()
-    this.current = cloneDeep(def)
+  constructor(def: DeepRequired<T>, init?: T) {
+    this.default = def
+    if (init) {
+      this.current = init
+    } else {
+      this.current = Object.create({})
+    }
   }
 
-  getAll() {
-    return this.current
+  get<K extends NestedKeys<T>>(key: K): PathValue<DeepRequired<T>, K>
+  get(): T
+  get<K extends NestedKeys<T> | undefined>(key?: K): any {
+    if (!key) {
+      return this.current
+    }
+
+    const current = get(this.current, key as NestedKeys<T>)
+    if (current !== void 0) {
+      return current
+    }
+
+    return get(this.default, key as NestedKeys<T>)
   }
 
-  getByKey<K extends NestedKeys<T>>(key: K): PathValue<T, K> {
-    return get(this.current, key)
-  }
-
-  updateAll(opt: DeepPartial<T>) {
+  set(opt: DeepPartial<T>) {
     if (!opt) return
     this.current = merge(this.current, opt)
-    this.emit('config-update')
-  }
-
-  updateByKey<K extends NestedKeys<T>>(key: K, value: PathValue<T, K>) {
-    if (!key || !value) return
-    this.current = set(this.current, key, value)
-    this.emit('config-update')
   }
 }

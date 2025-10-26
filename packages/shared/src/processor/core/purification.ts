@@ -57,7 +57,7 @@ const handleCheck = (
 }
 
 export const purificationLyric = (context: ContextCommon, info: LyricInfo, musicInfo?: MusicInfoProps) => {
-  const options = context.options.common.getByKey('content.purification')
+  const options = context.options.common.get('content.purification')
   if (!options.enable) {
     return info
   }

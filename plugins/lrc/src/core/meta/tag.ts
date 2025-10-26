@@ -61,7 +61,7 @@ const LYRIC_META_REGEXP = /^\s*\[\s*(?<key>[A-Za-z0-9_-]+)\s*:\s*(?<value>[^\]]*
 export const processTag = (context: Context, metas: MatchItem[]) => {
   const result: MetaInfo = { offset: { raw: '', parsed: 0 } }
 
-  const options = context.options.common.getByKey('meta.tag')
+  const options = context.options.common.get('meta.tag')
   if (!options.enable) {
     return result
   }

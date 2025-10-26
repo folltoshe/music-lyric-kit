@@ -8,7 +8,7 @@ import { COMMON_OPTIONS } from '@root/options'
 import { OptionsManager } from '@root/options'
 
 export abstract class BasePlugin<Options extends Record<string, any>, Props> {
-  protected context: Context<DeepRequired<Options>>
+  protected context: Context<Options>
 
   constructor(defaultConfig: DeepRequired<Options>) {
     this.context = {
@@ -20,12 +20,11 @@ export abstract class BasePlugin<Options extends Record<string, any>, Props> {
   }
 
   public updateCommonOptions(options: DeepPartial<CommonOptions>) {
-    this.context.options.common.updateAll(options)
+    this.context.options.common.set(options)
   }
 
   public updatePluginOptions(options: DeepPartial<Options>) {
-    // @ts-expect-error
-    this.context.options.plugin.updateAll(options)
+    this.context.options.plugin.set(options)
   }
 
   abstract parse(props: Props, musicInfo: MusicInfoProps): LyricInfo | null

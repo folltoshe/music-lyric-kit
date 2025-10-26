@@ -6,7 +6,7 @@ import { EMPTY_LINE_ITEM, LINE_TYPES } from '@root/lyric'
 import { cloneDeep } from '@root/utils'
 
 export const insertInterlude = (context: ContextCommon, info: LyricInfo) => {
-  const options = context.options.common.getByKey('content.interlude')
+  const options = context.options.common.get('content.interlude')
   if (!options.enable) {
     return info
   }

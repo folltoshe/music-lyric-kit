@@ -11,7 +11,7 @@ const createGroupId = (name: string) => {
 }
 
 export const insertDuet = (context: ContextCommon, info: LyricInfo) => {
-  const options = context.options.common.getByKey('content.duet')
+  const options = context.options.common.get('content.duet')
   if (!options.enable) {
     return info
   }
