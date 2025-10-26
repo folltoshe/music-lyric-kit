@@ -6,12 +6,13 @@
   "private": true,
   "packageManager": "pnpm@10.19.0",
   "scripts": {
-    "build": "turbo run build",
     "dev": "turbo watch dev",
     "publish": "node ./scripts/publish.js",
-    "update:version": "node ./scripts/update-version.js",
+    "build": "turbo run build",
+    "build:force": "turbo run build --force",
     "build:change-log": "node ./scripts/build-change-log.js",
-    "build:change-log:current": "node ./scripts/build-change-log.js --current"
+    "build:change-log:current": "node ./scripts/build-change-log.js --current",
+    "update:version": "node ./scripts/update-version.js"
   },
   "type": "module",
   "license": "MIT",
