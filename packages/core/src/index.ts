@@ -1,17 +1,2 @@
-import type { LrcParserOptions, LrcParseProps } from '@music-lyric-kit/plugin-lrc'
-import { LrcParser } from '@music-lyric-kit/plugin-lrc'
-
-export type { LrcParserOptions, LrcParseProps }
-export { LrcParser }
-
-export interface LyricParserOptions {
-  lrc?: LrcParserOptions
-}
-
-export class LyricParser {
-  public lrc: LrcParser
-
-  constructor(options?: LyricParserOptions) {
-    this.lrc = new LrcParser(options?.lrc)
-  }
-}
+export * from './exporter'
+export * from './parser'

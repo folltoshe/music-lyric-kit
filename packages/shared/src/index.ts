@@ -1,5 +1,5 @@
-export * from './lyric'
-export * from './options'
-export * from './plugin'
-export * from './processor'
+export * from './common'
 export * from './utils'
+
+export * from './parser'
+export * from './exporter'
