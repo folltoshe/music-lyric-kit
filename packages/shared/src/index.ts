@@ -1,4 +1,5 @@
-export type * from './types'
-export * from './constants'
-export * from './core'
+export * from './lyric'
+export * from './options'
+export * from './plugin'
+export * from './processor'
 export * from './utils'
