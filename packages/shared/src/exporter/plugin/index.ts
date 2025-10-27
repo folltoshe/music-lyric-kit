@@ -11,12 +11,12 @@ export type ExporterCommonContext = Context<any, CommonExporterOptions>
 
 export abstract class BaseExporterPlugin<
   PluginConfig extends ConfigType,
-  Props extends LyricInfo,
-  Result extends null | undefined | string | Uint8Array
+  Params = LyricInfo,
+  Result = null | undefined | string | Uint8Array
 > extends BasePlugin<PluginConfig, CommonExporterOptions> {
   constructor(def: DeepRequired<PluginConfig>, global?: ConfigManager<CommonExporterOptions>) {
     super(def, COMMON_EXPORTER_OPTIONS, global)
   }
 
-  abstract export(props: Props): Result
+  abstract export(params: Params): Result
 }

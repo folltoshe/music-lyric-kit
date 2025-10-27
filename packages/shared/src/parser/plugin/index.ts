@@ -16,12 +16,12 @@ export type ParserCommonContext = Context<any, CommonParserOptions>
 
 export abstract class BaseParserPlugin<
   PluginConfig extends ConfigType,
-  Props extends ConfigType,
-  Result extends null | undefined | LyricInfo
+  Params = ConfigType,
+  Result = null | undefined | LyricInfo
 > extends BasePlugin<PluginConfig, CommonParserOptions> {
   constructor(def: DeepRequired<PluginConfig>, global?: ConfigManager<CommonParserOptions>) {
     super(def, COMMON_PARSER_OPTIONS, global)
   }
 
-  abstract parse(props: Props, musicInfo?: MusicInfoProps): Result
+  abstract parse(props: Params): Result
 }

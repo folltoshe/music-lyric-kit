@@ -4,20 +4,20 @@ import { ConfigManager } from '@root/common/options'
 
 export type ConfigType = Record<string, any>
 
-export interface Context<P extends ConfigType, C extends ConfigType> {
+export interface Context<PluginConfig extends ConfigType, CommonConfig extends ConfigType> {
   common: {
     global: boolean
-    options: ConfigManager<C>
+    options: ConfigManager<CommonConfig>
   }
   plugin: {
-    options: ConfigManager<P>
+    options: ConfigManager<PluginConfig>
   }
 }
 
-export abstract class BasePlugin<P extends ConfigType, C extends ConfigType> {
-  protected context: Context<P, C>
+export abstract class BasePlugin<PluginConfig extends ConfigType, CommonConfig extends ConfigType> {
+  protected context: Context<PluginConfig, CommonConfig>
 
-  constructor(def: DeepRequired<P>, commonDef: DeepRequired<C>, commonGlobal?: ConfigManager<C>) {
+  constructor(def: DeepRequired<PluginConfig>, commonDef: DeepRequired<CommonConfig>, commonGlobal?: ConfigManager<CommonConfig>) {
     this.context = {
       common: {
         global: !!commonGlobal,
@@ -29,15 +29,15 @@ export abstract class BasePlugin<P extends ConfigType, C extends ConfigType> {
     }
   }
 
-  public updateCommonOptions(target: DeepPartial<C>) {
+  public updateCommonOptions(target: DeepPartial<CommonConfig>) {
     if (this.context.common.global) {
-      console.warn(`this plugin is use global common options, skip update.`)
+      console.warn('this plugin is use global common options, skip update.')
       return
     }
     this.context.common.options.set(target)
   }
 
-  public updatePluginOptions(target: DeepPartial<P>) {
+  public updatePluginOptions(target: DeepPartial<PluginConfig>) {
     this.context.plugin.options.set(target)
   }
 }
