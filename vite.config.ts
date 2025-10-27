@@ -8,7 +8,7 @@ const src = join(root, 'src')
 
 const external = ['lodash-es', '@music-lyric-kit']
 
-const DefaultConfig = defineConfig({
+const common = defineConfig({
   root,
   build: {
     lib: {
@@ -40,5 +40,5 @@ const DefaultConfig = defineConfig({
 })
 
 export const generateConfig = (config: UserConfig, mergeDefault: boolean = true) => {
-  return mergeDefault ? mergeConfig(DefaultConfig, config) : config
+  return mergeDefault ? mergeConfig(common, config) : config
 }
