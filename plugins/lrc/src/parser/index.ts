@@ -1,3 +1,3 @@
-export type { LrcParserOptions, LrcParserProps, LrcParserResult } from './types'
+export type { LrcParserOptions, LrcParserParams, LrcParserResult } from './types'
 
 export { LrcParser } from './core'

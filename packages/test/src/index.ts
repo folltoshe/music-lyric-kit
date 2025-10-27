@@ -21,7 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!resultContainer || !resultElement) return
 
   const handleParse = (content: LrcParserProps) => {
-    const result = parser.lrc.parse(content)
+    const result = parser.lrc.parse({
+      content,
+    })
 
     console.log('Parse Result: ', result)
 

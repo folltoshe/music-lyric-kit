@@ -1,5 +1,5 @@
-import type { ConfigManager, CommonParserOptions, MusicInfoProps } from '@music-lyric-kit/shared'
-import type { LrcParserOptions, LrcParserProps, LrcParserResult } from '@root/parser/types'
+import type { ConfigManager, CommonParserOptions } from '@music-lyric-kit/shared'
+import type { LrcParserOptions, LrcParserParams } from '@root/parser/types'
 
 import { DEFAULT_PARSER_OPTIONS } from '@root/parser/constants/options'
 
@@ -12,7 +12,7 @@ import { purificationLyric, insertDuet, insertInterlude } from '@music-lyric-kit
 
 import { sortLines } from '@root/parser/utils'
 
-export class LrcParser extends BaseParserPlugin<LrcParserOptions, LrcParserProps, LrcParserResult> {
+export class LrcParser extends BaseParserPlugin<LrcParserOptions, LrcParserParams> {
   constructor(options?: LrcParserOptions, global?: ConfigManager<CommonParserOptions>) {
     super(DEFAULT_PARSER_OPTIONS, global)
     if (options) {
@@ -20,12 +20,12 @@ export class LrcParser extends BaseParserPlugin<LrcParserOptions, LrcParserProps
     }
   }
 
-  override parse(props: LrcParserProps, musicInfo?: MusicInfoProps): LrcParserResult {
+  override parse(params: LrcParserParams) {
     const [original, dynamic, translate, roman] = [
-      matchLyric(props.original),
-      matchLyric(props.dynamic),
-      matchLyric(props.translate),
-      matchLyric(props.roman),
+      matchLyric(params.content.original),
+      matchLyric(params.content.dynamic),
+      matchLyric(params.content.translate),
+      matchLyric(params.content.roman),
     ]
 
     let target = processMainLyric(this.context, { original, dynamic })
@@ -37,7 +37,7 @@ export class LrcParser extends BaseParserPlugin<LrcParserOptions, LrcParserProps
     target = processMeta(this.context, original.meta, target)
 
     // purification
-    target = purificationLyric(this.context, target, musicInfo)
+    target = purificationLyric(this.context, target, params.musicInfo)
 
     // duet
     target = insertDuet(this.context, target)
