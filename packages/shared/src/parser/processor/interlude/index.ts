@@ -3,7 +3,7 @@ import type { ParserCommonContext } from '@root/parser/plugin'
 
 import { EMPTY_LINE_ITEM, LINE_TYPES } from '@root/common/lyric'
 
-import { cloneDeep } from '@root/utils'
+import { cloneDeep } from '@root/common'
 
 export const insertInterlude = (context: ParserCommonContext, info: LyricInfo) => {
   const options = context.common.options.get('content.interlude')

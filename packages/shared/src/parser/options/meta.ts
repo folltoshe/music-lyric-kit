@@ -1,4 +1,4 @@
-import type { DeepRequired } from '@root/utils'
+import type { DeepRequired } from '@root/common'
 import type { CommonMatchOptions } from './match'
 
 export interface CommonParserMetaOptions {

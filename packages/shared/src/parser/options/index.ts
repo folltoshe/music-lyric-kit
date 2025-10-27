@@ -1,4 +1,4 @@
-import type { DeepRequired } from '@root/utils'
+import type { DeepRequired } from '@root/common'
 
 import type { CommonParserMetaOptions } from './meta'
 import type { CommonParserPurificationOptions, CommonParserInterludeOptions, CommonParserDuetOptions, CommonParserLineOptions } from './line'

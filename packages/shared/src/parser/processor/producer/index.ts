@@ -1,10 +1,10 @@
 import type { Line, ProducerItem } from '@root/common/lyric'
 import type { ParserCommonContext } from '@root/parser/plugin'
 
-import { MATCH_MODE } from '@root/utils'
+import { MATCH_MODE } from '@root/common'
 import { DEFAULT_PRODUCER_RULES, DEFAULT_PRODUCER_RULES_QUICK_KEYWORDS } from './constants'
 
-import { matchTextIsValid, matchTextWithPercentage, replaceFromText } from '@root/utils'
+import { matchTextIsValid, matchTextWithPercentage, replaceFromText } from '@root/common'
 
 const MATCH_REGEXP = /(?:(?:\([^)]*\)|\[[^\]]*\]|\{[^}]*\}|（[^）]*）|【[^】]*】|「[^」]*」)|[^(:：()\[\]{}（）【】「」])*?[:：]/
 

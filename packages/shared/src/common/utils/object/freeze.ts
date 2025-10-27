@@ -1,4 +1,4 @@
-import { DeepReadonly } from '../../types'
+import { DeepReadonly } from '../types'
 
 const checkValid = (content: any) => {
   return content !== void 0 && content !== null && typeof content === 'object'

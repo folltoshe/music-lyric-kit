@@ -1,4 +1,4 @@
-import type { DeepPartial, DeepRequired } from '@root/utils'
+import type { DeepPartial, DeepRequired } from '@root/common'
 
 import { ConfigManager } from '@root/common/options'
 

@@ -1,6 +1,6 @@
-import type { PathValue, NestedKeys, DeepRequired, DeepPartial } from '@root/utils'
+import type { PathValue, NestedKeys, DeepRequired, DeepPartial } from '@root/common'
 
-import { get, merge } from '@root/utils'
+import { get, merge } from '@root/common'
 
 export class ConfigManager<T extends Record<string, any>> {
   private default: DeepRequired<T>

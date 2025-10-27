@@ -1,8 +1,8 @@
-import type { DeepRequired } from '@root/utils'
-import type { InsertTextSpaceTypes } from '@root/utils'
+import type { DeepRequired } from '@root/common'
+import type { InsertTextSpaceTypes } from '@root/common'
 import type { CommonMatchOptions } from './match'
 
-import { INSERT_TEXT_SPACE_TYPES, MATCH_MODE } from '@root/utils'
+import { INSERT_TEXT_SPACE_TYPES, MATCH_MODE } from '@root/common'
 
 export interface CommonParserInterludeOptions {
   /**

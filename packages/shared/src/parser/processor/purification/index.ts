@@ -1,12 +1,12 @@
 import type { LyricInfo, Line } from '@root/common/lyric'
-import type { DeepRequired } from '@root/utils'
+import type { DeepRequired } from '@root/common'
 import type { CommonParserPurificationOptions } from '@root/parser/options'
 import type { ParserCommonContext, MusicInfoProps } from '@root/parser/plugin'
 
-import { MATCH_MODE } from '@root/utils'
+import { MATCH_MODE } from '@root/common'
 import { DEFAULT_PURIFICATION_RULES, DEFAULT_PURIFICATION_RULES_QUICK_KEYWORDS } from './constants'
 
-import { matchTextIsValid, matchTextWithPercentage } from '@root/utils'
+import { matchTextIsValid, matchTextWithPercentage } from '@root/common'
 
 const handleProcessName = (content: string) => {
   return content.replaceAll(/\s/g, '').trim().toLowerCase()

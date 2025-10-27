@@ -1,5 +1,5 @@
 import type { ConfigManager, ConfigType, Context } from '@root/common'
-import type { DeepRequired } from '@root/utils'
+import type { DeepRequired } from '@root/common'
 import type { LyricInfo } from '@root/common/lyric'
 import type { CommonExporterOptions } from '../options'
 

@@ -11,6 +11,11 @@ const normalizeText = (content: string) => {
     .toLowerCase()
 }
 
+export const MATCH_MODE = {
+  EXACT: 'EXACT',
+  FUZZY: 'FUZZY',
+} as const
+
 /**
  * check if text matches a rule
  *

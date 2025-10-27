@@ -1,5 +1,5 @@
-import type { ValueOf } from '@root/utils'
-import type { MATCH_MODE } from '@root/utils'
+import type { ValueOf } from '@root/common'
+import type { MATCH_MODE } from '@root/common'
 
 export interface CommonMatchOptions {
   /**

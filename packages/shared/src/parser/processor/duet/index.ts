@@ -1,7 +1,7 @@
 import type { LyricInfo, Line } from '@root/common/lyric'
 import type { ParserCommonContext } from '@root/parser/plugin'
 
-import { crc32WithHex } from '@root/utils'
+import { crc32WithHex } from '@root/common'
 
 const MATCH_REGEXP = /(?:(?:\([^)]*\)|\[[^\]]*\]|\{[^}]*\}|（[^）]*）|【[^】]*】|「[^」]*」)|[^(:：()\[\]{}（）【】「」])*?[:：]/
 
