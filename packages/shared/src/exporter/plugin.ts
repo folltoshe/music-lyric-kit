@@ -1,9 +1,9 @@
 import type { ConfigManager, ConfigType, Context } from '@root/common'
 import type { DeepRequired } from '@root/common'
 import type { LyricInfo } from '@root/common/lyric'
-import type { CommonExporterOptions } from '../options'
+import type { CommonExporterOptions } from './options'
 
-import { COMMON_EXPORTER_OPTIONS } from '../options'
+import { COMMON_EXPORTER_OPTIONS } from './options'
 
 import { BasePlugin } from '@root/common'
 

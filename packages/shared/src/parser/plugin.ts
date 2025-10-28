@@ -1,9 +1,9 @@
 import type { ConfigManager, ConfigType, Context } from '@root/common'
 import type { DeepRequired } from '@root/common'
 import type { LyricInfo } from '@root/common/lyric'
-import type { CommonParserOptions } from '../options'
+import type { CommonParserOptions } from './options'
 
-import { COMMON_PARSER_OPTIONS } from '../options'
+import { COMMON_PARSER_OPTIONS } from './options'
 
 import { BasePlugin } from '@root/common'
 

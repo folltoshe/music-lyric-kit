@@ -1,5 +1,3 @@
-export type * from './types'
-
 export * from './event'
 export * from './hash'
 export * from './object'
