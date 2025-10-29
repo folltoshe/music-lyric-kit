@@ -1,5 +1,5 @@
-import type { LyricInfo } from '@music-lyric-kit/shared'
+import type { Lyric } from '@music-lyric-kit/shared'
 
-export type Params = LyricInfo
+export type Params = Lyric.Info
 
 export type Result = string | Uint8Array | null | undefined

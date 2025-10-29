@@ -1,4 +1,4 @@
-import type { Line } from '@music-lyric-kit/shared'
+import type { Lyric } from '@music-lyric-kit/shared'
 
 const LYRIC_TIME_REGEXP = /^(?:(?<hour>\d+):)?(?<minute>\d+):(?<second>\d+)(?:\.(?<milliSecond>\d{1,3}))?$/u
 
@@ -73,7 +73,7 @@ export const parseLyricLine = (text: string): ParsedLyricLine[] => {
   return result
 }
 
-export const sortLines = (lines: Line.Info[]) => {
+export const sortLines = (lines: Lyric.Line.Info[]) => {
   return lines.sort((a, b) => a.time.start - b.time.start)
 }
 

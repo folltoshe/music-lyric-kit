@@ -7,7 +7,9 @@ export interface GroupItem {
   total: number
 }
 
-export interface GroupLine {
+export type GroupList = GroupItem[]
+
+export interface GroupLineInfo {
   /** id (crc32) */
   id: string
   /** index info */

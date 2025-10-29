@@ -1,4 +1,4 @@
-import type { LyricInfo, Line } from '@root/common/lyric'
+import type { Info, Line } from '@root/lyric'
 import type { DeepRequired } from '@root/common'
 import type { Purification } from '@root/parser/config'
 import type { CommonContext, MusicInfoProps } from '@root/parser/plugin'
@@ -51,7 +51,7 @@ const handleCheck = (options: DeepRequired<Purification>, rules: (string | RegEx
   return false
 }
 
-export const purificationLyric = (context: CommonContext, info: LyricInfo, musicInfo?: MusicInfoProps) => {
+export const purificationLyric = (context: CommonContext, info: Info, musicInfo?: MusicInfoProps) => {
   const options = context.common.options.get('content.purification')
   if (!options.enable) {
     return info

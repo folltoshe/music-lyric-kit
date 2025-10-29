@@ -1,4 +1,4 @@
-import type { LyricInfo, Parser } from '@music-lyric-kit/shared'
+import type { Lyric, Parser } from '@music-lyric-kit/shared'
 
 export interface Params {
   content: {
@@ -10,4 +10,4 @@ export interface Params {
   musicInfo?: Parser.Plugin.MusicInfoProps
 }
 
-export type Result = LyricInfo | null | undefined
+export type Result = null | undefined | Lyric.Info

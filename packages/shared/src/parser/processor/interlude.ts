@@ -1,11 +1,11 @@
-import type { LyricInfo } from '@root/common/lyric'
+import type { Info } from '@root/lyric'
 import type { CommonContext } from '@root/parser/plugin'
 
-import { EMPTY_LINE_ITEM, LINE_TYPES } from '@root/common/lyric'
+import { EMPTY_LINE_INFO, LINE_TYPES } from '@root/lyric'
 
 import { cloneDeep } from '@root/common'
 
-export const insertInterlude = (context: CommonContext, info: LyricInfo) => {
+export const insertInterlude = (context: CommonContext, info: Info) => {
   const options = context.common.options.get('content.interlude')
   if (!options.enable) {
     return info
@@ -19,7 +19,7 @@ export const insertInterlude = (context: CommonContext, info: LyricInfo) => {
 
     // add interlude when first line is time too long
     if (index === 0 && current.time.start > options.firstLineCheckTime) {
-      const line = cloneDeep(EMPTY_LINE_ITEM)
+      const line = cloneDeep(EMPTY_LINE_INFO)
       const start = 500
       const duration = current.time.start - start
       const end = start + duration
@@ -31,7 +31,7 @@ export const insertInterlude = (context: CommonContext, info: LyricInfo) => {
 
     // add interlude
     if (next && next.time.start - current.time.end > options.checkTime) {
-      const line = cloneDeep(EMPTY_LINE_ITEM)
+      const line = cloneDeep(EMPTY_LINE_INFO)
       const start = current.time.end + 100
       const duration = Math.max(next.time.start - start, 0)
       const end = current.time.end + duration

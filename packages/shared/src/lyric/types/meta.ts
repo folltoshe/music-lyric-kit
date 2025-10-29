@@ -5,17 +5,17 @@ interface Item<T> {
   parsed: T
 }
 
-export interface ProducerItem {
+export interface Producer {
   role: Item<string>
   name: Item<string[]>
 }
 
-export interface MetaInfo {
+export interface Meta {
   offset: Item<number>
   title?: Item<string>
   album?: Item<string>
   duration?: Item<number>
   artist?: Item<string[]>
   author?: Item<string[]>
-  producer?: ProducerItem[]
+  producer?: Producer[]
 }

@@ -1,7 +1,6 @@
-import type { LyricInfo, Line, Extended } from '@music-lyric-kit/shared'
 import type { Context, MatchInfo } from '@root/parser/types'
 
-import { EMPTY_LYRIC_INFO } from '@music-lyric-kit/shared'
+import { Lyric } from '@music-lyric-kit/shared'
 
 import { cloneDeep } from '@music-lyric-kit/shared'
 import { alignLyricWithTime, sortLines } from '@root/parser/utils'
@@ -9,7 +8,7 @@ import { alignLyricWithTime, sortLines } from '@root/parser/utils'
 import { processDynamic } from './dynamic'
 import { processOriginal, processExtended } from './normal'
 
-const checkIsValid = (lines: Line.Info[]) => {
+const checkIsValid = (lines: Lyric.Line.Info[]) => {
   return lines.length > 0
 }
 
@@ -27,7 +26,7 @@ export const processMainLyric = (context: Context, params: MainParams) => {
   const dynamic = processDynamic(context, params.dynamic.line)
 
   const target = dynamic && checkIsValid(dynamic) ? dynamic : original
-  const result: LyricInfo = cloneDeep(EMPTY_LYRIC_INFO)
+  const result: Lyric.Info = cloneDeep(Lyric.EMPTY_INFO)
 
   const isSupportAutoScroll = !!target.find((line) => line.time.start > 0)
   result.config.isSupportAutoScroll = isSupportAutoScroll
@@ -50,7 +49,7 @@ interface ExtendedParams {
   roman: MatchInfo
 }
 
-export const processExtendedLyric = (context: Context, info: LyricInfo, params: ExtendedParams) => {
+export const processExtendedLyric = (context: Context, info: Lyric.Info, params: ExtendedParams) => {
   if (!info.config.isSupportAutoScroll) {
     return info
   }
@@ -77,9 +76,9 @@ export const processExtendedLyric = (context: Context, info: LyricInfo, params: 
       : null
 
   for (const line of target) {
-    const result: Extended.Info[] = []
+    const result: Lyric.Line.Extended.Info[] = []
     if (translateAlign) {
-      const target = translateAlign.find((v) => v.time.start === line.time.start) as Line.Info
+      const target = translateAlign.find((v) => v.time.start === line.time.start) as Lyric.Line.Info
       if (target) {
         result.push({
           type: 'TRANSLATE',
@@ -88,7 +87,7 @@ export const processExtendedLyric = (context: Context, info: LyricInfo, params: 
       }
     }
     if (romanAlign) {
-      const target = romanAlign.find((v) => v.time.start === line.time.start) as Line.Info
+      const target = romanAlign.find((v) => v.time.start === line.time.start) as Lyric.Line.Info
       if (target) {
         result.push({
           type: 'ROMAN',

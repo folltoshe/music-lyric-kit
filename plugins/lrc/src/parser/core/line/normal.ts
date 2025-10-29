@@ -1,8 +1,7 @@
-import type { Line, Parser } from '@music-lyric-kit/shared'
 import type { DeepRequired } from '@music-lyric-kit/shared'
 import type { Context, MatchItem } from '@root/parser/types'
 
-import { EMPTY_LINE_ITEM } from '@music-lyric-kit/shared'
+import { Lyric, Parser } from '@music-lyric-kit/shared'
 
 import { cloneDeep, insertSpace } from '@music-lyric-kit/shared'
 import { parseTagTime } from '@root/parser/utils'
@@ -11,7 +10,7 @@ const processLine = (options: DeepRequired<Parser.Config.Line>, line: MatchItem)
   const time = parseTagTime(line.tag) || 0
   const text = options.insert.space.enable ? insertSpace(line.content, options.insert.space.types).trim() : line.content.trim()
 
-  const result: Line.Info = cloneDeep(EMPTY_LINE_ITEM)
+  const result: Lyric.Line.Info = cloneDeep(Lyric.EMPTY_LINE_INFO)
   result.time.start = time
   result.content.original = text
 
@@ -21,7 +20,7 @@ const processLine = (options: DeepRequired<Parser.Config.Line>, line: MatchItem)
 const processNormal = (options: DeepRequired<Parser.Config.Line>, lines: MatchItem[]) => {
   if (lines.length <= 0) return null
 
-  const result: Line.Info[] = []
+  const result: Lyric.Line.Info[] = []
   for (const line of lines) {
     const item = processLine(options, line)
     if (!item) continue

@@ -1,5 +1,5 @@
 import type { ConfigManager } from '@music-lyric-kit/shared'
-import type { Config, Params } from '@root/parser/types'
+import type { Config, Params, Result } from '@root/parser/types'
 
 import { DEFAULT_CONFIG } from '@root/parser/constants'
 
@@ -12,7 +12,7 @@ import { processMainLyric, processExtendedLyric } from './line'
 
 const { purificationLyric, insertInterlude, insertDuet } = Parser.Processor
 
-export class Plugin extends Parser.Plugin.Base<Config, Params> {
+export class Plugin extends Parser.Plugin.Base<Config, Params, Result> {
   constructor(options?: Config, global?: ConfigManager<Parser.Config.Full>) {
     super(DEFAULT_CONFIG, global)
     if (options) {
@@ -20,7 +20,7 @@ export class Plugin extends Parser.Plugin.Base<Config, Params> {
     }
   }
 
-  override parse(params: Params) {
+  override parse(params: Params): Result {
     const [original, dynamic, translate, roman] = [
       matchLyric(params.content.original),
       matchLyric(params.content.dynamic),

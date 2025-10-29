@@ -1,8 +1,7 @@
-import type { TimeInfo, Line, Dynamic, Parser } from '@music-lyric-kit/shared'
 import type { DeepRequired } from '@music-lyric-kit/shared'
 import type { Context, MatchItem } from '@root/parser/types'
 
-import { EMPTY_DYNAMIC_ITEM, EMPTY_LINE_ITEM } from '@music-lyric-kit/shared'
+import { Lyric, Parser } from '@music-lyric-kit/shared'
 
 import { cloneDeep, insertSpace, checkFirstCharIsPunctuation, checkEndCharIsPunctuation } from '@music-lyric-kit/shared'
 import { parseTagTime } from '@root/parser/utils'
@@ -14,7 +13,7 @@ const SPACE_START = /^\s+/
 const SPACE_END = /\s+$/
 
 const processLine = (options: DeepRequired<Parser.Config.Line>, line: MatchItem) => {
-  const targetWords: Dynamic.WordItem[] = []
+  const targetWords: Lyric.Line.Dynamic.Item[] = []
 
   const lineTime = parseTagTime(line.tag)
   if (lineTime === null) return
@@ -47,7 +46,7 @@ const processLine = (options: DeepRequired<Parser.Config.Line>, line: MatchItem)
       continue
     }
 
-    const wordResult = cloneDeep(EMPTY_DYNAMIC_ITEM)
+    const wordResult = cloneDeep(Lyric.EMPTY_DYNAMIC_ITEM)
     wordResult.time = {
       start: wordTime,
       end: wordTime + wordDuration,
@@ -79,13 +78,13 @@ const processLine = (options: DeepRequired<Parser.Config.Line>, line: MatchItem)
   const start = targetWords[0]?.time.start ?? lineTime
   const duration = targetWords.map((v) => v.time.duration).reduce((a, b) => a + b, 0)
 
-  const time: TimeInfo = {
+  const time: Lyric.Time = {
     start,
     end: start + duration,
     duration,
   }
 
-  const target: Line.Info = cloneDeep(EMPTY_LINE_ITEM)
+  const target: Lyric.Line.Info = cloneDeep(Lyric.EMPTY_LINE_INFO)
   target.time = time
   target.content.original = targetWords.map((item) => `${item.content.original}${item.config.space.end ? ' ' : ''}`).join('')
   target.content.dynamic = {
@@ -100,7 +99,7 @@ export const processDynamic = (context: Context, matched: MatchItem[]) => {
   if (matched.length <= 0) return null
 
   const options = context.common.options.get('line.normal.dynamic')
-  const result: Line.Info[] = []
+  const result: Lyric.Line.Info[] = []
   for (const line of matched) {
     const item = processLine(options, line)
     if (!item) continue

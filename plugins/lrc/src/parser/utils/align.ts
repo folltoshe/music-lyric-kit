@@ -1,9 +1,9 @@
-import type { TimeInfo } from '@music-lyric-kit/shared'
+import type { Lyric } from '@music-lyric-kit/shared'
 
 import { cloneDeep } from '@music-lyric-kit/shared'
 
 export interface AlignLyricLine {
-  time: TimeInfo
+  time: Lyric.Time
   [k: string]: any
 }
 
@@ -28,7 +28,7 @@ const isMatchOrderValid = (
   index: number,
   matchs: number[],
   baseIndex: number,
-  sortedTarget: Array<{ time: TimeInfo; originalIndex: number }>
+  sortedTarget: Array<{ time: Lyric.Time; originalIndex: number }>
 ): boolean => {
   if (index === 0) return true
 

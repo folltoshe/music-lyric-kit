@@ -1,4 +1,4 @@
-import type { Line, ProducerItem } from '@root/common/lyric'
+import type { Line, Producer } from '@root/lyric'
 import type { CommonContext } from '@root/parser/plugin'
 
 import { MATCH_MODE } from '@root/common'
@@ -15,13 +15,13 @@ const splitNameWithRule = (name: string, rule: string | RegExp) => {
     .filter((item) => !!item)
 }
 
-export const processProducer = (context: CommonContext, infos: Line.Info[]): [Line.Info[], ProducerItem[]] => {
+export const processProducer = (context: CommonContext, infos: Line.Info[]): [Line.Info[], Producer[]] => {
   const options = context.common.options.get('meta.producer')
   if (!options.enable) {
     return [infos, []]
   }
 
-  const result: ProducerItem[] = []
+  const result: Producer[] = []
   const lines: Line.Info[] = []
 
   const needReplace = options.replace
@@ -67,7 +67,7 @@ export const processProducer = (context: CommonContext, infos: Line.Info[]): [Li
       }
     }
 
-    const item: ProducerItem = {
+    const item: Producer = {
       role: {
         raw: role,
         parsed: options.role.replace.enable ? replaceFromText(role, '', options.role.replace.rule).trim() : role,
