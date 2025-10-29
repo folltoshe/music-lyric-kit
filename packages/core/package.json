@@ -35,6 +35,7 @@
     "directory": "packages/core"
   },
   "dependencies": {
+    "@music-lyric-kit/shared": "workspace:*",
     "@music-lyric-kit/plugin-lrc": "workspace:*"
   }
 }
