@@ -68,7 +68,8 @@ export const DEFAULT_PRODUCER_RULES: RegExp[] = [
 
   /(?:艺人与制作|艺人|ArtistsandRepertoire)/giu,
   /(?:演奏者|乐手|乐师|SessionMusician|SessionPlayer|Musician|Performer)/giu,
-  /(?:原唱|翻唱|配唱|合声)/giu,
+  /(?:原唱|翻唱|配唱)/giu,
+  /(?:合声|合音)/giu,
   /(?:童声|男声|女声|人声|腔|念白)/giu,
 
   /(?:制作人|制作|Producer|Prod)/giu,
@@ -79,7 +80,7 @@ export const DEFAULT_PRODUCER_RULES: RegExp[] = [
   /(?:作曲|作|曲|Written|Composer|Comp)/giu,
   /(?:作词|作|词|Lyricist|Lyr)/giu,
   /(?:乐谱|谱|Music)/giu,
-  /(?:和声编写|和声|BackingVocalsArranger|BVArranger|BGVsArranger)/giu,
+  /(?:和声编写|和声|和音编写|和音|BackingVocalsArranger|BVArranger|BGVsArranger|Bvox)/giu,
   /(?:编辑|AudioEditor|Edit|Editor)/giu,
   /(?:监制|监|Supervisor)/giu,
   /(?:人声编辑|VocalEditor|VocalEdit)/giu,
