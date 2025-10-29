@@ -1,29 +1,6 @@
 import type { Lyric } from '@music-lyric-kit/shared'
 
-const LYRIC_TIME_REGEXP = /^(?:(?<hour>\d+):)?(?<minute>\d+):(?<second>\d+)(?:\.(?<milliSecond>\d{1,3}))?$/u
-
-/**
- * parse lyric time
- *
- * support format:
- *    - mm:ss
- *    - mm:ss.SSS
- *    - hh:mm:ss
- *    - hh:mm:ss.SSS
- *
- * @param content lyric time, e.g. 1:14:514
- */
-export const parseTime = (content: string) => {
-  const time = content?.trim().match(LYRIC_TIME_REGEXP)
-  if (!time || !time.groups) return null
-
-  const hour = parseInt(time.groups.hour, 10) || 0
-  const minute = parseInt(time.groups.minute, 10) || 0
-  const second = parseInt(time.groups.second, 10) || 0
-  const milliSecond = parseInt(time.groups.milliSecond?.padEnd(3, '0').slice(0, 3) || '0') || 0
-
-  return ((hour * 60 + minute) * 60 + second) * 1000 + milliSecond
-}
+import { parseTime } from '@music-lyric-kit/shared'
 
 const LYRIC_TAG_CONTENT_REGEXP = /^[<\[]([^>\]]+)[>\]]$/
 

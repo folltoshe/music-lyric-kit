@@ -1,7 +1,7 @@
 import type { Lyric } from '@music-lyric-kit/shared'
 import type { Context, MatchItem } from '@root/parser/types'
 
-import { parseTime } from '@root/parser/utils'
+import { parseTime } from '@music-lyric-kit/shared'
 
 const splitNameWithRule = (name: string, rule: string | RegExp) => {
   return name
