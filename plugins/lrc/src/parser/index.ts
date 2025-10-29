@@ -1,3 +1,3 @@
-export type { LrcParserOptions, LrcParserParams, LrcParserResult } from './types'
+export type { Config as LrcParserConfig, Params as LrcParserParams, Result as LrcParserResult } from './types'
 
-export { LrcParser } from './core'
+export { Plugin as LrcParser } from './core'

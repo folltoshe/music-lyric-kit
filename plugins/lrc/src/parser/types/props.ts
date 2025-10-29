@@ -1,13 +1,13 @@
-import type { LyricInfo, MusicInfoProps } from '@music-lyric-kit/shared'
+import type { LyricInfo, Parser } from '@music-lyric-kit/shared'
 
-export interface LrcParserParams {
+export interface Params {
   content: {
     original: string
     dynamic?: string
     translate?: string
     roman?: string
   }
-  musicInfo?: MusicInfoProps
+  musicInfo?: Parser.Plugin.MusicInfoProps
 }
 
-export type LrcParserResult = LyricInfo | null | undefined
+export type Result = LyricInfo | null | undefined

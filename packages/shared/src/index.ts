@@ -1,3 +1,5 @@
 export * from './common'
-export * from './parser'
-export * from './exporter'
+
+export * as Exporter from './exporter'
+
+export * as Parser from './parser'

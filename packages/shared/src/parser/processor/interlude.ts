@@ -1,11 +1,11 @@
 import type { LyricInfo } from '@root/common/lyric'
-import type { ParserCommonContext } from '@root/parser/plugin'
+import type { CommonContext } from '@root/parser/plugin'
 
 import { EMPTY_LINE_ITEM, LINE_TYPES } from '@root/common/lyric'
 
 import { cloneDeep } from '@root/common'
 
-export const insertInterlude = (context: ParserCommonContext, info: LyricInfo) => {
+export const insertInterlude = (context: CommonContext, info: LyricInfo) => {
   const options = context.common.options.get('content.interlude')
   if (!options.enable) {
     return info

@@ -1,7 +1,6 @@
-import type { DeepRequired } from '@root/common'
-import type { CommonMatchOptions } from './match'
+import { Match } from './match'
 
-export interface CommonParserMetaOptions {
+export interface Meta {
   tag?: {
     /**
      * @default true
@@ -31,7 +30,7 @@ export interface CommonParserMetaOptions {
     /**
      * only when it is matched will it be used as the correct role
      */
-    match?: CommonMatchOptions
+    match?: Match
     /**
      * role name options
      */
@@ -60,42 +59,3 @@ export interface CommonParserMetaOptions {
     }
   }
 }
-
-export const COMMON_PARSER_META_OPTIONS: DeepRequired<CommonParserMetaOptions> = {
-  tag: {
-    enable: true,
-    name: {
-      split: {
-        rule: '/',
-      },
-    },
-  },
-  producer: {
-    enable: true,
-    replace: true,
-    match: {
-      mode: 'FUZZY',
-      exact: {
-        check: {
-          percentage: 60,
-        },
-      },
-      fuzzy: {},
-      rule: {
-        useDefault: true,
-        custom: [],
-      },
-    },
-    role: {
-      replace: {
-        enable: true,
-        rule: ['by'],
-      },
-    },
-    name: {
-      split: {
-        rule: /(?:[/]|[,，])/iu,
-      },
-    },
-  },
-} as const

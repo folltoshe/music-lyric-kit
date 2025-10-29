@@ -1,7 +1,7 @@
 import type { LyricInfo, Line } from '@root/common/lyric'
 import type { DeepRequired } from '@root/common'
-import type { CommonParserPurificationOptions } from '@root/parser/options'
-import type { ParserCommonContext, MusicInfoProps } from '@root/parser/plugin'
+import type { Purification } from '@root/parser/config'
+import type { CommonContext, MusicInfoProps } from '@root/parser/plugin'
 
 import { MATCH_MODE } from '@root/common'
 import { DEFAULT_PURIFICATION_RULES, DEFAULT_PURIFICATION_RULES_QUICK_KEYWORDS } from './constants'
@@ -16,13 +16,7 @@ const handleProcessMusicInfoRules = (musicInfo: MusicInfoProps) => {
   return [handleProcessName(musicInfo.name), ...musicInfo.singer.map((item) => handleProcessName(item))]
 }
 
-const handleCheck = (
-  options: DeepRequired<CommonParserPurificationOptions>,
-  rules: (string | RegExp)[],
-  index: number,
-  content: string,
-  musicInfo?: MusicInfoProps
-) => {
+const handleCheck = (options: DeepRequired<Purification>, rules: (string | RegExp)[], index: number, content: string, musicInfo?: MusicInfoProps) => {
   if (!content.trim()) {
     return false
   }
@@ -57,7 +51,7 @@ const handleCheck = (
   return false
 }
 
-export const purificationLyric = (context: ParserCommonContext, info: LyricInfo, musicInfo?: MusicInfoProps) => {
+export const purificationLyric = (context: CommonContext, info: LyricInfo, musicInfo?: MusicInfoProps) => {
   const options = context.common.options.get('content.purification')
   if (!options.enable) {
     return info

@@ -1,3 +1,3 @@
-export type { LrcExporterOptions, LrcExporterProps, LrcExporterResult } from './types'
+export type { Config as LrcExporterConfig, Params as LrcExporterParams, Result as LrcExporterResult } from './types'
 
-export { LrcExporter } from './core'
+export { Plugin as LrcExporter } from './core'

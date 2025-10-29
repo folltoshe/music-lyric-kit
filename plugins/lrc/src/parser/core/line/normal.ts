@@ -1,4 +1,4 @@
-import type { Line, CommonParserLineOptions, CommonParserOptionsRequired } from '@music-lyric-kit/shared'
+import type { Line, Parser } from '@music-lyric-kit/shared'
 import type { DeepRequired } from '@music-lyric-kit/shared'
 import type { Context, MatchItem } from '@root/parser/types'
 
@@ -7,7 +7,7 @@ import { EMPTY_LINE_ITEM } from '@music-lyric-kit/shared'
 import { cloneDeep, insertSpace } from '@music-lyric-kit/shared'
 import { parseTagTime } from '@root/parser/utils'
 
-const processLine = (options: DeepRequired<CommonParserLineOptions>, line: MatchItem) => {
+const processLine = (options: DeepRequired<Parser.Config.Line>, line: MatchItem) => {
   const time = parseTagTime(line.tag) || 0
   const text = options.insert.space.enable ? insertSpace(line.content, options.insert.space.types).trim() : line.content.trim()
 
@@ -18,7 +18,7 @@ const processLine = (options: DeepRequired<CommonParserLineOptions>, line: Match
   return result
 }
 
-const processNormal = (options: DeepRequired<CommonParserLineOptions>, lines: MatchItem[]) => {
+const processNormal = (options: DeepRequired<Parser.Config.Line>, lines: MatchItem[]) => {
   if (lines.length <= 0) return null
 
   const result: Line.Info[] = []
@@ -41,11 +41,11 @@ const processNormal = (options: DeepRequired<CommonParserLineOptions>, lines: Ma
 }
 
 export const processOriginal = (context: Context, lines: MatchItem[]) => {
-  const options = context.common.options.get('content.normal.original')
+  const options = context.common.options.get('line.normal.original')
   return processNormal(options, lines)
 }
 
-export const processExtended = (context: Context, key: keyof CommonParserOptionsRequired['content']['extended'], lines: MatchItem[]) => {
-  const options = context.common.options.get(`content.extended.${key}`)
+export const processExtended = (context: Context, key: keyof Parser.Config.FullRequired['line']['extended'], lines: MatchItem[]) => {
+  const options = context.common.options.get(`line.extended.${key}`)
   return processNormal(options, lines)
 }

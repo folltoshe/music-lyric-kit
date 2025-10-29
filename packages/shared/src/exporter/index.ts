@@ -1,2 +1,2 @@
-export * from './options'
-export * from './plugin'
+export * as Config from './config'
+export * as Plugin from './plugin'

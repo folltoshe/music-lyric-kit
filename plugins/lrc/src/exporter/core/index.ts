@@ -1,19 +1,19 @@
-import type { ConfigManager, CommonParserOptions, LyricInfo } from '@music-lyric-kit/shared'
-import type { LrcExporterOptions, LrcExporterProps, LrcExporterResult } from '@root/exporter/types'
+import type { ConfigManager, LyricInfo } from '@music-lyric-kit/shared'
+import type { Config, Params, Result } from '@root/exporter/types'
 
-import { DEFAULT_EXPORTER_OPTIONS } from '@root/exporter/constants'
+import { DEFAULT_CONFIG } from '@root/exporter/constants'
 
-import { BaseExporterPlugin } from '@music-lyric-kit/shared'
+import { Exporter } from '@music-lyric-kit/shared'
 
-export class LrcExporter extends BaseExporterPlugin<LrcExporterOptions, LrcExporterProps, LrcExporterResult> {
-  constructor(options?: LrcExporterOptions, global?: ConfigManager<CommonParserOptions>) {
-    super(DEFAULT_EXPORTER_OPTIONS, global)
+export class Plugin extends Exporter.Plugin.Base<Config, Params, Result> {
+  constructor(options?: Config, global?: ConfigManager<Exporter.Config.Full>) {
+    super(DEFAULT_CONFIG, global)
     if (options) {
       this.updatePluginOptions(options)
     }
   }
 
-  override export(props: LyricInfo): LrcExporterResult {
+  override export(props: LyricInfo): Result {
     return null
   }
 }

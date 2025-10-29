@@ -1,4 +1,4 @@
-import type { TimeInfo, Line, Dynamic, CommonParserLineOptions } from '@music-lyric-kit/shared'
+import type { TimeInfo, Line, Dynamic, Parser } from '@music-lyric-kit/shared'
 import type { DeepRequired } from '@music-lyric-kit/shared'
 import type { Context, MatchItem } from '@root/parser/types'
 
@@ -13,7 +13,7 @@ const TIME_TAG_2 = /<(?<start>[0-9]+),(?<duration>[0-9]+)\>/
 const SPACE_START = /^\s+/
 const SPACE_END = /\s+$/
 
-const processLine = (options: DeepRequired<CommonParserLineOptions>, line: MatchItem) => {
+const processLine = (options: DeepRequired<Parser.Config.Line>, line: MatchItem) => {
   const targetWords: Dynamic.WordItem[] = []
 
   const lineTime = parseTagTime(line.tag)
@@ -99,7 +99,7 @@ const processLine = (options: DeepRequired<CommonParserLineOptions>, line: Match
 export const processDynamic = (context: Context, matched: MatchItem[]) => {
   if (matched.length <= 0) return null
 
-  const options = context.common.options.get('content.normal.dynamic')
+  const options = context.common.options.get('line.normal.dynamic')
   const result: Line.Info[] = []
   for (const line of matched) {
     const item = processLine(options, line)

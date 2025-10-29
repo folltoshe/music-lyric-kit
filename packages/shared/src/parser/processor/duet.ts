@@ -1,5 +1,5 @@
 import type { LyricInfo, Line } from '@root/common/lyric'
-import type { ParserCommonContext } from '@root/parser/plugin'
+import type { CommonContext } from '@root/parser/plugin'
 
 import { crc32WithHex } from '@root/common'
 
@@ -10,7 +10,7 @@ const createGroupId = (name: string) => {
   return crc32WithHex(target).toUpperCase()
 }
 
-export const insertDuet = (context: ParserCommonContext, info: LyricInfo) => {
+export const insertDuet = (context: CommonContext, info: LyricInfo) => {
   const options = context.common.options.get('content.duet')
   if (!options.enable) {
     return info

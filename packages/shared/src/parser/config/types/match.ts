@@ -1,7 +1,8 @@
 import type { ValueOf } from '@root/common'
+
 import type { MATCH_MODE } from '@root/common'
 
-export interface CommonMatchOptions {
+export interface Match {
   /**
    * match mode
    * @default FUZZY

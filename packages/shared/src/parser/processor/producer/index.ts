@@ -1,5 +1,5 @@
 import type { Line, ProducerItem } from '@root/common/lyric'
-import type { ParserCommonContext } from '@root/parser/plugin'
+import type { CommonContext } from '@root/parser/plugin'
 
 import { MATCH_MODE } from '@root/common'
 import { DEFAULT_PRODUCER_RULES, DEFAULT_PRODUCER_RULES_QUICK_KEYWORDS } from './constants'
@@ -15,7 +15,7 @@ const splitNameWithRule = (name: string, rule: string | RegExp) => {
     .filter((item) => !!item)
 }
 
-export const processProducer = (context: ParserCommonContext, infos: Line.Info[]): [Line.Info[], ProducerItem[]] => {
+export const processProducer = (context: CommonContext, infos: Line.Info[]): [Line.Info[], ProducerItem[]] => {
   const options = context.common.options.get('meta.producer')
   if (!options.enable) {
     return [infos, []]

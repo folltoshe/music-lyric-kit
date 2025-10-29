@@ -1,26 +1,26 @@
-import type { ConfigManager, CommonParserOptions } from '@music-lyric-kit/shared'
-import type { LrcParserOptions, LrcParserParams } from '@root/parser/types'
+import type { ConfigManager } from '@music-lyric-kit/shared'
+import type { Config, Params } from '@root/parser/types'
 
-import { DEFAULT_PARSER_OPTIONS } from '@root/parser/constants/options'
+import { DEFAULT_CONFIG } from '@root/parser/constants'
 
-import { BaseParserPlugin } from '@music-lyric-kit/shared'
+import { Parser } from '@music-lyric-kit/shared'
 
+import { sortLines } from '@root/parser/utils'
 import { matchLyric } from './match'
 import { processMeta } from './meta'
 import { processMainLyric, processExtendedLyric } from './line'
-import { purificationLyric, insertDuet, insertInterlude } from '@music-lyric-kit/shared'
 
-import { sortLines } from '@root/parser/utils'
+const { purificationLyric, insertInterlude, insertDuet } = Parser.Processor
 
-export class LrcParser extends BaseParserPlugin<LrcParserOptions, LrcParserParams> {
-  constructor(options?: LrcParserOptions, global?: ConfigManager<CommonParserOptions>) {
-    super(DEFAULT_PARSER_OPTIONS, global)
+export class Plugin extends Parser.Plugin.Base<Config, Params> {
+  constructor(options?: Config, global?: ConfigManager<Parser.Config.Full>) {
+    super(DEFAULT_CONFIG, global)
     if (options) {
       this.updatePluginOptions(options)
     }
   }
 
-  override parse(params: LrcParserParams) {
+  override parse(params: Params) {
     const [original, dynamic, translate, roman] = [
       matchLyric(params.content.original),
       matchLyric(params.content.dynamic),

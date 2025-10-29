@@ -1,11 +1,11 @@
-import type { LrcExporterOptions, LrcExporterProps, LrcExporterResult } from '@music-lyric-kit/plugin-lrc'
+import type { LrcExporterConfig, LrcExporterParams, LrcExporterResult } from '@music-lyric-kit/plugin-lrc'
 import { LrcExporter } from '@music-lyric-kit/plugin-lrc'
 
-export type { LrcExporterOptions, LrcExporterProps, LrcExporterResult }
+export type { LrcExporterConfig, LrcExporterParams, LrcExporterResult }
 export { LrcExporter }
 
 export interface LyricExporterOptions {
-  lrc?: LrcExporterOptions
+  lrc?: LrcExporterConfig
 }
 
 export class LyricExporter {

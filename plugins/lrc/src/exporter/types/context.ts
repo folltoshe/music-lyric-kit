@@ -1,4 +1,4 @@
-import type { Context as BaseContext, CommonExporterOptions } from '@music-lyric-kit/shared'
-import type { LrcExporterOptions } from './options'
+import type { Context as BaseContext, Exporter } from '@music-lyric-kit/shared'
+import type { Config } from './config'
 
-export type Context = BaseContext<LrcExporterOptions, CommonExporterOptions>
+export type Context = BaseContext<Config, Exporter.Config.Full>
