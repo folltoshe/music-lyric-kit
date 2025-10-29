@@ -1,4 +1,4 @@
-import { ConfigManager } from '@root/common/options'
+import { ConfigManager } from '@root/common'
 
 export type ConfigType = Record<string, any>
 

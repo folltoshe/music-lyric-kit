@@ -1,7 +1,7 @@
 import type { DeepPartial, DeepRequired } from '@root/common'
 import type { Context, ConfigType } from './context'
 
-import { ConfigManager } from '@root/common/options'
+import { ConfigManager } from '@root/common'
 
 export abstract class BasePlugin<PluginConfig extends ConfigType, CommonConfig extends ConfigType> {
   protected context: Context<PluginConfig, CommonConfig>
