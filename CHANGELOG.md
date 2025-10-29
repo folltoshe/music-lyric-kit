@@ -1,3 +1,31 @@
+# [1.2.0](https://github.com/folltoshe/music-lyric-kit/compare/v1.1.0...v1.2.0) (2025-10-29)
+
+
+### Code Refactoring
+
+* lyric types ([e2f66d4](https://github.com/folltoshe/music-lyric-kit/commit/e2f66d42c38e8299f5c77bb81dd084e6df0c1a4e))
+* parser and exporter plugin framework ([112f7d5](https://github.com/folltoshe/music-lyric-kit/commit/112f7d5c33fe12d832a0e2bf805df9f0795329bc))
+
+
+### Features
+
+* **core:** add common tools and types export ([1ded9d3](https://github.com/folltoshe/music-lyric-kit/commit/1ded9d37b0989f9571a1862273ba8211765804a7))
+* **plugin-lrc:** add export lyric ([f36a5b4](https://github.com/folltoshe/music-lyric-kit/commit/f36a5b4bca599d8e5954be445a0f306609f95fdd))
+* **plugin-lrc:** change parse params ([99d1560](https://github.com/folltoshe/music-lyric-kit/commit/99d1560b6bab3af3c16d89fbbdc6ecc57ea7fca4))
+* **shared:** add time tools ([8ccb697](https://github.com/folltoshe/music-lyric-kit/commit/8ccb697d6040a93d821c2e690bf75bcf1a4d16ef))
+* **shared:** optimize base plugin type ([8e71562](https://github.com/folltoshe/music-lyric-kit/commit/8e7156243bf48b47ba3b97e2bc0ddb02b647addd))
+* **shared:** optimize utils tools ([f04f340](https://github.com/folltoshe/music-lyric-kit/commit/f04f340fd71d476d14c6ade485e87bc9bf15ad3b))
+* **shared:** update default match producer rules ([1f9e09c](https://github.com/folltoshe/music-lyric-kit/commit/1f9e09c2152381acfd47806569a68348ef38938f))
+
+
+### Breaking Changes
+
+* export lyric types have been changed
+* parser and exporter plugin interfaces have been changed
+* **plugin-lrc:** modify the accepted parameters of the parse function
+
+
+
 # [1.1.0](https://github.com/folltoshe/music-lyric-kit/compare/v1.0.0...v1.1.0) (2025-10-26)
 
 
@@ -7,7 +35,7 @@
 
 
 
-# 1.0.0 (2025-10-25)
+# [1.0.0](https://github.com/folltoshe/music-lyric-kit/compare/a4f09c9610ca8262e712afca59d837d7a7a87d54...v1.0.0) (2025-10-25)
 
 
 ### Bug Fixes
@@ -35,6 +63,3 @@
 * **shared:** update lyric info type ([0044d39](https://github.com/folltoshe/music-lyric-kit/commit/0044d393b0cebb0d9246bddb7ac48983ac5e9fbc))
 * **test:** change parser to core ([d3e3c94](https://github.com/folltoshe/music-lyric-kit/commit/d3e3c94e1d5c1b011077b3ffb541c4c062b335e8))
 * **test:** support parse lrc ([40ab7d8](https://github.com/folltoshe/music-lyric-kit/commit/40ab7d867ae2e4bc8d0038f8bfe58c97ec8889a5))
-
-
-
