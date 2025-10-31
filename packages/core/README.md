@@ -1,7 +1,7 @@
 ## Music Lyric Kit
 
 <div align="center">
-  Music Lyric Parser And Exporter
+  Music Lyric Parser And Writer
 </div>
 
 ## Install

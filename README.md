@@ -1,9 +1,9 @@
 <div align="center">
-  <img src="https://socialify.git.ci/folltoshe/music-lyric-kit/image?custom_description=Music+Lyric+Parser+And+Exporter&description=1&font=Inter&forks=1&issues=1&language=1&name=1&owner=1&pattern=Plus&pulls=1&stargazers=1&theme=Auto" />
+  <img src="https://socialify.git.ci/folltoshe/music-lyric-kit/image?custom_description=Music+Lyric+Parser+And+Writer&description=1&font=Inter&forks=1&issues=1&language=1&name=1&owner=1&pattern=Plus&pulls=1&stargazers=1&theme=Auto" />
 </div>
 
 <div align="center">
-  Music Lyric Parser And Exporter
+  Music Lyric Parser And Writer
 </div>
 
 ## Features
