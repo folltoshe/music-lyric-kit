@@ -1,5 +1,5 @@
 import type { Lyric } from '@music-lyric-kit/shared'
-import type { Context } from '@root/exporter/types'
+import type { Context } from '@root/writer/types'
 
 import { exportTime } from '@music-lyric-kit/shared'
 

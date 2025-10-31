@@ -1,22 +1,22 @@
 import type { ConfigManager } from '@music-lyric-kit/shared'
-import type { Config, Params, Result } from '@root/exporter/types'
+import type { Config, Params, Result } from '@root/writer/types'
 
-import { DEFAULT_CONFIG } from '@root/exporter/constants'
+import { DEFAULT_CONFIG } from '@root/writer/constants'
 
-import { Exporter } from '@music-lyric-kit/shared'
+import { Writer } from '@music-lyric-kit/shared'
 
 import { exportLines } from './line'
 import { exportMeta } from './meta'
 
-export class Plugin extends Exporter.Plugin.Base<Config, Params, Result> {
-  constructor(options?: Config, global?: ConfigManager<Exporter.Config.Full>) {
+export class Plugin extends Writer.Plugin.Base<Config, Params, Result> {
+  constructor(options?: Config, global?: ConfigManager<Writer.Config.Full>) {
     super(DEFAULT_CONFIG, global)
     if (options) {
       this.updatePluginOptions(options)
     }
   }
 
-  override export(params: Params): Result {
+  override write(params: Params): Result {
     const { original, dynamic, translate, roman } = exportLines(this.context, params)
 
     const meta = exportMeta(this.context, params)
