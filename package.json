@@ -2,7 +2,7 @@
   "name": "music-lyric-kit",
   "version": "1.2.0",
   "author": "Folltoshe",
-  "description": "Music Lyric Parser And Exporter",
+  "description": "Music Lyric Parser And Writer",
   "private": true,
   "packageManager": "pnpm@10.19.0",
   "scripts": {
@@ -21,7 +21,7 @@
     "lyric",
     "kit",
     "parser",
-    "exporter",
+    "writer",
     "lrc",
     "qrc",
     "yrc",
