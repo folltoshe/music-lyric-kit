@@ -96,6 +96,24 @@ const processBracketContent = (content: string): string => {
   return processed
 }
 
+const trimBracketContent = (text: string): string => {
+  const regex = /(["'`<\[\{\(])\s*([\s\S]*?\S)?\s*([>"'`\]\}\)])/g
+  const PAIRS: Record<string, string> = {
+    '"': '"',
+    "'": "'",
+    '`': '`',
+    '<': '>',
+    '[': ']',
+    '{': '}',
+    '(': ')',
+  }
+
+  return text.replace(regex, (match, left, inner, right) => {
+    if (PAIRS[left] !== right) return match
+    return `${left}${inner ?? ''}${right}`
+  })
+}
+
 const applyPunctuationRules = (text: string) => {
   return text.replace(RULES.PUNCTUATION, '$1$2 ')
 }
@@ -182,6 +200,8 @@ export const insertSpace = (text: string, types?: InsertTextSpaceTypes[]) => {
   result = applyMultipleSpace(result)
 
   result = restoreAbbreviations(result, abbreviationMap)
+
+  result = trimBracketContent(result)
 
   result = result.trim()
 
