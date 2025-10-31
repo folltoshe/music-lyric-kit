@@ -14,152 +14,107 @@ export type InsertTextSpaceTypes = ValueOf<typeof INSERT_TEXT_SPACE_TYPES>
 
 const INSERT_TEXT_SPACE_TYPES_VALUE = Object.values(INSERT_TEXT_SPACE_TYPES) as InsertTextSpaceTypes[]
 
-// prettier-ignore
-const CJK_RANGE = '\u2e80-\u2eff\u2f00-\u2fdf\u3040-\u309f\u30a0-\u30fa\u30fc-\u30ff\u3100-\u312f\u3200-\u32ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff' as const
+// rules
+
+const CJK_RANGE = '\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff' as const
 
 const ENGLISH_RANGE = 'A-Za-z' as const
 const NUMBER_RANGE = '0-9' as const
-const ENGLISH_NUMBER_RANGE = `${ENGLISH_RANGE}${NUMBER_RANGE}` as const
-
 const SYMBOL_RANGE = '!@#$%^&*+\\-=/|<>' as const
-const ALL_RANGE = `${ENGLISH_RANGE}${NUMBER_RANGE}${CJK_RANGE}${SYMBOL_RANGE}` as const
+const ENGLISH_NUMBER_RANGE = `${ENGLISH_RANGE}${NUMBER_RANGE}` as const
+const ALL_RANGE = `${ENGLISH_NUMBER_RANGE}${SYMBOL_RANGE}${CJK_RANGE}` as const
 
-const ABBREVIATIONS = [
-  /I'[dmsv]/gi, // I'd, I'm, I's, I've
-  /(?:[A-Za-z]')['a-z]*/g, // don't, can't, we'll
-] as const
+const ABBREVIATIONS = [/I'[dmsv]/gi, /(?:[A-Za-z]')['a-z]*/g] as const
 
-const RULES = {
-  PUNCTUATION: new RegExp(`([${ALL_RANGE}])([!;,\\?:])(?=[${ALL_RANGE}])`, 'g'),
-  QUOTE: {
-    BEFORE: new RegExp(`([${CJK_RANGE}${ENGLISH_NUMBER_RANGE}])(["\`'])`, 'g'),
-    AFTER: new RegExp(`(["\`'])([${CJK_RANGE}${ENGLISH_NUMBER_RANGE}])`, 'g'),
-  },
-  BRACKET: {
-    // ABC(ABC) -> ABC (ABC)
-    OUTSIDE_BEFORE: new RegExp(`([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])([\\[({<])`, 'g'),
-    OUTSIDE_AFTER: new RegExp(`([\\])}>])([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])`, 'g'),
-    INSIDE_OPERATOR: new RegExp(`([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])([+\\-*/=&])([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])`, 'g'),
-  },
-  OPERATOR: new RegExp(`([${ALL_RANGE}])([+\\-*/=&])([${ALL_RANGE}])`, 'g'),
-  HYPHEN_SLASH: {
-    HYPHEN: new RegExp(`([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])(-)([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])`, 'g'),
-    SLASH: new RegExp(`([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])(/)([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])`, 'g'),
-    HYPHEN_EDGE: new RegExp(`(\\s|^)(-)([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])|([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])(-)(\\s|$)`, 'g'),
-  },
-  CJK_ENGLISH: {
-    CJK_WITH_EN: new RegExp(`([${CJK_RANGE}])([${ENGLISH_NUMBER_RANGE}])`, 'g'),
-    EN_WITH_CJK: new RegExp(`([${ENGLISH_NUMBER_RANGE}])([${CJK_RANGE}])`, 'g'),
-  },
-  HAS_CJK: new RegExp(`[${CJK_RANGE}]`),
-  MULTIPLE_SPACE: /[ ]{2,}/g,
-} as const
+const MULTIPLE_SPACE_RULE = /[ ]{2,}/g
+const TRIM_INSIDE_SYMBOLS_RULE = new RegExp(`([<\\[\\{\\("“‘'])\\s*([^<>\\[\\]\\{\\}\\("“‘']*?)\\s*([>\\]\\}\\)"”’'])`, 'gu')
+const HAS_CJK = new RegExp(`[${CJK_RANGE}]`, 'u')
+
+const HYPHEN_RULE = new RegExp(`([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])(-)([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])`, 'gu')
+const SLASH_RULE = new RegExp(`([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])(/)([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])`, 'gu')
+const HYPHEN_EDGE_RULE = new RegExp(`(\\s|^)(-)(?=[${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])|([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])(-)(?=\\s|$)`, 'gu')
+
+const CJK_WITH_EN_RULE = new RegExp(`([${CJK_RANGE}])([${ENGLISH_NUMBER_RANGE}])`, 'gu')
+const EN_WITH_CJK_RULE = new RegExp(`([${ENGLISH_NUMBER_RANGE}])([${CJK_RANGE}])`, 'gu')
+
+const QUOTE_BEFORE_RULE = new RegExp(`([${CJK_RANGE}${ENGLISH_NUMBER_RANGE}])(["'\`])`, 'gu')
+const QUOTE_AFTER_RULE = new RegExp(`(["'\`])([${CJK_RANGE}${ENGLISH_NUMBER_RANGE}])`, 'gu')
+
+const PUNCTUATION_RULE = new RegExp(`([${ALL_RANGE}])([!;,\\?:])(?=[${ALL_RANGE}])`, 'gu')
+const OPERATOR_RULE = new RegExp(`([${ALL_RANGE}])([+\\-*/=&])([${ALL_RANGE}])`, 'gu')
+const BRACKET_OUTSIDE_BEFORE_RULE = new RegExp(`([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])([\\[({<])`, 'gu')
+const BRACKET_OUTSIDE_AFTER_RULE = new RegExp(`([\\])}>])([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])`, 'gu')
+const BRACKET_INSIDE_OPERATOR_RULE = new RegExp(`([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])([+\\-*/=&])([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])`, 'gu')
+
+const trimInsideSymbols = (text: string): string => {
+  return text.replace(TRIM_INSIDE_SYMBOLS_RULE, (_, left, inner, right) => left + inner.trim() + right)
+}
+
+const processBracketContent = (content: string): string => {
+  if (!content) return content
+  return content.replace(BRACKET_INSIDE_OPERATOR_RULE, '$1 $2 $3').replace(HYPHEN_RULE, '$1 $2 $3').replace(SLASH_RULE, '$1 $2 $3')
+}
 
 const protectAbbreviations = (text: string): [string, Map<string, string>] => {
   const protectedMap = new Map<string, string>()
   let protectedText = text
   let counter = 0
 
-  ABBREVIATIONS.forEach((pattern) => {
+  for (const pattern of ABBREVIATIONS) {
     protectedText = protectedText.replace(pattern, (match) => {
       const placeholder = `__ABBR_${counter++}__`
       protectedMap.set(placeholder, match)
       return placeholder
     })
-  })
+  }
 
   return [protectedText, protectedMap]
 }
 
-// 恢复保护的缩写
 const restoreAbbreviations = (text: string, protectedMap: Map<string, string>): string => {
-  let result = text
-  protectedMap.forEach((value, key) => {
-    result = result.replace(new RegExp(key, 'g'), value)
-  })
-  return result
-}
-
-// 处理括号内容的特殊函数 - 确保不在括号开头和结尾添加空格
-const processBracketContent = (content: string): string => {
-  if (!content) return content
-
-  let processed = content
-
-  // 在括号内部应用操作符规则（但不影响开头和结尾）
-  processed = processed.replace(RULES.BRACKET.INSIDE_OPERATOR, '$1 $2 $3')
-
-  // 在括号内部应用连字符和斜杠规则
-  processed = processed.replace(RULES.HYPHEN_SLASH.HYPHEN, '$1 $2 $3')
-  processed = processed.replace(RULES.HYPHEN_SLASH.SLASH, '$1 $2 $3')
-
-  return processed
-}
-
-const trimBracketContent = (text: string): string => {
-  const regex = /(["'`<\[\{\(])\s*([\s\S]*?\S)?\s*([>"'`\]\}\)])/g
-  const PAIRS: Record<string, string> = {
-    '"': '"',
-    "'": "'",
-    '`': '`',
-    '<': '>',
-    '[': ']',
-    '{': '}',
-    '(': ')',
+  for (const [key, value] of protectedMap.entries()) {
+    text = text.replace(new RegExp(key, 'g'), value)
   }
-
-  return text.replace(regex, (match, left, inner, right) => {
-    if (PAIRS[left] !== right) return match
-    return `${left}${inner ?? ''}${right}`
-  })
+  return text
 }
 
 const applyPunctuationRules = (text: string) => {
-  return text.replace(RULES.PUNCTUATION, '$1$2 ')
+  return text.replace(PUNCTUATION_RULE, '$1$2 ')
 }
 
 const applyQuoteRules = (text: string) => {
-  return text.replace(RULES.QUOTE.BEFORE, '$1 $2').replace(RULES.QUOTE.AFTER, '$1 $2')
+  return text.replace(QUOTE_BEFORE_RULE, '$1 $2').replace(QUOTE_AFTER_RULE, '$1 $2')
 }
 
 const applyBracketRules = (text: string) => {
-  // 先处理括号外部
-  let result = text.replace(RULES.BRACKET.OUTSIDE_BEFORE, '$1 $2')
-  result = result.replace(RULES.BRACKET.OUTSIDE_AFTER, '$1 $2')
+  let result = text
 
-  // 处理括号内部内容，但不修改括号本身
-  result = result.replace(/([\[({<])([^\]})>]+)([\])}>])/g, (match, openBracket, content, closeBracket) => {
-    return openBracket + processBracketContent(content) + closeBracket
-  })
+  result = result.replace(BRACKET_OUTSIDE_BEFORE_RULE, '$1 $2')
+  result = result.replace(BRACKET_OUTSIDE_AFTER_RULE, '$1 $2')
+  result = result.replace(TRIM_INSIDE_SYMBOLS_RULE, (_, l, inner, r) => l + processBracketContent(inner.trim()) + r)
 
   return result
 }
 
 const applyOperatorRules = (text: string) => {
-  return text.replace(RULES.OPERATOR, '$1 $2 $3')
+  return text.replace(OPERATOR_RULE, '$1 $2 $3')
 }
 
 const applyHyphenSlashRules = (text: string) => {
-  let result = text
-  // 处理连字符
-  result = result.replace(RULES.HYPHEN_SLASH.HYPHEN, '$1 $2 $3')
-  // 处理斜杠
-  result = result.replace(RULES.HYPHEN_SLASH.SLASH, '$1 $2 $3')
-  // 处理边缘连字符
-  result = result.replace(RULES.HYPHEN_SLASH.HYPHEN_EDGE, (match, space1, hyphen1, char1, char2, hyphen2, space2) => {
-    if (space1 !== undefined) return `${space1}${hyphen1} ${char1}`
-    if (space2 !== undefined) return `${char2} ${hyphen2}${space2}`
-    return match
+  let result = text.replace(HYPHEN_RULE, '$1 $2 $3').replace(SLASH_RULE, '$1 $2 $3')
+  return result.replace(HYPHEN_EDGE_RULE, (m, s1, h1, c1, c2, h2, s2) => {
+    if (s1 !== undefined) return `${s1}${h1} ${c1 ?? ''}`
+    if (s2 !== undefined) return `${c2 ?? ''} ${h2}${s2}`
+    return m
   })
-  return result
 }
 
 const applyCjkWithEnglishNumber = (text: string) => {
-  return text.replace(RULES.CJK_ENGLISH.CJK_WITH_EN, '$1 $2').replace(RULES.CJK_ENGLISH.EN_WITH_CJK, '$1 $2')
+  return text.replace(CJK_WITH_EN_RULE, '$1 $2').replace(EN_WITH_CJK_RULE, '$1 $2')
 }
 
 const applyMultipleSpace = (text: string) => {
-  return text.replace(RULES.MULTIPLE_SPACE, ' ')
+  return text.replace(MULTIPLE_SPACE_RULE, ' ')
 }
 
 const handleProcessTypes = (types?: InsertTextSpaceTypes[]) => {
@@ -168,9 +123,7 @@ const handleProcessTypes = (types?: InsertTextSpaceTypes[]) => {
 }
 
 export const insertSpace = (text: string, types?: InsertTextSpaceTypes[]) => {
-  if (typeof text !== 'string' || text.trim().length === 0) {
-    return text
-  }
+  if (typeof text !== 'string' || text.trim().length === 0) return text
 
   const processTypes = handleProcessTypes(types)
 
@@ -197,21 +150,13 @@ export const insertSpace = (text: string, types?: InsertTextSpaceTypes[]) => {
     result = applyCjkWithEnglishNumber(result)
   }
 
+  result = trimInsideSymbols(result)
   result = applyMultipleSpace(result)
-
   result = restoreAbbreviations(result, abbreviationMap)
 
-  result = trimBracketContent(result)
-
-  result = result.trim()
-
-  return result
+  return result.trim()
 }
 
 export const insertSpaceBatch = (list: string[], types?: InsertTextSpaceTypes[]) => {
-  if (!list.length) {
-    return list
-  }
-
-  return list.map((item) => insertSpace(item, types))
+  return list.length ? list.map((item) => insertSpace(item, types)) : list
 }
