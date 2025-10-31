@@ -20,7 +20,7 @@ const CJK_RANGE = '\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff' as cons
 
 const ENGLISH_RANGE = 'A-Za-z' as const
 const NUMBER_RANGE = '0-9' as const
-const SYMBOL_RANGE = '!@#$%^&*+\\-=/|<>' as const
+const SYMBOL_RANGE = '!@#$%^&+\\-=/|<>' as const
 const ENGLISH_NUMBER_RANGE = `${ENGLISH_RANGE}${NUMBER_RANGE}` as const
 const ALL_RANGE = `${ENGLISH_NUMBER_RANGE}${SYMBOL_RANGE}${CJK_RANGE}` as const
 
