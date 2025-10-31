@@ -24,10 +24,8 @@ const SYMBOL_RANGE = '!@#$%^&+\\-=/|<>' as const
 const ENGLISH_NUMBER_RANGE = `${ENGLISH_RANGE}${NUMBER_RANGE}` as const
 const ALL_RANGE = `${ENGLISH_NUMBER_RANGE}${SYMBOL_RANGE}${CJK_RANGE}` as const
 
-const ABBREVIATIONS = [/I'[dmsv]/gi, /(?:[A-Za-z]')['a-z]*/g] as const
-
 const MULTIPLE_SPACE_RULE = /[ ]{2,}/g
-const TRIM_INSIDE_SYMBOLS_RULE = new RegExp(`([<\\[\\{\\("“‘'])\\s*([^<>\\[\\]\\{\\}\\("“‘']*?)\\s*([>\\]\\}\\)"”’'])`, 'gu')
+const TRIM_INSIDE_SYMBOLS_RULE = new RegExp(`([<\\[\\{\\("“‘])\\s*([^<>\\[\\]\\{\\}\\("“‘]*?)\\s*([>\\]\\}\\)"”’])`, 'gu')
 const HAS_CJK = new RegExp(`[${CJK_RANGE}]`, 'u')
 
 const HYPHEN_RULE = new RegExp(`([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])(-)([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])`, 'gu')
@@ -37,8 +35,8 @@ const HYPHEN_EDGE_RULE = new RegExp(`(\\s|^)(-)(?=[${ENGLISH_NUMBER_RANGE}${CJK_
 const CJK_WITH_EN_RULE = new RegExp(`([${CJK_RANGE}])([${ENGLISH_NUMBER_RANGE}])`, 'gu')
 const EN_WITH_CJK_RULE = new RegExp(`([${ENGLISH_NUMBER_RANGE}])([${CJK_RANGE}])`, 'gu')
 
-const QUOTE_BEFORE_RULE = new RegExp(`([${CJK_RANGE}${ENGLISH_NUMBER_RANGE}])(["'\`“‘])`, 'gu')
-const QUOTE_AFTER_RULE = new RegExp(`(["'\`”’])([${CJK_RANGE}${ENGLISH_NUMBER_RANGE}])`, 'gu')
+const QUOTE_BEFORE_RULE = new RegExp(`([${CJK_RANGE}${ENGLISH_NUMBER_RANGE}])(["\`“‘])`, 'gu')
+const QUOTE_AFTER_RULE = new RegExp(`(["\`”’])([${CJK_RANGE}${ENGLISH_NUMBER_RANGE}])`, 'gu')
 
 const PUNCTUATION_RULE = new RegExp(`([${ALL_RANGE}])([!;,\\?:])(?=[${ALL_RANGE}])`, 'gu')
 const OPERATOR_RULE = new RegExp(`([${ALL_RANGE}])([+\\-*/=&])([${ALL_RANGE}])`, 'gu')
@@ -53,29 +51,6 @@ const trimInsideSymbols = (text: string): string => {
 const processBracketContent = (content: string): string => {
   if (!content) return content
   return content.replace(BRACKET_INSIDE_OPERATOR_RULE, '$1 $2 $3').replace(HYPHEN_RULE, '$1 $2 $3').replace(SLASH_RULE, '$1 $2 $3')
-}
-
-const protectAbbreviations = (text: string): [string, Map<string, string>] => {
-  const protectedMap = new Map<string, string>()
-  let protectedText = text
-  let counter = 0
-
-  for (const pattern of ABBREVIATIONS) {
-    protectedText = protectedText.replace(pattern, (match) => {
-      const placeholder = `__ABBR_${counter++}__`
-      protectedMap.set(placeholder, match)
-      return placeholder
-    })
-  }
-
-  return [protectedText, protectedMap]
-}
-
-const restoreAbbreviations = (text: string, protectedMap: Map<string, string>): string => {
-  for (const [key, value] of protectedMap.entries()) {
-    text = text.replace(new RegExp(key, 'g'), value)
-  }
-  return text
 }
 
 const applyPunctuationRules = (text: string) => {
@@ -127,9 +102,7 @@ export const insertSpace = (text: string, types?: InsertTextSpaceTypes[]) => {
 
   const processTypes = handleProcessTypes(types)
 
-  const [protectedText, abbreviationMap] = protectAbbreviations(text)
-
-  let result = protectedText
+  let result = text
 
   if (processTypes.has(INSERT_TEXT_SPACE_TYPES.BRACKET)) {
     result = applyBracketRules(result)
@@ -151,10 +124,12 @@ export const insertSpace = (text: string, types?: InsertTextSpaceTypes[]) => {
   }
 
   result = trimInsideSymbols(result)
-  result = applyMultipleSpace(result)
-  result = restoreAbbreviations(result, abbreviationMap)
 
-  return result.trim()
+  result = applyMultipleSpace(result)
+
+  result = result.trim()
+
+  return result
 }
 
 export const insertSpaceBatch = (list: string[], types?: InsertTextSpaceTypes[]) => {
