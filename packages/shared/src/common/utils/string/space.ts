@@ -37,8 +37,8 @@ const HYPHEN_EDGE_RULE = new RegExp(`(\\s|^)(-)(?=[${ENGLISH_NUMBER_RANGE}${CJK_
 const CJK_WITH_EN_RULE = new RegExp(`([${CJK_RANGE}])([${ENGLISH_NUMBER_RANGE}])`, 'gu')
 const EN_WITH_CJK_RULE = new RegExp(`([${ENGLISH_NUMBER_RANGE}])([${CJK_RANGE}])`, 'gu')
 
-const QUOTE_BEFORE_RULE = new RegExp(`([${CJK_RANGE}${ENGLISH_NUMBER_RANGE}])(["'\`])`, 'gu')
-const QUOTE_AFTER_RULE = new RegExp(`(["'\`])([${CJK_RANGE}${ENGLISH_NUMBER_RANGE}])`, 'gu')
+const QUOTE_BEFORE_RULE = new RegExp(`([${CJK_RANGE}${ENGLISH_NUMBER_RANGE}])(["'\`“‘])`, 'gu')
+const QUOTE_AFTER_RULE = new RegExp(`(["'\`”’])([${CJK_RANGE}${ENGLISH_NUMBER_RANGE}])`, 'gu')
 
 const PUNCTUATION_RULE = new RegExp(`([${ALL_RANGE}])([!;,\\?:])(?=[${ALL_RANGE}])`, 'gu')
 const OPERATOR_RULE = new RegExp(`([${ALL_RANGE}])([+\\-*/=&])([${ALL_RANGE}])`, 'gu')
