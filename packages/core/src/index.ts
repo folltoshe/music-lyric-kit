@@ -1,4 +1,5 @@
 export { Lyric } from '@music-lyric-kit/shared'
 
-export * from './writer'
+export * from './builder'
+
 export * from './parser'

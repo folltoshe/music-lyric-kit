@@ -18,5 +18,5 @@ export abstract class Base<PluginConfig extends ConfigType, Params = Info, Resul
     super(def, COMMON_OPTIONS, global)
   }
 
-  abstract write(params: Params): Result
+  abstract build(params: Params): Result
 }
