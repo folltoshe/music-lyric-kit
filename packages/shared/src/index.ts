@@ -1,7 +1,6 @@
-export * from './common'
+export * from './modules'
 
-export * as Lyric from './lyric'
+export * from './config'
+export * from './plugin'
 
-export * as Parser from './parser'
-
-export * as Writer from './writer'
+export * from './utils'
