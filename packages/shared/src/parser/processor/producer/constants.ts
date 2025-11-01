@@ -15,6 +15,7 @@ const RULES: string[][] = [
   ['风琴', 'Organ', 'Org'],
   ['大键琴', 'Harpsichord', 'Hpschd'],
   ['电钢琴', 'ElectricPiano', 'Wurlitzer', 'Rhodes', 'EP'],
+  ['古琴', '瑶琴', '玉琴', 'Guqin'],
 
   ['小提琴', '提琴', 'Violin', 'Vln'],
   ['中提琴', 'Viola', 'Vla'],
@@ -37,8 +38,9 @@ const RULES: string[][] = [
   ['长笛', 'Flute', 'Fl'],
   ['短笛', 'Piccolo', 'Picc'],
   ['班苏里笛', 'Bansuri'],
+  ['哨笛', 'Flageolet', 'Flt'],
 
-  ['单簧管', 'Clarinet', 'Cl'],
+  ['单簧管', '竖笛', 'Clarinet', 'Cl'],
   ['低音单簧管', 'BassClarinet', 'B.Cl'],
   ['双簧管', 'Oboe', 'Ob'],
   ['英国管', 'EnglishHorn', 'E.Hn'],
@@ -63,7 +65,7 @@ const RULES: string[][] = [
 
   ['钹', 'Cymbal'],
   ['锣', 'Gong'],
-  ['箫', 'Xiao'],
+  ['箫', '笛萧', '洞萧', 'Xiao'],
   ['笙', 'Sheng'],
   ['弦', 'String'],
   ['阮', 'Ruan'],
@@ -140,6 +142,7 @@ const RULES: string[][] = [
   ['母带后期', 'PostMastering'],
 
   ['调校', '调教'],
+  ['剪辑', 'Cut'],
   ['美工', '美术', '曲绘'],
   ['视觉设计', '视觉', '设计'],
   ['题字', '文案'],
@@ -153,7 +156,7 @@ const RULES: string[][] = [
   ['宣传', '推广', '宣发', '宣推', '营销'],
   ['版权', 'Copyright'],
   ['承办单位', '承办', '单位', '业务', '策划', '企划', '策监'],
-  ['支持', '鸣谢'],
+  ['支持', '鸣谢', '特约嘉宾', '指导'],
 ]
 
 export const DEFAULT_PRODUCER_RULES: RegExp[] = buildRegexpFromWords(RULES)
