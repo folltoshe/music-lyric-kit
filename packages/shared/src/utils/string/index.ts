@@ -3,6 +3,6 @@ export * from './space'
 export * from './match'
 export * from './replace'
 
-export const checkIsValidText = (content: any) => {
+export const checkIsValidText = (content: any): content is string => {
   return typeof content === 'string' && content.trim().length !== 0
 }
