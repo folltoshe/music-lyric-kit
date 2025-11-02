@@ -56,7 +56,7 @@ const processItem = (target: Lyric.Meta, key: string, value: string, rule: strin
   }
 }
 
-const LYRIC_META_REGEXP = /^\s*\[\s*(?<key>[A-Za-z0-9_-]+)\s*:\s*(?<value>[^\]]*)\s*\]\s*$/
+const LYRIC_META_REGEXP = /^\s*\[\s*([A-Za-z0-9_-]+)\s*:\s*([^\]]*)\s*\]\s*$/
 
 export const processTag = (context: Context, metas: MatchItem[]) => {
   const result: Lyric.Meta = { offset: { raw: '', parsed: 0 } }
@@ -70,10 +70,10 @@ export const processTag = (context: Context, metas: MatchItem[]) => {
     if (!meta.tag) continue
 
     const matched = meta.tag.match(LYRIC_META_REGEXP)
-    if (!matched || !matched.groups) continue
+    if (!matched) continue
 
-    const key = (matched.groups.key || '').trim().toLowerCase()
-    const value = (matched.groups.value || '').trim()
+    const key = (matched[1] || '').trim().toLowerCase()
+    const value = (matched[2] || '').trim()
     if (!key || !value) continue
 
     processItem(result, key, value, options.name.split.rule)

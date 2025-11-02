@@ -6,8 +6,8 @@ import { Lyric, Parser } from '@music-lyric-kit/shared'
 import { cloneDeep, insertSpace, checkFirstCharIsPunctuation, checkEndCharIsPunctuation } from '@music-lyric-kit/shared'
 import { parseTagTime } from '@root/parser/utils'
 
-const TIME_AND_CONTENT = /(?<time><[^>]+>)(?<content>[^<]*)/gu
-const TIME_TAG_2 = /<(?<start>[0-9]+),(?<duration>[0-9]+)\>/
+const TIME_AND_CONTENT = /(<[^>]+>)([^<]*)/gu
+const TIME_TAG_2 = /<([0-9]+),([0-9]+)\>/
 
 const SPACE_START = /^\s+/
 const SPACE_END = /\s+$/
@@ -20,7 +20,7 @@ const processLine = (options: DeepRequired<Parser.Config.Line>, line: MatchItem)
 
   for (const wordInfo of line.content.matchAll(TIME_AND_CONTENT)) {
     const wordLast = targetWords[targetWords.length - 1]
-    const wordTimeTag = wordInfo.groups?.time || ''
+    const wordTimeTag = wordInfo[1] || ''
 
     let wordTime = parseTagTime(wordTimeTag)
     let wordDuration = 0
@@ -29,15 +29,15 @@ const processLine = (options: DeepRequired<Parser.Config.Line>, line: MatchItem)
       wordDuration = wordLast?.time.start - wordTime
     } else {
       const timeMatchs = wordTimeTag.match(TIME_TAG_2)
-      if (timeMatchs?.groups) {
-        wordTime = lineTime + (parseInt(timeMatchs.groups?.start) || 0)
-        wordDuration = parseInt(timeMatchs.groups.duration) || 0
+      if (timeMatchs) {
+        wordTime = lineTime + (parseInt(timeMatchs[1]) || 0)
+        wordDuration = parseInt(timeMatchs[2]) || 0
       }
     }
 
     if (wordTime === null) continue
 
-    const wordContent = wordInfo.groups?.content
+    const wordContent = wordInfo[2] || ''
     if (!wordContent) continue
 
     const wordContentTrim = wordContent.trim()

@@ -1,4 +1,4 @@
-const TIME_REGEXP = /^(?:(?<hour>\d+):)?(?<minute>\d+):(?<second>\d+)(?:\.(?<milliSecond>\d{1,3}))?$/u
+const TIME_REGEXP = /^(?:(\d+):)?(\d+):(\d+)(?:\.(\d{1,3}))?$/u
 
 /**
  * parse time
@@ -10,13 +10,13 @@ const TIME_REGEXP = /^(?:(?<hour>\d+):)?(?<minute>\d+):(?<second>\d+)(?:\.(?<mil
  * @param content time, e.g. 1:14:514
  */
 export const parseTime = (content: string) => {
-  const time = content?.trim().match(TIME_REGEXP)
-  if (!time || !time.groups) return null
+  const match = content?.trim().match(TIME_REGEXP)
+  if (!match) return null
 
-  const hour = parseInt(time.groups.hour, 10) || 0
-  const minute = parseInt(time.groups.minute, 10) || 0
-  const second = parseInt(time.groups.second, 10) || 0
-  const milliSecond = parseInt(time.groups.milliSecond?.padEnd(3, '0').slice(0, 3) || '0') || 0
+  const hour = parseInt(match[1], 10) || 0
+  const minute = parseInt(match[2], 10) || 0
+  const second = parseInt(match[3], 10) || 0
+  const milliSecond = parseInt((match[4] || '0').padEnd(3, '0').slice(0, 3), 10) || 0
 
   return ((hour * 60 + minute) * 60 + second) * 1000 + milliSecond
 }

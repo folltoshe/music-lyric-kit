@@ -3,10 +3,9 @@ import type { MatchInfo, MatchItem } from '@root/parser/types'
 import { checkIsValidText } from '@music-lyric-kit/shared'
 
 // prettier-ignore
-const LINE_REGEXP = /(?<tag>\[(?:[a-zA-Z]+\s*:\s*[^\]]+|(?:\d+:)?\d+:\d+(?:\.\d+)?)\])(?<content>[\s\S]*?)(?=(?:\[(?:[a-zA-Z]+\s*:\s*[^\]]+|(?:\d+:)?\d+:\d+(?:\.\d+)?)\])|$)/g
+const LINE_REGEXP = /(\[(?:[a-zA-Z]+\s*:\s*[^\]]+|(?:\d+:)?\d+:\d+(?:\.\d+)?)\])([\s\S]*?)(?=(?:\[(?:[a-zA-Z]+\s*:\s*[^\]]+|(?:\d+:)?\d+:\d+(?:\.\d+)?)\])|$)/g
 
 const META_REGEX = /^\[[a-zA-Z]+:[^\]]+\]$/
-
 const LINE_REGEX = /^\[(\d+:)?\d+:\d+(\.\d+)?\].+$/
 
 const reomveSpace = (content: string) => {
@@ -26,8 +25,8 @@ const matchLine = (content: string) => {
 
   for (const match of content.matchAll(LINE_REGEXP)) {
     const raw = match[0]
-    const tag = (match.groups?.tag || '').trim()
-    const content = (match.groups?.content || '').trim()
+    const tag = (match[1] || '').trim()
+    const content = (match[2] || '').trim()
 
     if (!tag) continue
 
