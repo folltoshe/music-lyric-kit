@@ -24,11 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     switch (current) {
       case 'lrc': {
-        result = parser.lrc.parse(content)
+        result = parser.lrc.parse({ content })
         break
       }
       case 'ttml': {
-        result = parser.ttml.parse(content)
+        result = parser.ttml.parse({ content })
         break
       }
     }
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         result = {
           content,
         }
-        handleParseLyric(result)
+        handleParseLyric(result.content)
 
         break
       }
