@@ -1,3 +1,43 @@
+# [2.0.0](https://github.com/folltoshe/music-lyric-kit/compare/v1.2.0...v2.0.0) (2025-11-02)
+
+
+### Bug Fixes
+
+* is instrumental music check ([e5d661f](https://github.com/folltoshe/music-lyric-kit/commit/e5d661f12f69abefc8a8875616e12ab559185651))
+* **test:** params error ([62a6093](https://github.com/folltoshe/music-lyric-kit/commit/62a6093ee344dfed259286db7517a86c43243f23))
+
+
+### Features
+
+* change export modules ([41ba0a3](https://github.com/folltoshe/music-lyric-kit/commit/41ba0a3878561cb3a46c142795c736e678813b0a))
+* change update config interface ([314ce3c](https://github.com/folltoshe/music-lyric-kit/commit/314ce3cb25c205a576125b143d8bd4f31b1b9e56))
+* **core:** add ttml plugin ([ee46972](https://github.com/folltoshe/music-lyric-kit/commit/ee469720d58e3ef4452bfef6006b79af85a61470))
+* **core:** support set common config ([a3fbe54](https://github.com/folltoshe/music-lyric-kit/commit/a3fbe546c6cb53b55eff2e4a0f4cb4046efbceca))
+* **plugin-ttml:** add lyric group count calculation ([77fd925](https://github.com/folltoshe/music-lyric-kit/commit/77fd925c51119371e3faeb0abdba206727b9dc24))
+* **plugin-ttml:** add parse extended lyric ([caea474](https://github.com/folltoshe/music-lyric-kit/commit/caea47474a61c75d7c5ab0aeae7407690431ab95))
+* **plugin-ttml:** add parser for amll format ([2f47fc7](https://github.com/folltoshe/music-lyric-kit/commit/2f47fc763fb2d08702fbdae191a1ae16e051fb44))
+* rename exporter to writer ([44ee14f](https://github.com/folltoshe/music-lyric-kit/commit/44ee14f828e29ba1fb39f05bb679aa477062fbc1))
+* rename writer to builder ([72bb124](https://github.com/folltoshe/music-lyric-kit/commit/72bb124e42e6350f1615a66e48ef70c340faf7f7))
+* **shared:** add cjk quote support when insert space ([c1210fa](https://github.com/folltoshe/music-lyric-kit/commit/c1210fabd1d3f4207acfd6706384cdbb4d1de8e0))
+* **shared:** optimize the effect in some symbols when insert space ([88b4c9f](https://github.com/folltoshe/music-lyric-kit/commit/88b4c9fdac776286660339a98ae4af61aee4e746))
+* **shared:** remove process single quote when insert space ([ed8c97f](https://github.com/folltoshe/music-lyric-kit/commit/ed8c97faaf6eb4bf87999efb82df26eb7e7fac49))
+* **shared:** remove process some symbol when insert space ([4f78673](https://github.com/folltoshe/music-lyric-kit/commit/4f78673c5090f4426a10fd055674fc35fb4f301b))
+* **shared:** update default match producer rules ([fcc1c87](https://github.com/folltoshe/music-lyric-kit/commit/fcc1c876a726d6a08dfdac62255e5f766f80b3bb))
+* **shared:** update default match rules ([c659db1](https://github.com/folltoshe/music-lyric-kit/commit/c659db1465e3f7e174f508f161d15d5a5d7181dd))
+* **shared:** update default match rules ([f754c37](https://github.com/folltoshe/music-lyric-kit/commit/f754c37bb09d941cba5adec21e6c75b14c0b94d2))
+* **test:** support parse ttml ([cce1456](https://github.com/folltoshe/music-lyric-kit/commit/cce1456675f609176f3a68fd0cc4bfd9fb55f66a))
+
+
+### Breaking Changes
+
+* update plugin config and common config interface have been changed
+* **core:** parser and builder init params have been changed
+* export modules have been changed
+* writer have been rename to builder
+* exporter have been change to writer
+
+
+
 # [1.2.0](https://github.com/folltoshe/music-lyric-kit/compare/v1.1.0...v1.2.0) (2025-10-29)
 
 
