@@ -1,3 +1,13 @@
+## [2.0.1](https://github.com/folltoshe/music-lyric-kit/compare/v2.0.0...v2.0.1) (2025-11-02)
+
+
+### Bug Fixes
+
+* package not export in some env ([5d48ed3](https://github.com/folltoshe/music-lyric-kit/commit/5d48ed347c38a60306c50138044b80fcdec7a6f5))
+* regex not work in some env ([9630573](https://github.com/folltoshe/music-lyric-kit/commit/96305734c90a55bf771791c7b1b0eb664bfba4b7))
+
+
+
 # [2.0.0](https://github.com/folltoshe/music-lyric-kit/compare/v1.2.0...v2.0.0) (2025-11-02)
 
 
