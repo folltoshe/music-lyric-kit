@@ -17,29 +17,19 @@ export const insertDuet = (context: CommonContext, info: Info) => {
   }
 
   const lines: Line.Info[] = []
-  const groups: Record<string, [string, number]> = {}
+  const groups: Record<string, string> = {}
 
   let currentGroupName = ''
   let currentGroupId = ''
-  let currentGroupGlobalIndex = 0
-  let currentGroupBlockIndex = 0
 
   const handleAdd = (line: Line.Info) => {
-    line.group = {
-      id: currentGroupId,
-      index: {
-        global: currentGroupGlobalIndex,
-        block: currentGroupBlockIndex,
-      },
-    }
+    line.group.id = currentGroupId
     lines.push(line)
-    currentGroupGlobalIndex++
-    currentGroupBlockIndex++
   }
 
   const handleUpdateCurrent = () => {
     if (currentGroupId) {
-      groups[currentGroupId] = [currentGroupName, currentGroupGlobalIndex]
+      groups[currentGroupId] = currentGroupName
     }
   }
 
@@ -71,15 +61,9 @@ export const insertDuet = (context: CommonContext, info: Info) => {
       // set new
       currentGroupName = name
       currentGroupId = createGroupId(name)
-      currentGroupBlockIndex = 0
       if (!groups[currentGroupId]) {
-        currentGroupGlobalIndex = 0
-        groups[currentGroupId] = [currentGroupName, currentGroupGlobalIndex]
-      } else {
-        const [_, count] = groups[currentGroupId]
-        currentGroupGlobalIndex = count
+        groups[currentGroupId] = currentGroupName
       }
-
       // need replace line
       if (!content && options.replace) {
         continue
@@ -97,8 +81,8 @@ export const insertDuet = (context: CommonContext, info: Info) => {
   result.groups = Object.entries(groups).map(([key, value]) => {
     return {
       id: key,
-      name: value[0],
-      total: value[1],
+      name: value,
+      total: 0,
     }
   })
   result.lines = lines
