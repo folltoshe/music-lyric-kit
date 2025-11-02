@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@music-lyric-kit/shared": "workspace:*",
-    "@music-lyric-kit/plugin-lrc": "workspace:*"
+    "@music-lyric-kit/plugin-lrc": "workspace:*",
+    "@music-lyric-kit/plugin-ttml": "workspace:*"
   }
 }

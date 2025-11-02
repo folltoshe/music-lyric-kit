@@ -35,6 +35,9 @@ importers:
       '@music-lyric-kit/plugin-lrc':
         specifier: workspace:*
         version: link:../../plugins/lrc
+      '@music-lyric-kit/plugin-ttml':
+        specifier: workspace:*
+        version: link:../../plugins/ttml
       '@music-lyric-kit/shared':
         specifier: workspace:*
         version: link:../shared
