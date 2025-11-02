@@ -10,6 +10,8 @@ import { matchLyric } from './match'
 import { processGroup } from './group'
 import { processAmllFormat } from './amll'
 
+const { insertInterlude } = Parser.Processor
+
 export class Plugin extends Parser.Plugin.Base<Config, Params, Result> {
   constructor(options?: Config, global?: ConfigManager<Parser.Config.Full>) {
     super(DEFAULT_CONFIG, global)
@@ -45,7 +47,7 @@ export class Plugin extends Parser.Plugin.Base<Config, Params, Result> {
     target.config.isInstrumental = isInstrumental
 
     // interlude
-    target = Parser.Processor.insertInterlude(this.context, target)
+    target = insertInterlude(this.context, target)
 
     // group
     target = processGroup(this.context, target, head)

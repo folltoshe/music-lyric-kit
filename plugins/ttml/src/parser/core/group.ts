@@ -4,6 +4,8 @@ import { Lyric, Parser } from '@music-lyric-kit/shared'
 
 import { readAttribute, readAttributeValue } from '@root/parser/utils'
 
+const { insertGroupCount } = Parser.Processor
+
 export const processGroup = (context: Context, info: Lyric.Info, head: any) => {
   const metas: any[] = head[0]?.metadata
   if (!metas || !Array.isArray(metas)) return info
@@ -32,7 +34,7 @@ export const processGroup = (context: Context, info: Lyric.Info, head: any) => {
   }
   info.groups = result
 
-  info = Parser.Processor.insertGroupCount(context, info)
+  info = insertGroupCount(context, info)
 
   return info
 }
