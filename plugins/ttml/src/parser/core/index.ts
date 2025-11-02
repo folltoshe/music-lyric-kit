@@ -43,14 +43,14 @@ export class Plugin extends Parser.Plugin.Base<Config, Params, Result> {
     const isSupportAutoScroll = !!target.lines.find((line) => line.time.start > 0)
     target.config.isSupportAutoScroll = isSupportAutoScroll
 
-    const isInstrumental = target.lines.length <= 0
-    target.config.isInstrumental = isInstrumental
-
     // interlude
     target = insertInterlude(this.context, target)
 
     // group
     target = processGroup(this.context, target, head)
+
+    const isInstrumental = target.lines.length <= 0
+    target.config.isInstrumental = isInstrumental
 
     // sort lines
     target.lines = sortLines(target.lines)

@@ -51,6 +51,9 @@ export class Plugin extends Parser.Plugin.Base<Config, Params, Result> {
     // interlude
     target = insertInterlude(this.context, target)
 
+    const isInstrumental = target.lines.length <= 0
+    target.config.isInstrumental = isInstrumental
+
     // sort lines
     target.lines = sortLines(target.lines)
 
