@@ -21,7 +21,7 @@
     "lyric",
     "kit",
     "parser",
-    "writer",
+    "builder",
     "lrc",
     "qrc",
     "yrc",

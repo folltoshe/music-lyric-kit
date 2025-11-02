@@ -12,7 +12,7 @@
     "lyric",
     "kit",
     "parser",
-    "writer",
+    "builder",
     "lrc"
   ],
   "exports": {
