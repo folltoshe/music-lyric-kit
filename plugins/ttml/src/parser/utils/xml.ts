@@ -18,3 +18,19 @@ const TEXT_NODE_KEY = '#text'
 export const readTextValue = (content: any) => {
   return get(content, TEXT_NODE_KEY, '')
 }
+
+export const readSpan = (content: any) => {
+  const result = get(content, 'span')
+  if (!result) {
+    return []
+  }
+
+  return Array.isArray(result) ? result : [result]
+}
+
+export const readSpanText = (content: any[]) => {
+  return content
+    .map((item) => readTextValue(item))
+    .filter((item) => !!item)
+    .join()
+}
