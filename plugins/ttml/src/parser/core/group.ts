@@ -1,5 +1,7 @@
-import { Lyric } from '@music-lyric-kit/shared'
-import { Context } from '@root/parser/types'
+import type { Context } from '@root/parser/types'
+
+import { Lyric, Parser } from '@music-lyric-kit/shared'
+
 import { readAttribute, readAttributeValue } from '@root/parser/utils'
 
 export const processGroup = (context: Context, info: Lyric.Info, head: any) => {
@@ -7,7 +9,6 @@ export const processGroup = (context: Context, info: Lyric.Info, head: any) => {
   if (!metas || !Array.isArray(metas)) return info
 
   const result: Lyric.GroupList = []
-
   for (let index = 0; index < metas.length; index++) {
     const content = metas[index]
     if (!content) {
@@ -29,7 +30,9 @@ export const processGroup = (context: Context, info: Lyric.Info, head: any) => {
       continue
     }
   }
-
   info.groups = result
+
+  info = Parser.Processor.insertGroupCount(context, info)
+
   return info
 }
