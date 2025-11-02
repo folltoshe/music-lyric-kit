@@ -1,4 +1,4 @@
-import type { LrcParserParams } from 'music-lyric-kit'
+import type { LrcPlugin } from 'music-lyric-kit'
 
 import { LyricParser } from 'music-lyric-kit'
 
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!resultContainer || !resultElement) return
 
-  const handleParse = (content: LrcParserParams['content']) => {
+  const handleParse = (content: LrcPlugin.Parser.Params['content']) => {
     const result = parser.lrc.parse({
       content,
     })

@@ -1,2 +1,3 @@
-export * from './builder'
-export * from './parser'
+export * as Builder from './builder'
+
+export * as Parser from './parser'

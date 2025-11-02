@@ -1,3 +1,3 @@
-export type { Config as LrcBuilderConfig, Params as LrcBuilderParams, Result as LrcBuilderResult } from './types'
+export type { Config, Params, Result } from './types'
 
-export { Plugin as LrcBuilder } from './core'
+export { Plugin } from './core'

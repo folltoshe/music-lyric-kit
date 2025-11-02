@@ -1,3 +1,3 @@
-export type { Config as TtmlParserConfig, Params as TtmlParserParams, Result as TtmlParserResult } from './types'
+export type { Config, Params, Result } from './types'
 
-export { Plugin as TtmlParser } from './core'
+export { Plugin } from './core'
