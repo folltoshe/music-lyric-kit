@@ -16,7 +16,7 @@ export class Plugin extends Parser.Plugin.Base<Config, Params, Result> {
   constructor(options?: Config, global?: ConfigManager<Parser.Config.Full>) {
     super(DEFAULT_CONFIG, global)
     if (options) {
-      this.updatePluginOptions(options)
+      this.updatePluginConfig(options)
     }
   }
 

@@ -52,7 +52,7 @@ const handleCheck = (options: DeepRequired<Purification>, rules: (string | RegEx
 }
 
 export const purificationLyric = (context: CommonContext, info: Info, musicInfo?: MusicInfoProps) => {
-  const options = context.common.options.get('content.purification')
+  const options = context.common.config.get('content.purification')
   if (!options.enable) {
     return info
   }

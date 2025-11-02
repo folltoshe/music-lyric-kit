@@ -52,7 +52,7 @@ const processLine = (context: Context, index: number, line: any) => {
   const result = cloneDeep(Lyric.EMPTY_LINE_INFO)
   const dynamic = cloneDeep(Lyric.EMPTY_DYNAMIC_INFO)
 
-  const options = context.common.options.get('line.normal.dynamic')
+  const options = context.common.config.get('line.normal.dynamic')
   for (const item of line.p || []) {
     const hasSpan = 'span' in item
     const lastWord = dynamic.items[dynamic.items.length - 1]

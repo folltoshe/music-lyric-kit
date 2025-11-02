@@ -11,7 +11,7 @@ const createGroupId = (name: string) => {
 }
 
 export const insertDuet = (context: CommonContext, info: Info) => {
-  const options = context.common.options.get('content.duet')
+  const options = context.common.config.get('content.duet')
   if (!options.enable) {
     return info
   }

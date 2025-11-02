@@ -12,7 +12,7 @@ export class Plugin extends Builder.Plugin.Base<Config, Params, Result> {
   constructor(options?: Config, global?: ConfigManager<Builder.Config.Full>) {
     super(DEFAULT_CONFIG, global)
     if (options) {
-      this.updatePluginOptions(options)
+      this.updatePluginConfig(options)
     }
   }
 

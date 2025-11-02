@@ -10,23 +10,23 @@ export abstract class BasePlugin<PluginConfig extends ConfigType, CommonConfig e
     this.context = {
       common: {
         global: !!commonGlobal,
-        options: commonGlobal || new ConfigManager(commonDef),
+        config: commonGlobal || new ConfigManager(commonDef),
       },
       plugin: {
-        options: new ConfigManager(def),
+        config: new ConfigManager(def),
       },
     }
   }
 
-  public updateCommonOptions(target: DeepPartial<CommonConfig>) {
+  public updateCommonConfig(target: DeepPartial<CommonConfig>) {
     if (this.context.common.global) {
-      console.warn('this plugin is use global common options, skip update.')
+      console.warn('this plugin is use global common config, skip update.')
       return
     }
-    this.context.common.options.set(target)
+    this.context.common.config.set(target)
   }
 
-  public updatePluginOptions(target: DeepPartial<PluginConfig>) {
-    this.context.plugin.options.set(target)
+  public updatePluginConfig(target: DeepPartial<PluginConfig>) {
+    this.context.plugin.config.set(target)
   }
 }

@@ -5,9 +5,9 @@ export type ConfigType = Record<string, any>
 export interface Context<PluginConfig extends ConfigType, CommonConfig extends ConfigType> {
   common: {
     global: boolean
-    options: ConfigManager<CommonConfig>
+    config: ConfigManager<CommonConfig>
   }
   plugin: {
-    options: ConfigManager<PluginConfig>
+    config: ConfigManager<PluginConfig>
   }
 }

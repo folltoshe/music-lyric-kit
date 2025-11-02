@@ -40,11 +40,11 @@ const processNormal = (options: DeepRequired<Parser.Config.Line>, lines: MatchIt
 }
 
 export const processOriginal = (context: Context, lines: MatchItem[]) => {
-  const options = context.common.options.get('line.normal.original')
+  const options = context.common.config.get('line.normal.original')
   return processNormal(options, lines)
 }
 
 export const processExtended = (context: Context, key: keyof Parser.Config.FullRequired['line']['extended'], lines: MatchItem[]) => {
-  const options = context.common.options.get(`line.extended.${key}`)
+  const options = context.common.config.get(`line.extended.${key}`)
   return processNormal(options, lines)
 }
