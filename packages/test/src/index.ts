@@ -1,29 +1,37 @@
-import type { LrcPlugin } from 'music-lyric-kit'
-
 import { LyricParser } from 'music-lyric-kit'
 
-const LOCAL_HISTORY_KEY = 'last-parse'
+const LOCAL_HISTORY_KEY_PREFIX = 'last-parse'
 
 const parser = new LyricParser()
+
+let current = 'lrc'
 
 document.addEventListener('DOMContentLoaded', () => {
   const parseBtn = document.getElementById('parse-btn')
   const loadBtn = document.getElementById('load-btn')
+  const parserBtns = document.querySelectorAll('.parser-btn')
 
   const resultContainer = document.getElementById('result-container')
   const resultElement = document.getElementById('result')
 
-  const originalElement = document.getElementById('original') as HTMLTextAreaElement
-  const dynamicElement = document.getElementById('dynamic') as HTMLTextAreaElement
-  const translateElement = document.getElementById('translate') as HTMLTextAreaElement
-  const romanElement = document.getElementById('roman') as HTMLTextAreaElement
+  const lrcInputs = document.getElementById('lrc-inputs')
+  const ttmlInputs = document.getElementById('ttml-inputs')
 
   if (!resultContainer || !resultElement) return
 
-  const handleParse = (content: LrcPlugin.Parser.Params['content']) => {
-    const result = parser.lrc.parse({
-      content,
-    })
+  const handleParseLyric = (content: any) => {
+    let result
+
+    switch (current) {
+      case 'lrc': {
+        result = parser.lrc.parse(content)
+        break
+      }
+      case 'ttml': {
+        result = parser.ttml.parse(content)
+        break
+      }
+    }
 
     console.log('Parse Result: ', result)
 
@@ -33,38 +41,126 @@ document.addEventListener('DOMContentLoaded', () => {
     resultContainer.scrollIntoView({ behavior: 'smooth' })
   }
 
-  // 解析按钮点击事件
-  parseBtn?.addEventListener('click', () => {
-    const original = originalElement.value.trim()
-    const dynamic = dynamicElement.value.trim() || ''
-    const translate = translateElement.value.trim() || ''
-    const roman = romanElement.value.trim() || ''
+  const handleParse = () => {
+    let result
 
-    if (!original) return
+    switch (current) {
+      case 'lrc': {
+        const originalElement = document.getElementById('lrc-original') as HTMLTextAreaElement
+        const dynamicElement = document.getElementById('lrc-dynamic') as HTMLTextAreaElement
+        const translateElement = document.getElementById('lrc-translate') as HTMLTextAreaElement
+        const romanElement = document.getElementById('lrc-roman') as HTMLTextAreaElement
 
-    const history = JSON.stringify({ original, dynamic, translate, roman })
-    localStorage.setItem(LOCAL_HISTORY_KEY, history)
+        const original = originalElement.value.trim()
+        const dynamic = dynamicElement.value.trim() || ''
+        const translate = translateElement.value.trim() || ''
+        const roman = romanElement.value.trim() || ''
 
-    handleParse({
-      original,
-      dynamic,
-      translate,
-      roman,
-    })
-  })
+        if (!original) {
+          break
+        }
+
+        result = {
+          original,
+          dynamic,
+          translate,
+          roman,
+        }
+        handleParseLyric(result)
+
+        break
+      }
+      case 'ttml': {
+        const element = document.getElementById('ttml-content') as HTMLTextAreaElement
+        const content = element.value.trim()
+
+        if (!content) return
+
+        result = {
+          content,
+        }
+        handleParseLyric(result)
+
+        break
+      }
+    }
+
+    if (!result) {
+      return
+    }
+
+    const key = `${LOCAL_HISTORY_KEY_PREFIX}-${current}`
+    const content = JSON.stringify(result)
+    localStorage.setItem(key, content)
+  }
+
+  parseBtn?.addEventListener('click', handleParse)
 
   loadBtn?.addEventListener('click', () => {
-    const history = localStorage.getItem(LOCAL_HISTORY_KEY)
-    if (!history) return
+    const key = `${LOCAL_HISTORY_KEY_PREFIX}-${current}`
+
+    const content = localStorage.getItem(key)
+    if (!content) {
+      return
+    }
+
+    let result
     try {
-      const parsed = JSON.parse(history)
+      result = JSON.parse(content)
+    } catch (e) {
+      console.error('Error loading history:', e)
+      return
+    }
 
-      originalElement.textContent = String(parsed.original).trim() || ''
-      dynamicElement.textContent = String(parsed.dynamic).trim() || ''
-      translateElement.textContent = String(parsed.translate).trim() || ''
-      romanElement.textContent = String(parsed.roman).trim() || ''
+    switch (current) {
+      case 'lrc': {
+        const originalElement = document.getElementById('lrc-original') as HTMLTextAreaElement
+        const dynamicElement = document.getElementById('lrc-dynamic') as HTMLTextAreaElement
+        const translateElement = document.getElementById('lrc-translate') as HTMLTextAreaElement
+        const romanElement = document.getElementById('lrc-roman') as HTMLTextAreaElement
 
-      handleParse(parsed)
-    } catch {}
+        originalElement.value = result.original
+        dynamicElement.value = result.dynamic
+        translateElement.value = result.translate
+        romanElement.value = result.roman
+
+        handleParse()
+        break
+      }
+      case 'ttml': {
+        const element = document.getElementById('ttml-content') as HTMLTextAreaElement
+
+        element.value = result.content
+
+        handleParse()
+        break
+      }
+    }
+  })
+
+  parserBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const parserType = btn.getAttribute('data-parser')
+
+      if (!parserType) return
+
+      parserBtns.forEach((b) => b.classList.remove('active'))
+      btn.classList.add('active')
+
+      current = parserType
+
+      switch (current) {
+        case 'lrc': {
+          lrcInputs!.style.display = 'grid'
+          ttmlInputs!.style.display = 'none'
+          break
+        }
+        case 'ttml': {
+          lrcInputs!.style.display = 'none'
+          ttmlInputs!.style.display = 'flex'
+          break
+        }
+      }
+    })
   })
 })
