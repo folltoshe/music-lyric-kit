@@ -23,11 +23,12 @@ export class ConfigManager<T extends Record<string, any>> {
     }
 
     const current = get(this.current, key as RK)
-    if (current !== void 0) {
+    if (current !== void 0 && typeof current !== 'object') {
       return current
     }
 
-    return get(this.default, key as RK)
+    const def = get(this.default, key as RK)
+    return merge({}, def, current)
   }
 
   set(opt: DeepPartial<T>) {
