@@ -25,8 +25,7 @@ const ENGLISH_NUMBER_RANGE = `${ENGLISH_RANGE}${NUMBER_RANGE}` as const
 const ALL_RANGE = `${ENGLISH_NUMBER_RANGE}${SYMBOL_RANGE}${CJK_RANGE}` as const
 
 const MULTIPLE_SPACE_RULE = /[ ]{2,}/g
-const TRIM_INSIDE_SYMBOLS_RULE = new RegExp(`([<\\[\\{\\("“‘])\\s*([^<>\\[\\]\\{\\}\\("“‘]*?)\\s*([>\\]\\}\\)"”’])`, 'gu')
-const HAS_CJK = new RegExp(`[${CJK_RANGE}]`, 'u')
+const TRIM_INSIDE_SYMBOLS_RULE = /([<\[\{\("“‘])\s*([^<>\[\]\{\}\(\)"“‘”’]*?)\s*([>\]\}\)"”’])/gu
 
 const HYPHEN_RULE = new RegExp(`([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])(-)([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])`, 'gu')
 const SLASH_RULE = new RegExp(`([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])(/)([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])`, 'gu')
@@ -46,7 +45,7 @@ const BRACKET_INSIDE_OPERATOR_RULE = new RegExp(`([${ENGLISH_NUMBER_RANGE}${CJK_
 
 const trimInsideSymbols = (text: string): string => {
   return text.replace(TRIM_INSIDE_SYMBOLS_RULE, (_, left, inner, right) => {
-    return left + inner.trim() + right
+    return `${left.trim()}${inner.trim()}${right.trim()}`
   })
 }
 
@@ -126,9 +125,9 @@ export const insertSpace = (text: string, types?: InsertTextSpaceTypes[]) => {
     result = applyCjkWithEnglishNumber(result)
   }
 
-  result = trimInsideSymbols(result)
-
   result = applyMultipleSpace(result)
+
+  result = trimInsideSymbols(result)
 
   result = result.trim()
 
