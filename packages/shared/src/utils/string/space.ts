@@ -45,7 +45,9 @@ const BRACKET_OUTSIDE_AFTER_RULE = new RegExp(`([\\])}>])([${ENGLISH_NUMBER_RANG
 const BRACKET_INSIDE_OPERATOR_RULE = new RegExp(`([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])([+\\-*/=&])([${ENGLISH_NUMBER_RANGE}${CJK_RANGE}])`, 'gu')
 
 const trimInsideSymbols = (text: string): string => {
-  return text.replace(TRIM_INSIDE_SYMBOLS_RULE, (_, left, inner, right) => left + inner.trim() + right)
+  return text.replace(TRIM_INSIDE_SYMBOLS_RULE, (_, left, inner, right) => {
+    return left + inner.trim() + right
+  })
 }
 
 const processBracketContent = (content: string): string => {
@@ -76,11 +78,12 @@ const applyOperatorRules = (text: string) => {
 }
 
 const applyHyphenSlashRules = (text: string) => {
-  let result = text.replace(HYPHEN_RULE, '$1 $2 $3').replace(SLASH_RULE, '$1 $2 $3')
-  return result.replace(HYPHEN_EDGE_RULE, (m, s1, h1, c1, c2, h2, s2) => {
-    if (s1 !== undefined) return `${s1}${h1} ${c1 ?? ''}`
-    if (s2 !== undefined) return `${c2 ?? ''} ${h2}${s2}`
-    return m
+  const result = text.replace(HYPHEN_RULE, '$1 $2 $3').replace(SLASH_RULE, '$1 $2 $3')
+  return result.replace(HYPHEN_EDGE_RULE, (m, g1, g2, g3, g4) => {
+    if (g1 !== undefined) {
+      return `${g1}${g2} `
+    }
+    return `${g3} ${g4}`
   })
 }
 
