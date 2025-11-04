@@ -85,8 +85,9 @@ const processLine = (options: DeepRequired<Parser.Config.Line>, line: MatchItem)
   }
 
   const target: Lyric.Line.Info = cloneDeep(Lyric.EMPTY_LINE_INFO)
+  const original = targetWords.map((item) => `${item.content.original}${item.config.space.end ? ' ' : ''}`).join('')
   target.time = time
-  target.content.original = targetWords.map((item) => `${item.content.original}${item.config.space.end ? ' ' : ''}`).join('')
+  target.content.original = options.insert.space.enable ? insertSpace(original, options.insert.space.types) : original
   target.content.dynamic = {
     time,
     items: targetWords,
