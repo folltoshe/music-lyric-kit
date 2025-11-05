@@ -1,3 +1,16 @@
+## [2.0.2](https://github.com/folltoshe/music-lyric-kit/compare/v2.0.1...v2.0.2) (2025-11-05)
+
+
+### Bug Fixes
+
+* an abnormal character occurred when insert space ([fe472dc](https://github.com/folltoshe/music-lyric-kit/commit/fe472dc0b0747604466f5d68dc48f33b39900b2c))
+* inside symbol content not trimmed when insert space ([dc36977](https://github.com/folltoshe/music-lyric-kit/commit/dc369778edaa332a9eaa9807da9ea1bfdf52410b))
+* **plugin-lrc:** content not insert valid space when dynamic lyric is valid ([35bb92a](https://github.com/folltoshe/music-lyric-kit/commit/35bb92afa0db2c1910992c733a3235c9f50bc4cc))
+* **shared:** config manager return bad config when get some config ([30c57fb](https://github.com/folltoshe/music-lyric-kit/commit/30c57fb9fda176a6731a9e2e4bb3f3f11558e3d2))
+* the cleanup of some first line lyric did not work ([f6da2f9](https://github.com/folltoshe/music-lyric-kit/commit/f6da2f9a4aac2577328e41018f823a0da8a8be3b))
+
+
+
 ## [2.0.1](https://github.com/folltoshe/music-lyric-kit/compare/v2.0.0...v2.0.1) (2025-11-02)
 
 
