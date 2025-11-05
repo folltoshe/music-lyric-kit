@@ -6,10 +6,10 @@ import type { CommonContext, MusicInfoProps } from '@root/modules/parser/plugin'
 import { MATCH_MODE } from '@root/utils'
 import { DEFAULT_PURIFICATION_RULES, DEFAULT_PURIFICATION_RULES_QUICK_KEYWORDS } from './constants'
 
-import { matchTextIsValid, matchTextWithPercentage } from '@root/utils'
+import { matchTextIsValid, matchTextWithPercentage, removePunctuation } from '@root/utils'
 
 const handleProcessName = (content: string) => {
-  return content.replaceAll(/\s/g, '').trim().toLowerCase()
+  return removePunctuation(content).replaceAll(/\s/g, '').trim().toLowerCase()
 }
 
 const handleProcessMusicInfoRules = (musicInfo: MusicInfoProps) => {
@@ -36,7 +36,7 @@ const handleCheck = (options: DeepRequired<Purification>, rules: (string | RegEx
   const exact = isFirstLine ? options.firstLine.exact : options.match.exact
 
   if (mode === MATCH_MODE.EXACT) {
-    const percentage = matchTextWithPercentage(content, targetRules)
+    const percentage = matchTextWithPercentage(content, targetRules, true)
     const check = exact.check.percentage
     if (percentage > check) {
       return true

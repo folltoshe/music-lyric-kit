@@ -1,14 +1,17 @@
 import { isRegExp } from '../regex'
+import { removePunctuation } from './punctuation'
 
-const normalizeText = (content: string) => {
+const normalizeText = (content: string, rp: boolean = false) => {
   const pre = String(content).trim()
   if (!pre.length) return null
 
-  return pre
+  const processed = pre
     .replaceAll(/[\u0000-\u001F\u007F]+/g, '')
     .replaceAll(/\s+/g, '')
     .trim()
     .toLowerCase()
+
+  return rp ? removePunctuation(processed) : processed
 }
 
 export const MATCH_MODE = {
@@ -54,8 +57,8 @@ export const matchTextIsValid = (content: string, rules: (string | RegExp)[], qu
  * @param content text content
  * @param rules match rules
  */
-export const matchTextWithPercentage = (content: string, rules: (string | RegExp)[]) => {
-  const normalize = normalizeText(content)
+export const matchTextWithPercentage = (content: string, rules: (string | RegExp)[], removePunctuation: boolean = false) => {
+  const normalize = normalizeText(content, removePunctuation)
   if (!normalize) return 0
 
   let percentage = 0

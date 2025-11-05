@@ -52,6 +52,14 @@ const CHINESE_PUBCTUATIONS_MAP: [RegExp, string][] = [
   [/·/g, '.'],
 ] as const
 
+export const removePunctuation = (content: string) => {
+  let output = content
+  for (const [chinese, english] of CHINESE_PUBCTUATIONS_MAP) {
+    output = output.replaceAll(chinese, '').replaceAll(english, '')
+  }
+  return output
+}
+
 export const replaceChinesePunctuationToEnglish = (content: string) => {
   let output = content
   for (const [regexp, target] of CHINESE_PUBCTUATIONS_MAP) {
