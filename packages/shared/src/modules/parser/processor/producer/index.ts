@@ -1,4 +1,4 @@
-import type { Line, Producer } from '@root/modules/lyric'
+import type { Line, Producer } from '@root/lyric'
 import type { CommonContext } from '@root/modules/parser/plugin'
 
 import { MATCH_MODE } from '@root/utils'

@@ -1,7 +1,7 @@
 import type { ConfigManager } from '@root/config'
 import type { ConfigType, Context } from '@root/plugin'
 import type { DeepRequired } from '@root/utils'
-import type { Info } from '@root/modules/lyric'
+import type { Info } from '@root/lyric'
 
 import type { Full as CommonOptions } from './config'
 import { FULL as COMMON_OPTIONS } from './config'

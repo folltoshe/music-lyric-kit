@@ -1,7 +1,7 @@
-import type { Info } from '@root/modules/lyric'
+import type { Info } from '@root/lyric'
 import type { CommonContext } from '@root/modules/parser/plugin'
 
-import { EMPTY_LINE_INFO, LINE_TYPES } from '@root/modules/lyric'
+import { EMPTY_LINE_INFO, LINE_TYPES } from '@root/lyric'
 
 import { cloneDeep } from '@root/utils'
 

@@ -1,4 +1,4 @@
-import type { Info, Line } from '@root/modules/lyric'
+import type { Info, Line } from '@root/lyric'
 import type { DeepRequired } from '@root/utils'
 import type { Purification } from '@root/modules/parser/config'
 import type { CommonContext, MusicInfoProps } from '@root/modules/parser/plugin'
