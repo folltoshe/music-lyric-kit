@@ -2,7 +2,7 @@ import type { Time } from './time'
 import type { GroupLineInfo } from './group'
 
 export namespace Line {
-  export type Type = 'NORMAL' | 'BACKGROUND' | 'INTERLUDE'
+  export type Type = 'NORMAL' | 'INTERLUDE'
 
   export namespace Extended {
     export type Type = 'TRANSLATE' | 'ROMAN' | 'UNKNOWN'
@@ -56,5 +56,7 @@ export namespace Line {
     group: GroupLineInfo
     /** line content */
     content: Content
+    /** background lyric */
+    background: Omit<Info, 'background'>[]
   }
 }

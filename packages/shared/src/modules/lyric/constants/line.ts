@@ -24,7 +24,6 @@ export const EMPTY_DYNAMIC_INFO: Line.Dynamic.Info = {
 export const LINE_TYPES: Record<Line.Type, Line.Type> = {
   NORMAL: 'NORMAL',
   INTERLUDE: 'INTERLUDE',
-  BACKGROUND: 'BACKGROUND',
 } as const
 
 export const EMPTY_LINE_INFO: Line.Info = {
@@ -41,4 +40,5 @@ export const EMPTY_LINE_INFO: Line.Info = {
   content: {
     original: '',
   },
+  background: [],
 } as const
