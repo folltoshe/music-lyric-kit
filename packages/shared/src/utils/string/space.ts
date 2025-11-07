@@ -15,13 +15,14 @@ export type InsertTextSpaceTypes = ValueOf<typeof INSERT_TEXT_SPACE_TYPES>
 const INSERT_TEXT_SPACE_TYPES_VALUE = Object.values(INSERT_TEXT_SPACE_TYPES) as InsertTextSpaceTypes[]
 
 // rules
-
 const CJK_RANGE = '\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff' as const
 
 const ENGLISH_RANGE = 'A-Za-z' as const
 const NUMBER_RANGE = '0-9' as const
 const SYMBOL_RANGE = '!@#$%^&+\\-=/|<>' as const
+
 const ENGLISH_NUMBER_RANGE = `${ENGLISH_RANGE}${NUMBER_RANGE}` as const
+
 const ALL_RANGE = `${ENGLISH_NUMBER_RANGE}${SYMBOL_RANGE}${CJK_RANGE}` as const
 
 const MULTIPLE_SPACE_RULE = /[ ]{2,}/g
@@ -136,4 +137,115 @@ export const insertSpace = (text: string, types?: InsertTextSpaceTypes[]) => {
 
 export const insertSpaceBatch = (list: string[], types?: InsertTextSpaceTypes[]) => {
   return list.length ? list.map((item) => insertSpace(item, types)) : list
+}
+
+interface WordElementInfo {
+  original: string
+  nonSpaceChars: string
+  startIndex: number
+  endIndex: number
+  isSpaceOnly: boolean
+}
+
+export const insertSpaceToWords = (array: string[], types?: InsertTextSpaceTypes[]): string[] => {
+  if (!array || array.length === 0) return array
+
+  const full = array.join('')
+  const processed = insertSpace(full, types)
+
+  const infos: WordElementInfo[] = []
+
+  let currentIndex = 0
+  for (const element of array) {
+    const nonSpaceChars = element.replace(/\s/g, '')
+    const isSpaceOnly = nonSpaceChars.length === 0
+
+    if (!isSpaceOnly) {
+      infos.push({
+        original: element,
+        nonSpaceChars,
+        startIndex: currentIndex,
+        endIndex: currentIndex + element.length - 1,
+        isSpaceOnly,
+      })
+    }
+
+    currentIndex += element.length
+  }
+
+  const result: string[] = []
+  let processedIndex = 0
+  let spaceCount = 0
+
+  while (processedIndex < processed.length && processed[processedIndex] === ' ') {
+    result.push(' ')
+    processedIndex++
+  }
+
+  for (const info of infos) {
+    let matchStart = -1
+    let matchEnd = -1
+    let searchIndex = processedIndex
+    let originalCharIndex = 0
+
+    while (searchIndex < processed.length && originalCharIndex < info.nonSpaceChars.length) {
+      if (processed[searchIndex] === ' ') {
+        searchIndex++
+        continue
+      }
+
+      if (processed[searchIndex] === info.nonSpaceChars[originalCharIndex]) {
+        if (originalCharIndex === 0) {
+          matchStart = searchIndex
+        }
+
+        originalCharIndex++
+        searchIndex++
+
+        if (originalCharIndex === info.nonSpaceChars.length) {
+          matchEnd = searchIndex - 1
+          break
+        }
+      } else {
+        if (matchStart !== -1) {
+          originalCharIndex = 0
+          matchStart = -1
+        } else {
+          searchIndex++
+        }
+      }
+    }
+
+    if (matchStart === -1 || matchEnd === -1) {
+      result.push(info.nonSpaceChars)
+      processedIndex += info.original.length
+    } else {
+      const matchedText = processed.substring(matchStart, matchEnd + 1)
+
+      if (matchStart > processedIndex) {
+        for (let i = processedIndex; i < matchStart; i++) {
+          if (processed[i] === ' ') {
+            result.push(' ')
+          }
+        }
+      }
+
+      result.push(matchedText)
+      processedIndex = matchEnd + 1
+
+      while (processedIndex < processed.length && processed[processedIndex] === ' ') {
+        result.push(' ')
+        processedIndex++
+      }
+    }
+  }
+
+  while (processedIndex < processed.length) {
+    if (processed[processedIndex] === ' ') {
+      result.push(' ')
+    }
+    processedIndex++
+  }
+
+  return result
 }
