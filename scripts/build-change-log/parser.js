@@ -18,20 +18,35 @@ const BREAKING_CHANGE_REGEXP = /^breaking change:\s*(.*)/i
  */
 const extractBreakingChangeInfo = (text) => {
   if (!text) {
-    return null
+    return []
   }
 
   const trimed = text.trim()
   if (!trimed) {
-    return null
+    return []
   }
 
-  const match = trimed.match(BREAKING_CHANGE_REGEXP)
-  if (match) {
-    return match[1]
+  const result = []
+  for (const line of trimed.split('\n') || []) {
+    const trimed = line.trim()
+    if (!trimed) {
+      continue
+    }
+
+    const match = trimed.match(BREAKING_CHANGE_REGEXP)
+    if (!match) {
+      continue
+    }
+
+    const target = match[1]?.trim()
+    if (!target) {
+      continue
+    }
+
+    result.push(target)
   }
 
-  return null
+  return result
 }
 
 /**
@@ -136,7 +151,7 @@ export const buildContents = (infos, repo) => {
       result.push(body)
       const breakingChange = extractBreakingChangeInfo(commit.body)
       if (breakingChange) {
-        breaking.push(breakingChange)
+        breaking.push(...breakingChange)
       }
     }
   }

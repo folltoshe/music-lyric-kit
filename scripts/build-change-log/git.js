@@ -67,6 +67,46 @@ export const getRepoInfo = async () => {
   }
 }
 
+const COMMIT_BLOCK_REGEXP = /---block---\s*([\s\S]*?)\s*---block---/g
+
+/**
+ * @param {string} text
+ */
+const parseCommitBlocks = (text) => {
+  const commits = []
+
+  let match
+  while ((match = COMMIT_BLOCK_REGEXP.exec(text)) !== null) {
+    const block = match[1].trim()
+
+    const lines = block.split('\n').map((line) => line.trim())
+
+    const [shortHash, fullHash, author, date, subject, ...bodyLines] = lines
+    const body = bodyLines?.join('\n').trim()
+
+    const result = parseCommitMessage(subject)
+    if (!result) {
+      continue
+    }
+
+    const commit = {
+      hash: {
+        short: shortHash,
+        full: fullHash,
+      },
+      author,
+      date,
+      subject,
+      body,
+      ...result,
+    }
+
+    commits.push(commit)
+  }
+
+  return commits
+}
+
 /**
  * @param {string} start
  * @param {string} end
@@ -74,34 +114,15 @@ export const getRepoInfo = async () => {
 export const getCommitInfo = async (start, end = 'HEAD') => {
   try {
     const range = start || end ? `${start}..${end}` : ''
-    const command = `git log ${range} --pretty=format:"%h|%H|%an|%ad|%s|%b" --date=short`
+    const command = `git log ${range} --pretty=format:"---block---%n %h%n %H%n %an%n %ad%n %s%n %b%n ---block---%n" --date=short`
+
     const result = await runGitCommand(command)
+    const trimed = result?.trim()
+    if (!trimed) {
+      return []
+    }
 
-    const commits = result
-      .split('\n')
-      .map((commit) => {
-        const [shortHash, fullHash, author, date, subject, body] = commit.split('|')
-
-        const result = parseCommitMessage(subject)
-        if (!result) {
-          return null
-        }
-
-        return {
-          hash: {
-            short: shortHash,
-            full: fullHash,
-          },
-          author,
-          date,
-          subject,
-          body,
-          ...result,
-        }
-      })
-      .filter((item) => !!item)
-
-    return commits
+    return parseCommitBlocks(trimed).filter((item) => !!item)
   } catch (err) {
     console.error('Error getting commit info:', err)
     return []
