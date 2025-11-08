@@ -72,8 +72,7 @@ export const insertSpaceToLines = (context: CommonContext, info: Info) => {
   }
 
   for (const line of info.lines) {
-    for (const item of line.background) {
-      // @ts-expect-error
+    for (const item of line.background || []) {
       handleProcess(item)
     }
     handleProcess(line)

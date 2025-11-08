@@ -47,6 +47,6 @@ export namespace Line {
     /** line content */
     content: Content
     /** background lyric */
-    background: Omit<Info, 'background'>[]
+    background?: Info[]
   }
 }

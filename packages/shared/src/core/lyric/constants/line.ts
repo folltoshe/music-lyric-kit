@@ -34,5 +34,4 @@ export const EMPTY_LINE_INFO: Line.Info = {
     words: [],
     original: '',
   },
-  background: [],
 } as const

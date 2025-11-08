@@ -88,9 +88,6 @@ const processBackgroundItem = (context: Context, line: any) => {
   const result = cloneDeep(Lyric.EMPTY_LINE_INFO)
   const words: Lyric.Line.Word[] = []
 
-  // @ts-expect-error
-  delete result['background']
-
   const config = context.common.config.get('line.main', 'line.common')!
   for (const item of line.span || []) {
     const attr = readAttribute(item)
@@ -160,6 +157,9 @@ const processLine = (context: Context, index: number, line: any) => {
         processExtendedItem(context, result, item, role)
         break
       case 'x-bg':
+        if (!result.background) {
+          result.background = []
+        }
         const target = processBackgroundItem(context, item)
         if (!target) {
           continue
