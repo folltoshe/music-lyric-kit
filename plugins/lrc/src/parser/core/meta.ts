@@ -22,40 +22,52 @@ const processItem = (target: Lyric.Meta, key: string, value: string, rule: strin
         parsed: Number(value) || 0,
       }
       break
-    case 'ti':
-    case 'title':
-      target.title = {
-        raw: value,
-        parsed: value,
-      }
-      break
-    case 'ar':
-    case 'artist':
-      target.artist = {
-        raw: value,
-        parsed: splitNameWithRule(value, rule),
-      }
-      break
-    case 'al':
-    case 'album':
-      target.album = {
-        raw: value,
-        parsed: value,
-      }
-      break
-    case 'au':
-    case 'author':
-      target.author = {
-        raw: value,
-        parsed: splitNameWithRule(value, rule),
-      }
-      break
     case 'length':
     case 'duration':
       target.duration = {
         raw: value,
         parsed: parseTime(value) || 0,
       }
+      break
+    case 'ti':
+    case 'title':
+      if (!target.title) {
+        target.title = []
+      }
+      target.title.push({
+        raw: value,
+        parsed: value,
+      })
+      break
+    case 'ar':
+    case 'artist':
+      if (!target.artist) {
+        target.artist = []
+      }
+      target.artist.push({
+        raw: value,
+        parsed: splitNameWithRule(value, rule),
+      })
+      break
+    case 'al':
+    case 'album':
+      if (!target.album) {
+        target.album = []
+      }
+      target.album.push({
+        raw: value,
+        parsed: value,
+      })
+      break
+    case 'au':
+    case 'author':
+      if (!target.author) {
+        target.author = []
+      }
+      target.author.push({
+        raw: value,
+        parsed: splitNameWithRule(value, rule),
+      })
       break
   }
 }

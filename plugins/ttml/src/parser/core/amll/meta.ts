@@ -7,38 +7,40 @@ import { readAttribute, readAttributeValue } from '@parser/utils'
 const processItem = (target: Lyric.Meta, key: string, value: string) => {
   switch (key) {
     case 'musicName':
-      target.title = {
+      if (!target.title) {
+        target.title = []
+      }
+      target.title.push({
         raw: value,
         parsed: value,
-      }
+      })
       break
     case 'artists':
       if (!target.artist) {
-        target.artist = {
-          raw: value,
-          parsed: [value],
-        }
-        break
+        target.artist = []
       }
-      target.artist.raw += ` ${value}`
-      target.artist.parsed.push(value)
+      target.artist.push({
+        raw: value,
+        parsed: [value],
+      })
       break
     case 'album':
-      target.album = {
+      if (!target.album) {
+        target.album = []
+      }
+      target.album.push({
         raw: value,
         parsed: value,
-      }
+      })
       break
     case 'ttmlAuthorGithubLogin':
       if (!target.author) {
-        target.author = {
-          raw: value,
-          parsed: [value],
-        }
-        break
+        target.author = []
       }
-      target.author.raw += ` ${value}`
-      target.author.parsed.push(value)
+      target.author.push({
+        raw: value,
+        parsed: [value],
+      })
       break
   }
 }

@@ -12,10 +12,10 @@ export interface Producer {
 
 export interface Meta {
   offset: Item<number>
-  title?: Item<string>
-  album?: Item<string>
   duration?: Item<number>
-  artist?: Item<string[]>
-  author?: Item<string[]>
+  title?: Item<string>[]
+  album?: Item<string>[]
+  artist?: Item<string[]>[]
+  author?: Item<string[]>[]
   producer?: Producer[]
 }

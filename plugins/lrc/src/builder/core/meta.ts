@@ -10,31 +10,39 @@ const renderItem = (key: string, content: string) => {
 export const exportMeta = (context: Context, info: Lyric.Info) => {
   const result: string[] = []
 
-  result.push(renderItem('offset', info.meta.offset.parsed.toString()))
-
-  if (info.meta.title) {
-    const item = renderItem('ti', info.meta.title.parsed)
-    result.push(item)
-  }
-
-  if (info.meta.artist) {
-    const item = renderItem('ar', info.meta.artist.parsed.join(' / '))
-    result.push(item)
-  }
-
-  if (info.meta.album) {
-    const item = renderItem('al', info.meta.album.parsed)
-    result.push(item)
-  }
-
-  if (info.meta.author) {
-    const item = renderItem('au', info.meta.author.parsed.join(' / '))
-    result.push(item)
+  if (info.meta.offset) {
+    const target = renderItem('offset', info.meta.offset.parsed.toString())
+    result.push(target)
   }
 
   if (info.meta.duration) {
-    const item = renderItem('length', exportTime(info.meta.duration.parsed, 'mm:ss'))
-    result.push(item)
+    const target = renderItem('length', exportTime(info.meta.duration.parsed, 'mm:ss'))
+    result.push(target)
+  }
+
+  for (const item of info.meta.title || []) {
+    const target = renderItem('ti', item.parsed)
+    result.push(target)
+  }
+
+  for (const item of info.meta.album || []) {
+    const target = renderItem('al', item.parsed)
+    result.push(target)
+  }
+
+  for (const item of info.meta.artist || []) {
+    const target = renderItem('ar', item.parsed.join(' / '))
+    result.push(target)
+  }
+
+  for (const item of info.meta.artist || []) {
+    const target = renderItem('ar', item.parsed.join(' / '))
+    result.push(target)
+  }
+
+  for (const item of info.meta.author || []) {
+    const target = renderItem('au', item.parsed.join(' / '))
+    result.push(target)
   }
 
   return result
