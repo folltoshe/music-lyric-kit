@@ -1,4 +1,4 @@
-import type { Context } from '@root/parser/types'
+import type { Context } from '@parser/core/types'
 import type { Lyric } from '@music-lyric-kit/shared'
 
 import { processLyric } from './main'

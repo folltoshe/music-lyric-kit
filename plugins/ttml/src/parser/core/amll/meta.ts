@@ -1,8 +1,8 @@
-import type { Context } from '@root/parser/types'
+import type { Context } from '@parser/core/types'
 
 import { Lyric } from '@music-lyric-kit/shared'
 
-import { readAttribute, readAttributeValue } from '@root/parser/utils'
+import { readAttribute, readAttributeValue } from '@parser/utils'
 
 const processItem = (target: Lyric.Meta, key: string, value: string) => {
   switch (key) {

@@ -1,10 +1,9 @@
-import type { Context, MatchInfo, MatchItem } from '@root/parser/types'
+import type { Context, MatchInfo, MatchItem } from '@parser/core//types'
 
 import { Lyric, Parser } from '@music-lyric-kit/shared'
 
 import { cloneDeep } from '@music-lyric-kit/shared'
-import { parseTagTime, sortLines } from '@root/parser/utils'
-import { checkIsValid, processTextToWords } from './utils'
+import { parseTagTime, processTextToWords, checkLineIsValid, sortLines } from '@parser/utils'
 
 const DYNAMIC_TIME_AND_CONTENT = /(<[^>]+>)([^<]*)/gu
 const DYNAMIC_TIME_TAG_2 = /<([0-9]+),([0-9]+)\>/
@@ -131,12 +130,12 @@ interface Params {
 
 const processLines = (config: Parser.Config.Line, params: Params): [Lyric.Line.Info[] | null, boolean] => {
   const dynamic = processDynamic(config, params.dynamic.line)
-  if (dynamic && checkIsValid(dynamic)) {
+  if (dynamic && checkLineIsValid(dynamic)) {
     return [dynamic, true]
   }
 
   const original = processNormal(config, params.original.line)
-  if (original && checkIsValid(original)) {
+  if (original && checkLineIsValid(original)) {
     return [original, false]
   }
 

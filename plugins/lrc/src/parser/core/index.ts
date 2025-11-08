@@ -1,11 +1,12 @@
 import type { ConfigManager } from '@music-lyric-kit/shared'
-import type { Config, Params, Result } from '@root/parser/types'
+import type { Config } from '@parser/config'
+import type { Params, Result } from '@parser/core/types'
 
-import { DEFAULT_CONFIG } from '@root/parser/constants'
+import { DEFAULT_CONFIG } from '@parser/config'
 
 import { Parser } from '@music-lyric-kit/shared'
 
-import { sortLines } from '@root/parser/utils'
+import { sortLines } from '@parser/utils'
 import { matchLyric } from './match'
 import { processMeta } from './meta'
 import { processMainLyric, processExtendedLyric } from './line'
@@ -63,3 +64,5 @@ export class Plugin extends Parser.Plugin.Base<Config, Params, Result> {
     return target
   }
 }
+
+export type { Params, Result }

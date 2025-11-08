@@ -1,10 +1,9 @@
-import type { Context, MatchInfo, MatchItem } from '@root/parser/types'
+import type { Context, MatchInfo, MatchItem } from '@parser/core//types'
 
 import { Lyric, Parser } from '@music-lyric-kit/shared'
 
 import { cloneDeep } from '@music-lyric-kit/shared'
-import { alignLyricWithTime, parseTagTime } from '@root/parser/utils'
-import { checkIsValid } from './utils'
+import { alignLyricWithTime, parseTagTime, checkLineIsValid } from '@parser/utils'
 
 const processLine = (config: Parser.Config.Line, line: MatchItem) => {
   const time = parseTagTime(line.tag) || 0
@@ -59,7 +58,7 @@ export const processExtendedLyric = (context: Context, info: Lyric.Info, params:
 
   const translate = processItem(context, 'translate', params.translate.line)
   const translateAlign =
-    translate && checkIsValid(translate)
+    translate && checkLineIsValid(translate)
       ? alignLyricWithTime({
           base: target,
           target: translate,
@@ -68,7 +67,7 @@ export const processExtendedLyric = (context: Context, info: Lyric.Info, params:
 
   const roman = processItem(context, 'roman', params.roman.line)
   const romanAlign =
-    roman && checkIsValid(roman)
+    roman && checkLineIsValid(roman)
       ? alignLyricWithTime({
           base: target,
           target: roman,

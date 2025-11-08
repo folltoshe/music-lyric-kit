@@ -1,10 +1,10 @@
 import type { DeepRequired } from '@music-lyric-kit/shared'
-import type { Context } from '@root/parser/types'
+import type { Context } from '@parser/core/types'
 
 import { Lyric, Parser } from '@music-lyric-kit/shared'
 
 import { parseTime, cloneDeep, checkIsValidText } from '@music-lyric-kit/shared'
-import { readAttribute, readAttributeValue, readSpan, readSpanText, readTextValue } from '@root/parser/utils'
+import { readAttribute, readAttributeValue, readSpan, readSpanText, readTextValue } from '@parser/utils'
 
 const processDynamicItem = (options: DeepRequired<Parser.Config.Line>, item: any) => {
   const span = readSpan(item)

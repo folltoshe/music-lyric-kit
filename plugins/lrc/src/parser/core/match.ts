@@ -1,6 +1,6 @@
-import type { MatchInfo, MatchItem } from '@root/parser/types'
+import type { MatchInfo, MatchItem } from '@parser/core//types'
 
-import { checkIsValidText } from '@music-lyric-kit/shared'
+import { checkIsValidText, removeTextAllSpace } from '@music-lyric-kit/shared'
 
 // prettier-ignore
 const LINE_REGEXP = /(\[(?:[a-zA-Z]+\s*:\s*[^\]]+|(?:\d+:)?\d+:\d+(?:\.\d+)?)\])([\s\S]*?)(?=(?:\[(?:[a-zA-Z]+\s*:\s*[^\]]+|(?:\d+:)?\d+:\d+(?:\.\d+)?)\])|$)/g
@@ -8,16 +8,12 @@ const LINE_REGEXP = /(\[(?:[a-zA-Z]+\s*:\s*[^\]]+|(?:\d+:)?\d+:\d+(?:\.\d+)?)\])
 const META_REGEX = /^\[[a-zA-Z]+:[^\]]+\]$/
 const LINE_REGEX = /^\[(\d+:)?\d+:\d+(\.\d+)?\].+$/
 
-const reomveSpace = (content: string) => {
-  return content.replaceAll(/\s/g, '').trim()
-}
-
 const checkIsValidMeta = (content: string) => {
-  return META_REGEX.test(reomveSpace(content))
+  return META_REGEX.test(removeTextAllSpace(content))
 }
 
 const checkIsValidLine = (content: string) => {
-  return LINE_REGEX.test(reomveSpace(content))
+  return LINE_REGEX.test(removeTextAllSpace(content))
 }
 
 const matchLine = (content: string) => {

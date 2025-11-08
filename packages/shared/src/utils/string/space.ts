@@ -1,5 +1,13 @@
 import type { ValueOf } from '../types'
 
+export const removeTextAllSpace = (content: string) => {
+  return content.replaceAll(/\s+/g, '').trim()
+}
+
+export const replaceTextAllSpaceToOne = (content: string) => {
+  return content.replaceAll(/[ ]{2,}/g, ' ').trim()
+}
+
 export const INSERT_TEXT_SPACE_TYPES = {
   ALL: 'ALL',
   PUNCTUATION: 'PUNCTUATION',
@@ -92,7 +100,7 @@ const applyCjkWithEnglishNumber = (text: string) => {
 }
 
 const applyMultipleSpace = (text: string) => {
-  return text.replace(MULTIPLE_SPACE_RULE, ' ')
+  return replaceTextAllSpaceToOne(text)
 }
 
 const handleProcessTypes = (types?: InsertTextSpaceTypes[]) => {

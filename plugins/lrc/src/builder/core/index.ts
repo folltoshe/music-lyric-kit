@@ -1,7 +1,8 @@
 import type { ConfigManager } from '@music-lyric-kit/shared'
-import type { Config, Params, Result } from '@root/builder/types'
+import type { Config } from '@builder/config'
+import type { Params, Result } from '@builder/core/types'
 
-import { DEFAULT_CONFIG } from '@root/builder/constants'
+import { DEFAULT_CONFIG } from '@builder/config'
 
 import { Builder } from '@music-lyric-kit/shared'
 
@@ -30,3 +31,5 @@ export class Plugin extends Builder.Plugin.Base<Config, Params, Result> {
     }
   }
 }
+
+export type { Params, Result }

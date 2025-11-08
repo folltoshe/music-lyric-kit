@@ -35,6 +35,8 @@ const common = defineConfig({
   resolve: {
     alias: {
       '@root': src,
+      '@parser': join(src, 'parser'),
+      '@builder': join(src, 'builder'),
     },
   },
 })

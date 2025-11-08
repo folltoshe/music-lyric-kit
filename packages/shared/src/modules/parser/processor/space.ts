@@ -1,16 +1,12 @@
 import type { Info, Line } from '@root/core/lyric'
 import type { CommonContext } from '@root/modules/parser/plugin'
 
-import { insertSpace, insertSpaceToWords } from '@root/utils'
-
-const removeAllSpace = (content: string) => {
-  return content.replaceAll(/\s*/g, '').trim()
-}
+import { insertSpace, insertSpaceToWords, removeTextAllSpace } from '@root/utils'
 
 const applySpaceToWords = (items: Line.Word[], result: string[]) => {
   const map = new Map<string, Line.Word[]>()
   for (const item of items) {
-    const key = removeAllSpace(item.content.original)
+    const key = removeTextAllSpace(item.content.original)
     if (!map.has(key)) map.set(key, [])
     map.get(key)!.push(item)
   }
@@ -23,7 +19,7 @@ const applySpaceToWords = (items: Line.Word[], result: string[]) => {
       continue
     }
 
-    const key = removeAllSpace(current)
+    const key = removeTextAllSpace(current)
     const list = map.get(key)
     if (!list || list.length === 0) {
       continue

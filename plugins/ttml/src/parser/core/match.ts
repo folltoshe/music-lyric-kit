@@ -1,7 +1,7 @@
 import { XMLParser } from 'fast-xml-parser'
 
 import { checkIsValidText } from '@music-lyric-kit/shared'
-import { readAttribute, readAttributeValue } from '@root/parser/utils'
+import { readAttribute, readAttributeValue } from '@parser/utils'
 
 const parser = new XMLParser({
   preserveOrder: true,

@@ -1,8 +1,8 @@
-import type { Context } from '@root/parser/types'
+import type { Context } from '@parser/core/types'
 
 import { Lyric, Parser } from '@music-lyric-kit/shared'
 
-import { readAttribute, readAttributeValue } from '@root/parser/utils'
+import { readAttribute, readAttributeValue } from '@parser/utils'
 
 const { insertGroupCount } = Parser.Processor
 
