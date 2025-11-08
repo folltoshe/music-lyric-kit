@@ -1,3 +1,36 @@
+## v2.1.0 (2025-11-09)
+
+### Breaking Change
+
+- meta value type have been changed
+- the **dynamic** field in the result has been moved to **words** field
+- the **dynamic** and **original** fields have been moved to the *main* field in config
+- parser line config have been changed
+
+### Feature
+
+- plugin-ttml
+  - add background lyric parse ([0796c0a](https://github.com/folltoshe/music-lyric-kit/commit/0796c0a))
+- shared
+  - add common config get for config manager ([5dd8637](https://github.com/folltoshe/music-lyric-kit/commit/5dd8637))
+  - add util tools to insert space in words ([fd7b422](https://github.com/folltoshe/music-lyric-kit/commit/fd7b422))
+- support multiple same meta key ([bece23a](https://github.com/folltoshe/music-lyric-kit/commit/bece23a))
+- add background lyric type ([3604c53](https://github.com/folltoshe/music-lyric-kit/commit/3604c53))
+
+### Bug Fix
+
+- insert space of background lyric line did not work ([060f6f6](https://github.com/folltoshe/music-lyric-kit/commit/060f6f6))
+
+### Code Refactor
+
+- shared
+  - lyric types and constants ([bb83be6](https://github.com/folltoshe/music-lyric-kit/commit/bb83be6))
+- background lyric line type ([d63ae26](https://github.com/folltoshe/music-lyric-kit/commit/d63ae26))
+- directory structure ([6ebaebe](https://github.com/folltoshe/music-lyric-kit/commit/6ebaebe))
+- dynamic lyric ([98547e4](https://github.com/folltoshe/music-lyric-kit/commit/98547e4))
+- insert space ([2e7ff27](https://github.com/folltoshe/music-lyric-kit/commit/2e7ff27))
+- config ([bfdece9](https://github.com/folltoshe/music-lyric-kit/commit/bfdece9))
+
 ## v2.0.2 (2025-11-06)
 
 ### Bug Fix
