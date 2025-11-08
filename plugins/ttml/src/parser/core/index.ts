@@ -10,7 +10,7 @@ import { matchLyric } from './match'
 import { processGroup } from './group'
 import { processAmllFormat } from './amll'
 
-const { insertInterlude } = Parser.Processor
+const { insertInterlude, insertSpaceToLines } = Parser.Processor
 
 export class Plugin extends Parser.Plugin.Base<Config, Params, Result> {
   constructor(options?: Config, global?: ConfigManager<Parser.Config.Full>) {
@@ -42,6 +42,9 @@ export class Plugin extends Parser.Plugin.Base<Config, Params, Result> {
 
     const isSupportAutoScroll = !!target.lines.find((line) => line.time.start > 0)
     target.config.isSupportAutoScroll = isSupportAutoScroll
+
+    // insert space
+    target = insertSpaceToLines(this.context, target)
 
     // interlude
     target = insertInterlude(this.context, target)

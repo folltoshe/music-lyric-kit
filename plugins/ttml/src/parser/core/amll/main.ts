@@ -3,7 +3,7 @@ import type { Context } from '@root/parser/types'
 
 import { Lyric, Parser } from '@music-lyric-kit/shared'
 
-import { insertSpace, parseTime, cloneDeep, checkIsValidText } from '@music-lyric-kit/shared'
+import { parseTime, cloneDeep, checkIsValidText } from '@music-lyric-kit/shared'
 import { readAttribute, readAttributeValue, readSpan, readSpanText, readTextValue } from '@root/parser/utils'
 
 const processDynamicItem = (options: DeepRequired<Parser.Config.Line>, item: any) => {
@@ -38,7 +38,7 @@ const processDynamicItem = (options: DeepRequired<Parser.Config.Line>, item: any
     duration: end - start,
   }
   word.content = {
-    original: options.insert.space.enable ? insertSpace(contentTrim, options.insert.space.types) : contentTrim,
+    original: contentTrim,
   }
 
   return word
@@ -66,7 +66,7 @@ const processRoleItem = (options: { translate: Parser.Config.Line; roman: Parser
     result.content.extended = []
   }
 
-  const text = config.insert.space.enable ? insertSpace(content, config.insert.space.types).trim() : content.trim()
+  const text = content.trim()
   const info: Lyric.Line.Extended.Info = {
     type,
     content: text,
@@ -101,11 +101,8 @@ const processLine = (context: Context, index: number, line: any) => {
       continue
     }
 
-    const lastWord = dynamic.items[dynamic.items.length - 1]
-
     const word = processDynamicItem(config.dynamic, item)
     if (word) {
-      if (lastWord && lastWord.config.space.end) word.config.space.start = true
       dynamic.items.push(word)
       continue
     }
@@ -113,7 +110,10 @@ const processLine = (context: Context, index: number, line: any) => {
     const content: string = readTextValue(item)
     const contentTrim = content.trim()
     if (!contentTrim) {
-      if (lastWord) lastWord.config.space.end = true
+      const lastWord = dynamic.items[dynamic.items.length - 1]
+      if (lastWord) {
+        lastWord.content.original += ' '
+      }
       continue
     }
   }

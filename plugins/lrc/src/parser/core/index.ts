@@ -10,7 +10,7 @@ import { matchLyric } from './match'
 import { processMeta } from './meta'
 import { processMainLyric, processExtendedLyric } from './line'
 
-const { purificationLyric, insertInterlude, insertDuet, insertGroupCount } = Parser.Processor
+const { purificationLyric, insertInterlude, insertDuet, insertGroupCount, insertSpaceToLines } = Parser.Processor
 
 export class Plugin extends Parser.Plugin.Base<Config, Params, Result> {
   constructor(options?: Config, global?: ConfigManager<Parser.Config.Full>) {
@@ -47,6 +47,9 @@ export class Plugin extends Parser.Plugin.Base<Config, Params, Result> {
 
     // process extended
     target = processExtendedLyric(this.context, target, { translate, roman })
+
+    // insert spaces
+    target = insertSpaceToLines(this.context, target)
 
     // interlude
     target = insertInterlude(this.context, target)

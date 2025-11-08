@@ -3,12 +3,12 @@ import type { Context, MatchItem } from '@root/parser/types'
 
 import { Lyric, Parser } from '@music-lyric-kit/shared'
 
-import { cloneDeep, insertSpace } from '@music-lyric-kit/shared'
+import { cloneDeep } from '@music-lyric-kit/shared'
 import { parseTagTime } from '@root/parser/utils'
 
 const processLine = (options: DeepRequired<Parser.Config.Line>, line: MatchItem) => {
   const time = parseTagTime(line.tag) || 0
-  const text = options.insert.space.enable ? insertSpace(line.content, options.insert.space.types).trim() : line.content.trim()
+  const text = line.content.trim()
 
   const result: Lyric.Line.Info = cloneDeep(Lyric.EMPTY_LINE_INFO)
   result.time.start = time

@@ -3,7 +3,7 @@ import type { Context, MatchItem } from '@root/parser/types'
 
 import { Lyric, Parser } from '@music-lyric-kit/shared'
 
-import { cloneDeep, insertSpace, checkFirstCharIsPunctuation, checkEndCharIsPunctuation } from '@music-lyric-kit/shared'
+import { cloneDeep } from '@music-lyric-kit/shared'
 import { parseTagTime } from '@root/parser/utils'
 
 const TIME_AND_CONTENT = /(<[^>]+>)([^<]*)/gu
@@ -40,12 +40,6 @@ const processLine = (options: DeepRequired<Parser.Config.Line>, line: MatchItem)
     const wordContent = wordInfo[2] || ''
     if (!wordContent) continue
 
-    const wordContentTrim = wordContent.trim()
-    if (wordLast && !wordContentTrim) {
-      wordLast.config.space.end = true
-      continue
-    }
-
     const wordResult = cloneDeep(Lyric.EMPTY_DYNAMIC_ITEM)
     wordResult.time = {
       start: wordTime,
@@ -53,23 +47,11 @@ const processLine = (options: DeepRequired<Parser.Config.Line>, line: MatchItem)
       duration: wordDuration,
     }
     wordResult.content = {
-      original: options.insert.space.enable ? insertSpace(wordContentTrim, options.insert.space.types) : wordContentTrim,
+      original: wordContent,
     }
 
     if (wordDuration > options.prolongedSound.checkTime) {
       wordResult.config.isProlongedSound = true
-    }
-
-    if (wordLast?.config.space.end === true) {
-      wordResult.config.space.start = true
-    }
-    if (SPACE_START.test(wordContent) || checkFirstCharIsPunctuation(wordContentTrim)) {
-      if (wordLast) wordLast.config.space.end = true
-      wordResult.config.space.start = true
-    }
-
-    if (SPACE_END.test(wordContent) || checkEndCharIsPunctuation(wordContentTrim)) {
-      wordResult.config.space.end = true
     }
 
     targetWords.push(wordResult)
@@ -87,7 +69,7 @@ const processLine = (options: DeepRequired<Parser.Config.Line>, line: MatchItem)
   const target: Lyric.Line.Info = cloneDeep(Lyric.EMPTY_LINE_INFO)
   const original = targetWords.map((item) => `${item.content.original}${item.config.space.end ? ' ' : ''}`).join('')
   target.time = time
-  target.content.original = options.insert.space.enable ? insertSpace(original, options.insert.space.types) : original
+  target.content.original = original
   target.content.dynamic = {
     time,
     items: targetWords,
