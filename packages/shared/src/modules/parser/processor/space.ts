@@ -1,3 +1,4 @@
+import { Lyric } from '@root/core'
 import type { Info, Line } from '@root/core/lyric'
 import type { CommonContext } from '@root/modules/parser/plugin'
 
@@ -46,7 +47,7 @@ export const insertSpaceToLines = (context: CommonContext, info: Info) => {
     roman: context.common.config.get('line.extended.roman.insert.space', 'line.common.insert.space')!,
   }
 
-  for (const line of info.lines) {
+  const handleProcess = (line: Lyric.Line.Info) => {
     if (config.main.enable) {
       const words = line.content.words.map((item) => item.content.original)
       const result = insertSpaceToWords(words, config.main.types)
@@ -68,6 +69,14 @@ export const insertSpaceToLines = (context: CommonContext, info: Info) => {
 
       item.content = insertSpace(item.content, types)
     }
+  }
+
+  for (const line of info.lines) {
+    for (const item of line.background) {
+      // @ts-expect-error
+      handleProcess(item)
+    }
+    handleProcess(line)
   }
 
   return info
