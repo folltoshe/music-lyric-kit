@@ -44,7 +44,7 @@ const processDynamicItem = (options: DeepRequired<Parser.Config.Line>, item: any
   return word
 }
 
-const processRoleItem = (options: { translate: Parser.Config.Line; roman: Parser.Config.Line }, result: Lyric.Line.Info, item: any, role: string) => {
+const processExtendedItem = (context: Context, result: Lyric.Line.Info, item: any, role: string) => {
   const span = readSpan(item)
   if (!span.length) {
     return
@@ -55,10 +55,14 @@ const processRoleItem = (options: { translate: Parser.Config.Line; roman: Parser
     return
   }
 
-  const [type, config]: [Lyric.Line.Extended.Type, DeepRequired<Parser.Config.Line> | null] =
-    role === 'x-translation' ? ['TRANSLATE', options.translate] : role === 'x-roman' ? ['ROMAN', options.roman] : ['UNKNOWN', null]
+  const [type, config]: [Lyric.Line.Extended.Type | null, DeepRequired<Parser.Config.Line> | null] =
+    role === 'x-translation'
+      ? ['TRANSLATE', context.common.config.get('line.extended.translate', 'line.common')!]
+      : role === 'x-roman'
+      ? ['ROMAN', context.common.config.get('line.extended.roman', 'line.common')!]
+      : [null, null]
 
-  if (!config) {
+  if (!config || !type) {
     return
   }
 
@@ -74,6 +78,64 @@ const processRoleItem = (options: { translate: Parser.Config.Line; roman: Parser
   result.content.extended.push(info)
 }
 
+const processBackgroundItem = (context: Context, line: any) => {
+  const attr = readAttribute(line)
+
+  const start = parseTime(readAttributeValue(attr, 'begin'))
+  const end = parseTime(readAttributeValue(attr, 'end'))
+  if (!start || !end) return null
+
+  const result = cloneDeep(Lyric.EMPTY_LINE_INFO)
+  const words: Lyric.Line.Word[] = []
+
+  // @ts-expect-error
+  delete result['background']
+
+  const config = context.common.config.get('line.main', 'line.common')!
+  for (const item of line.span || []) {
+    const attr = readAttribute(item)
+    const role = readAttributeValue(attr, 'ttm:role')
+
+    switch (role || '') {
+      case 'x-translation':
+      case 'x-roman':
+        processExtendedItem(context, result, item, role)
+        break
+    }
+
+    const word = processDynamicItem(config, item)
+    if (word) {
+      words.push(word)
+      continue
+    }
+
+    const content: string = readTextValue(item)
+    const contentTrim = content.trim()
+    if (!contentTrim) {
+      const lastWord = words[words.length - 1]
+      if (lastWord) {
+        lastWord.content.original += ' '
+      }
+      continue
+    }
+  }
+
+  const original = words.map((item) => `${item.content.original}${item.config.needSpaceEnd ? ' ' : ''}`).join('')
+  const time: Lyric.Time = {
+    start,
+    end,
+    duration: end - start,
+  }
+
+  result.time = time
+  result.content = {
+    words,
+    original,
+  }
+
+  return result
+}
+
 const processLine = (context: Context, index: number, line: any) => {
   const attr = readAttribute(line)
 
@@ -87,21 +149,26 @@ const processLine = (context: Context, index: number, line: any) => {
   const result = cloneDeep(Lyric.EMPTY_LINE_INFO)
   const words: Lyric.Line.Word[] = []
 
-  const config = {
-    main: context.common.config.get('line.main', 'line.common')!,
-    translate: context.common.config.get('line.extended.translate', 'line.common')!,
-    roman: context.common.config.get('line.extended.roman', 'line.common')!,
-  }
+  const config = context.common.config.get('line.main', 'line.common')!
   for (const item of line.p || []) {
     const attr = readAttribute(item)
     const role = readAttributeValue(attr, 'ttm:role')
 
-    if (role) {
-      processRoleItem(config, result, item, role)
-      continue
+    switch (role || '') {
+      case 'x-translation':
+      case 'x-roman':
+        processExtendedItem(context, result, item, role)
+        break
+      case 'x-bg':
+        const target = processBackgroundItem(context, item)
+        if (!target) {
+          continue
+        }
+        result.background.push(target)
+        continue
     }
 
-    const word = processDynamicItem(config.main, item)
+    const word = processDynamicItem(config, item)
     if (word) {
       words.push(word)
       continue
