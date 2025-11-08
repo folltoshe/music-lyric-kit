@@ -15,20 +15,29 @@ export class ConfigManager<T extends Record<string, any>> {
     }
   }
 
+  private processCommon(key: any) {
+    const comm = get(this.current, key as T)
+    const def = get(this.default, key as T)
+    return merge({}, def, comm)
+  }
+
   get(): T
   get<K extends NestedKeys<DeepRequired<T>>>(key: K): PathValue<T, K>
-  get<RK extends T, K extends RK | undefined>(key?: K): any {
+  get<K extends NestedKeys<DeepRequired<T>>>(key: K, common?: K): PathValue<T, K>
+  get<K extends T | undefined>(key?: K, common?: K): any {
     if (!key) {
       return this.current
     }
 
-    const current = get(this.current, key as RK)
+    const current = get(this.current, key as T)
     if (current !== void 0 && typeof current !== 'object') {
       return current
     }
 
-    const def = get(this.default, key as RK)
-    return merge({}, def, current)
+    const def = get(this.default, key as T)
+    const comm = common ? this.processCommon(common) : null
+
+    return merge({}, def, comm, current)
   }
 
   set(opt: DeepPartial<T>) {

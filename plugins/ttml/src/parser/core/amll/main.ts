@@ -44,7 +44,7 @@ const processDynamicItem = (options: DeepRequired<Parser.Config.Line>, item: any
   return word
 }
 
-const processRoleItem = (options: Parser.Config.Full['line'], result: Lyric.Line.Info, item: any, role: string) => {
+const processRoleItem = (options: { translate: Parser.Config.Line; roman: Parser.Config.Line }, result: Lyric.Line.Info, item: any, role: string) => {
   const span = readSpan(item)
   if (!span.length) {
     return
@@ -55,12 +55,12 @@ const processRoleItem = (options: Parser.Config.Full['line'], result: Lyric.Line
     return
   }
 
-  const [type, config]: [Lyric.Line.Extended.Type, DeepRequired<Parser.Config.Line>] =
-    role === 'x-translation'
-      ? ['TRANSLATE', options.extended?.translate || options.common]
-      : role === 'x-roman'
-      ? ['ROMAN', options.extended?.roman || options.common]
-      : ['UNKNOWN', options.extended?.unknown || options.common]
+  const [type, config]: [Lyric.Line.Extended.Type, DeepRequired<Parser.Config.Line> | null] =
+    role === 'x-translation' ? ['TRANSLATE', options.translate] : role === 'x-roman' ? ['ROMAN', options.roman] : ['UNKNOWN', null]
+
+  if (!config) {
+    return
+  }
 
   if (!result.content.extended) {
     result.content.extended = []
@@ -87,7 +87,11 @@ const processLine = (context: Context, index: number, line: any) => {
   const result = cloneDeep(Lyric.EMPTY_LINE_INFO)
   const dynamic = cloneDeep(Lyric.EMPTY_DYNAMIC_INFO)
 
-  const config = context.common.config.get('line')
+  const config = {
+    dynamic: context.common.config.get('line.dynamic', 'line.common')!,
+    translate: context.common.config.get('line.extended.translate', 'line.common')!,
+    roman: context.common.config.get('line.extended.roman', 'line.common')!,
+  }
   for (const item of line.p || []) {
     const attr = readAttribute(item)
     const role = readAttributeValue(attr, 'ttm:role')
@@ -99,7 +103,7 @@ const processLine = (context: Context, index: number, line: any) => {
 
     const lastWord = dynamic.items[dynamic.items.length - 1]
 
-    const word = processDynamicItem(config.dynamic || config.common, item)
+    const word = processDynamicItem(config.dynamic, item)
     if (word) {
       if (lastWord && lastWord.config.space.end) word.config.space.start = true
       dynamic.items.push(word)
