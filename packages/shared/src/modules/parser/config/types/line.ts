@@ -1,41 +1,41 @@
 import type { InsertTextSpaceTypes } from '@root/utils'
 
 export interface Line {
-  replace?: {
+  replace: {
     /**
      * @default true
      */
-    enable?: boolean
+    enable: boolean
     /**
      * replace chinese punctuation to english
      */
-    punctuation?: boolean
+    punctuation: boolean
   }
-  insert?: {
+  insert: {
     /**
      * insert space
      */
-    space?: {
+    space: {
       /**
        * @default true
        */
-      enable?: boolean
+      enable: boolean
       /**
        * @default TextSpacerProcessType.ALL
        */
-      types?: InsertTextSpaceTypes[]
+      types: InsertTextSpaceTypes[]
     }
   }
-  prolongedSound?: {
+  prolongedSound: {
     /**
      * @default true
      */
-    enable?: boolean
+    enable: boolean
     /**
      * If the duration of the word exceeds this number, add trailing
      * @unit ms
      * @default 1000
      */
-    checkTime?: number
+    checkTime: number
   }
 }

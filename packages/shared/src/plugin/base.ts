@@ -1,4 +1,4 @@
-import type { DeepPartial, DeepRequired } from '@root/utils'
+import type { DeepPartial } from '@root/utils'
 import type { Context, ConfigType } from './context'
 
 import { ConfigManager } from '@root/config'
@@ -6,7 +6,7 @@ import { ConfigManager } from '@root/config'
 export abstract class BasePlugin<PluginConfig extends ConfigType, CommonConfig extends ConfigType> {
   protected context: Context<PluginConfig, CommonConfig>
 
-  constructor(def: DeepRequired<PluginConfig>, commonDef: DeepRequired<CommonConfig>, commonGlobal?: ConfigManager<CommonConfig>) {
+  constructor(def: PluginConfig, commonDef: CommonConfig, commonGlobal?: ConfigManager<CommonConfig>) {
     this.context = {
       common: {
         global: !!commonGlobal,

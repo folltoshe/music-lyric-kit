@@ -1,15 +1,12 @@
-import type { DeepRequired } from '@root/utils'
 import type { Meta } from '../types'
 
 import { MATCH_MODE } from '@root/utils'
 
-export const META: DeepRequired<Meta> = {
+export const META: Meta = {
   tag: {
     enable: true,
     name: {
-      split: {
-        rule: '/',
-      },
+      splitRule: '/',
     },
   },
   producer: {
@@ -18,9 +15,7 @@ export const META: DeepRequired<Meta> = {
     match: {
       mode: MATCH_MODE.FUZZY,
       exact: {
-        check: {
-          percentage: 60,
-        },
+        checkPercentage: 60,
       },
       fuzzy: {},
       rule: {
@@ -35,9 +30,7 @@ export const META: DeepRequired<Meta> = {
       },
     },
     name: {
-      split: {
-        rule: /(?:[/]|[,，])/iu,
-      },
+      splitRule: /(?:[/]|[,，])/iu,
     },
   },
 } as const

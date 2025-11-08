@@ -44,7 +44,7 @@ const processDynamicItem = (options: DeepRequired<Parser.Config.Line>, item: any
   return word
 }
 
-const processRoleItem = (options: DeepRequired<Parser.Config.Full>['line']['extended'], result: Lyric.Line.Info, item: any, role: string) => {
+const processRoleItem = (options: Parser.Config.Full['line'], result: Lyric.Line.Info, item: any, role: string) => {
   const span = readSpan(item)
   if (!span.length) {
     return
@@ -56,7 +56,11 @@ const processRoleItem = (options: DeepRequired<Parser.Config.Full>['line']['exte
   }
 
   const [type, config]: [Lyric.Line.Extended.Type, DeepRequired<Parser.Config.Line>] =
-    role === 'x-translation' ? ['TRANSLATE', options.translate] : role === 'x-roman' ? ['ROMAN', options.roman] : ['UNKNOWN', options.unknown]
+    role === 'x-translation'
+      ? ['TRANSLATE', options.extended?.translate || options.common]
+      : role === 'x-roman'
+      ? ['ROMAN', options.extended?.roman || options.common]
+      : ['UNKNOWN', options.extended?.unknown || options.common]
 
   if (!result.content.extended) {
     result.content.extended = []
@@ -83,20 +87,19 @@ const processLine = (context: Context, index: number, line: any) => {
   const result = cloneDeep(Lyric.EMPTY_LINE_INFO)
   const dynamic = cloneDeep(Lyric.EMPTY_DYNAMIC_INFO)
 
-  const normal = context.common.config.get('line.normal')
-  const extended = context.common.config.get('line.extended')
+  const config = context.common.config.get('line')
   for (const item of line.p || []) {
     const attr = readAttribute(item)
     const role = readAttributeValue(attr, 'ttm:role')
 
     if (role) {
-      processRoleItem(extended, result, item, role)
+      processRoleItem(config, result, item, role)
       continue
     }
 
     const lastWord = dynamic.items[dynamic.items.length - 1]
 
-    const word = processDynamicItem(normal.dynamic, item)
+    const word = processDynamicItem(config.dynamic || config.common, item)
     if (word) {
       if (lastWord && lastWord.config.space.end) word.config.space.start = true
       dynamic.items.push(word)

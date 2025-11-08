@@ -1,4 +1,4 @@
-import type { FullRequired } from '../types'
+import type { Full } from '../types'
 
 import { META } from './meta'
 import { LINE } from './line'
@@ -8,7 +8,7 @@ export { META }
 export { LINE }
 export { INTERLUDE, DUET, PURIFICATION }
 
-export const FULL: FullRequired = {
+export const FULL: Full = {
   meta: META,
   content: {
     interlude: INTERLUDE,
@@ -16,14 +16,6 @@ export const FULL: FullRequired = {
     purification: PURIFICATION,
   },
   line: {
-    normal: {
-      original: LINE,
-      dynamic: LINE,
-    },
-    extended: {
-      translate: LINE,
-      roman: LINE,
-      unknown: LINE,
-    },
+    common: LINE,
   },
 } as const

@@ -37,7 +37,7 @@ const handleCheck = (options: DeepRequired<Purification>, rules: (string | RegEx
 
   if (mode === MATCH_MODE.EXACT) {
     const percentage = matchTextWithPercentage(content, targetRules, true)
-    const check = exact.check.percentage
+    const check = exact.checkPercentage
     if (percentage > check) {
       return true
     }

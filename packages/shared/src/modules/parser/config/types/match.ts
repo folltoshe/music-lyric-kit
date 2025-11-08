@@ -7,39 +7,34 @@ export interface Match {
    * match mode
    * @default FUZZY
    */
-  mode?: ValueOf<typeof MATCH_MODE>
+  mode: ValueOf<typeof MATCH_MODE>
   /**
    * exact mode options
    */
-  exact?: {
+  exact: {
     /**
-     * check options
+     * need more than this percentage
+     * @default 50
      */
-    check?: {
-      /**
-       * need more than this percentage
-       * @default 50
-       */
-      percentage?: number
-    }
+    checkPercentage: number
   }
   /**
    * fuzzy mode options
    */
-  fuzzy?: {}
+  fuzzy: {}
   /**
    * common check rules
    */
-  rule?: {
+  rule: {
     /**
      * is use default rule
      * @default true
      */
-    useDefault?: boolean
+    useDefault: boolean
     /**
      * custom rule, it will be merge with default when useDefault is enable
      * @default []
      */
-    custom?: (string | RegExp)[]
+    custom: (string | RegExp)[]
   }
 }

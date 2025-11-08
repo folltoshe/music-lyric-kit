@@ -1,10 +1,9 @@
 import type { ConfigManager } from '@root/config'
 import type { ConfigType, Context } from '@root/plugin'
-import type { DeepRequired } from '@root/utils'
 import type { Info } from '@root/lyric'
 
-import type { Full as CommonOptions } from './config'
-import { FULL as COMMON_OPTIONS } from './config'
+import type { Full } from './config'
+import { FULL } from './config'
 
 import { BasePlugin } from '@root/plugin'
 
@@ -13,14 +12,14 @@ export interface MusicInfoProps {
   singer: string[]
 }
 
-export type CommonContext = Context<any, CommonOptions>
+export type CommonContext = Context<any, Full>
 
 export abstract class Base<PluginConfig extends ConfigType, Params = ConfigType, Result = null | undefined | Info> extends BasePlugin<
   PluginConfig,
-  CommonOptions
+  Full
 > {
-  constructor(def: DeepRequired<PluginConfig>, global?: ConfigManager<CommonOptions>) {
-    super(def, COMMON_OPTIONS, global)
+  constructor(def: PluginConfig, global?: ConfigManager<Full>) {
+    super(def, FULL, global)
   }
 
   abstract parse(props: Params): Result

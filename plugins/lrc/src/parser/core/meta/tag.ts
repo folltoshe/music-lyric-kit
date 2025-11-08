@@ -76,7 +76,7 @@ export const processTag = (context: Context, metas: MatchItem[]) => {
     const value = (matched[2] || '').trim()
     if (!key || !value) continue
 
-    processItem(result, key, value, options.name.split.rule)
+    processItem(result, key, value, options.name.splitRule)
   }
 
   return result

@@ -99,7 +99,7 @@ const processLine = (options: DeepRequired<Parser.Config.Line>, line: MatchItem)
 export const processDynamic = (context: Context, matched: MatchItem[]) => {
   if (matched.length <= 0) return null
 
-  const options = context.common.config.get('line.normal.dynamic')
+  const options = context.common.config.get('line.dynamic') || context.common.config.get('line.common')
   const result: Lyric.Line.Info[] = []
   for (const line of matched) {
     const item = processLine(options, line)

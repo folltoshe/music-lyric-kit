@@ -55,7 +55,7 @@ export const processProducer = (context: CommonContext, infos: Line.Info[]): [Li
 
     if (options.match.mode === MATCH_MODE.EXACT) {
       const percentage = matchTextWithPercentage(role, matchRules)
-      if (percentage < options.match.exact.check.percentage) {
+      if (percentage < options.match.exact.checkPercentage) {
         lines.push(line)
         continue
       }
@@ -74,7 +74,7 @@ export const processProducer = (context: CommonContext, infos: Line.Info[]): [Li
       },
       name: {
         raw: name,
-        parsed: splitNameWithRule(name, options.name.split.rule),
+        parsed: splitNameWithRule(name, options.name.splitRule),
       },
     }
     result.push(item)

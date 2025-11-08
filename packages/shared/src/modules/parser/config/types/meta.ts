@@ -1,61 +1,57 @@
 import { Match } from './match'
 
 export interface Meta {
-  tag?: {
+  tag: {
     /**
      * @default true
      */
-    enable?: boolean
+    enable: boolean
     /**
      * people name
      */
-    name?: {
-      split?: {
-        /**
-         * @default "/"
-         */
-        rule?: string | RegExp
-      }
+    name: {
+      /**
+       * @default "/"
+       */
+      splitRule: string | RegExp
     }
   }
-  producer?: {
+  producer: {
     /**
      * @default true
      */
-    enable?: boolean
+    enable: boolean
     /**
      * @default true
      */
-    replace?: boolean
+    replace: boolean
     /**
      * only when it is matched will it be used as the correct role
      */
-    match?: Match
+    match: Match
     /**
      * role name options
      */
-    role?: {
-      replace?: {
+    role: {
+      replace: {
         /**
          * @default true
          */
-        enable?: boolean
+        enable: boolean
         /**
          * @default "by"
          */
-        rule?: (string | RegExp)[]
+        rule: (string | RegExp)[]
       }
     }
     /**
      * people name options
      */
-    name?: {
-      split?: {
-        /**
-         * @default "/"
-         */
-        rule?: string | RegExp
-      }
+    name: {
+      /**
+       * @default "/"
+       */
+      splitRule: string | RegExp
     }
   }
 }

@@ -1,27 +1,24 @@
-import type { DeepRequired } from '@root/utils'
 import type { Interlude, Duet, Purification } from '../types'
 
 import { MATCH_MODE } from '@root/utils'
 
-export const INTERLUDE: DeepRequired<Interlude> = {
+export const INTERLUDE: Interlude = {
   enable: true,
   checkTime: 10000,
   firstLineCheckTime: 5000,
 } as const
 
-export const DUET: DeepRequired<Duet> = {
+export const DUET: Duet = {
   enable: true,
   replace: true,
 } as const
 
-export const PURIFICATION: DeepRequired<Purification> = {
+export const PURIFICATION: Purification = {
   enable: true,
   match: {
     mode: MATCH_MODE.FUZZY,
     exact: {
-      check: {
-        percentage: 50,
-      },
+      checkPercentage: 50,
     },
     fuzzy: {},
     rule: {
@@ -33,9 +30,7 @@ export const PURIFICATION: DeepRequired<Purification> = {
     useMusicInfo: true,
     mode: MATCH_MODE.EXACT,
     exact: {
-      check: {
-        percentage: 30,
-      },
+      checkPercentage: 30,
     },
     fuzzy: {},
     rule: {
