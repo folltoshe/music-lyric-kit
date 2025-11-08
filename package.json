@@ -2,7 +2,7 @@
   "name": "music-lyric-kit",
   "version": "2.0.2",
   "author": "Folltoshe",
-  "description": "Music Lyric Parser And Writer",
+  "description": "Music Lyric Parser And Builder",
   "private": true,
   "packageManager": "pnpm@10.19.0",
   "scripts": {
