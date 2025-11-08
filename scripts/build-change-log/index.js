@@ -7,7 +7,7 @@ import { writeFileSync } from 'node:fs'
 import { getRepoInfo, getCommitInfo, getAllTags } from './git.js'
 import { buildContents, buildHeader } from './parser.js'
 
-import { root } from '../utils.js'
+import { root, rootVersion } from '../utils.js'
 import { formatResult } from './utils.js'
 
 const CHANGE_LOG_FILE = 'CHANGELOG.md'
@@ -36,7 +36,7 @@ const { values: args } = parseArgs({
 const handleBuild = async (start, end, repo, showHead = true) => {
   const commits = await getCommitInfo(start, end)
 
-  let key
+  let key = `v${rootVersion}`
 
   /** @type any */
   const wait = {}
@@ -45,7 +45,7 @@ const handleBuild = async (start, end, repo, showHead = true) => {
     if (item.type === 'release') {
       key = item.message
       wait[key] = {
-        version: item,
+        head: item,
         list: [],
       }
       continue
@@ -53,6 +53,13 @@ const handleBuild = async (start, end, repo, showHead = true) => {
 
     if (!key) {
       continue
+    }
+
+    if (!wait[key]) {
+      wait[key] = {
+        head: null,
+        list: [],
+      }
     }
 
     wait[key].list.push(item)
@@ -67,7 +74,7 @@ const handleBuild = async (start, end, repo, showHead = true) => {
     result.push('\n')
 
     if (showHead) {
-      const head = buildHeader(content.version)
+      const head = buildHeader(version, content.head)
       result.push(head)
     }
 

@@ -1,5 +1,7 @@
 // @ts-check
 
+import { formatDate } from '../utils.js'
+
 const ALLOW_TYPES = ['feat', 'fix', 'revert', 'docs', 'refactor']
 
 const TYPE_TITLE_MAP = {
@@ -50,12 +52,15 @@ const extractBreakingChangeInfo = (text) => {
 }
 
 /**
+ * @param {string} version
  * @param {*} info
  */
-export const buildHeader = (info) => {
-  const { date, message } = info
+export const buildHeader = (version, info) => {
+  const { date } = info || {}
 
-  return `## ${message} (${date})`
+  const now = formatDate(new Date())
+
+  return `## ${version} (${date || now})`
 }
 
 /**

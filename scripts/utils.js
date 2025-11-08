@@ -5,6 +5,8 @@ import { join } from 'node:path'
 import { createRequire } from 'node:module'
 import { spawn } from 'node:child_process'
 
+import moment from 'moment'
+
 export const require = createRequire(import.meta.url)
 
 export const root = process.cwd()
@@ -12,7 +14,7 @@ export const root = process.cwd()
 export const packagesRoot = join(process.cwd(), 'packages')
 export const pluginsRoot = join(process.cwd(), 'plugins')
 
-export const rootVersion = require('../package.json').version
+export const rootVersion = require(join(process.cwd(), 'package.json')).version
 
 /**
  * @param {string} root
@@ -87,4 +89,12 @@ export const exec = (command, args, options) => {
       }
     })
   })
+}
+
+/**
+ * @param {string | number | Date} date
+ * @param {string} format
+ */
+export const formatDate = (date, format = 'YYYY-MM-DD') => {
+  return moment(date).format(format)
 }
