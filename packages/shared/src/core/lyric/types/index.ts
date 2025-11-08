@@ -13,6 +13,8 @@ export interface Config {
   isInstrumental: boolean
   /** is support auto scroll lyric (no lyric time info) */
   isSupportAutoScroll: boolean
+  /** is dynamic */
+  isDynamic: boolean
 }
 
 export interface Info {

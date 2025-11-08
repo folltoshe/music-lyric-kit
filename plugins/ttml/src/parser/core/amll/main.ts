@@ -20,7 +20,7 @@ const processDynamicItem = (options: DeepRequired<Parser.Config.Line>, item: any
     return null
   }
 
-  const word = cloneDeep(Lyric.EMPTY_DYNAMIC_ITEM)
+  const word = cloneDeep(Lyric.EMPTY_WORD_ITEM)
 
   const content = readSpanText(span)
   if (!checkIsValidText(content)) {
@@ -85,10 +85,10 @@ const processLine = (context: Context, index: number, line: any) => {
   const agent: string = readAttributeValue(attr, 'ttm:agent') || ''
 
   const result = cloneDeep(Lyric.EMPTY_LINE_INFO)
-  const dynamic = cloneDeep(Lyric.EMPTY_DYNAMIC_INFO)
+  const words: Lyric.Line.Word[] = []
 
   const config = {
-    dynamic: context.common.config.get('line.dynamic', 'line.common')!,
+    main: context.common.config.get('line.main', 'line.common')!,
     translate: context.common.config.get('line.extended.translate', 'line.common')!,
     roman: context.common.config.get('line.extended.roman', 'line.common')!,
   }
@@ -101,16 +101,16 @@ const processLine = (context: Context, index: number, line: any) => {
       continue
     }
 
-    const word = processDynamicItem(config.dynamic, item)
+    const word = processDynamicItem(config.main, item)
     if (word) {
-      dynamic.items.push(word)
+      words.push(word)
       continue
     }
 
     const content: string = readTextValue(item)
     const contentTrim = content.trim()
     if (!contentTrim) {
-      const lastWord = dynamic.items[dynamic.items.length - 1]
+      const lastWord = words[words.length - 1]
       if (lastWord) {
         lastWord.content.original += ' '
       }
@@ -118,18 +118,20 @@ const processLine = (context: Context, index: number, line: any) => {
     }
   }
 
+  const original = words.map((item) => `${item.content.original}${item.config.needSpaceEnd ? ' ' : ''}`).join('')
   const time: Lyric.Time = {
     start,
     end,
     duration: end - start,
   }
-  dynamic.time = time
 
   result.id = key
   result.group.id = agent
   result.time = time
-  result.content.dynamic = dynamic
-  result.content.original = dynamic.items.map((item) => `${item.content.original}${item.config.space.end ? ' ' : ''}`).join('')
+  result.content = {
+    words,
+    original,
+  }
 
   return result
 }
@@ -139,6 +141,7 @@ export const processLyric = (context: Context, body: any): Lyric.Info | null => 
   if (!lines || !Array.isArray(lines)) return null
 
   const result = cloneDeep(Lyric.EMPTY_INFO)
+  result.config.isDynamic = true
 
   for (let index = 0; index < lines.length; index++) {
     const content = lines[index]

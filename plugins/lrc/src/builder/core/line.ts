@@ -12,17 +12,17 @@ export const exportLines = (context: Context, info: Lyric.Info) => {
   for (const line of info.lines) {
     const lineTime = `[${exportTime(line.time.start)}]`
 
-    if (line.content.dynamic) {
-      const content = line.content.dynamic
-      const items = content.items.map((item) => {
+    if (line.content.words) {
+      const content = line.content.words
+      const items = content.map((item) => {
         const time = exportTime(item.time.start)
-        return `<${time}>${item.content.original}${item.config.space.end ? ' ' : ''}`
+        return `<${time}>${item.content.original}${item.config.needSpaceEnd ? ' ' : ''}`
       })
 
       const dynamicLine = `${lineTime}${items.join('')}`
       dynamic.push(dynamicLine)
 
-      const originalLine = `${lineTime}${content.items.map((item) => `${item.content.original}${item.config.space.end ? ' ' : ''}`).join('')}`
+      const originalLine = `${lineTime}${content.map((item) => `${item.content.original}${item.config.needSpaceEnd ? ' ' : ''}`).join('')}`
       original.push(originalLine)
     } else {
       const target = `${lineTime}${line.content.original}`

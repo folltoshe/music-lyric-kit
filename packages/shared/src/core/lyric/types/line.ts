@@ -13,36 +13,26 @@ export namespace Line {
     }
   }
 
-  interface BaseContent {
+  export interface Word {
+    time: Time
+    content: {
+      original: string
+      extended?: Extended.Info[]
+    }
+    config: {
+      /** need space in word start, if line postion in right, you need use it */
+      needSpaceStart: boolean
+      /** need space in word end, if line postion in left, you need use it */
+      needSpaceEnd: boolean
+      /** is long sound */
+      isProlongedSound: boolean
+    }
+  }
+
+  export interface Content {
+    words: Word[]
     original: string
     extended?: Extended.Info[]
-  }
-
-  export namespace Dynamic {
-    export interface Item {
-      /** time info (relative to the time of this lyrics) */
-      time: Time
-      content: BaseContent
-      config: {
-        space: {
-          /** need space in word start, if line postion in right, you need use it */
-          start: boolean
-          /** need space in word end, if line postion in left, you need use it */
-          end: boolean
-        }
-        isProlongedSound: boolean
-      }
-    }
-
-    export interface Info {
-      /** time info (relative to the time of this lyrics) */
-      time: Time
-      items: Item[]
-    }
-  }
-
-  export interface Content extends BaseContent {
-    dynamic?: Dynamic.Info
   }
 
   export interface Info {

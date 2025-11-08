@@ -7,8 +7,8 @@ const removeAllSpace = (content: string) => {
   return content.replaceAll(/\s*/g, '').trim()
 }
 
-const applySpaceToWords = (items: Line.Dynamic.Item[], result: string[]) => {
-  const map = new Map<string, Line.Dynamic.Item[]>()
+const applySpaceToWords = (items: Line.Word[], result: string[]) => {
+  const map = new Map<string, Line.Word[]>()
   for (const item of items) {
     const key = removeAllSpace(item.content.original)
     if (!map.has(key)) map.set(key, [])
@@ -38,28 +38,24 @@ const applySpaceToWords = (items: Line.Dynamic.Item[], result: string[]) => {
 
     const prev = result[i - 1]
     const next = result[i + 1]
-    if (prev?.trim() === '') item.config.space.start = true
-    if (next?.trim() === '') item.config.space.end = true
+    if (prev?.trim() === '') item.config.needSpaceStart = true
+    if (next?.trim() === '') item.config.needSpaceEnd = true
   }
 }
 
 export const insertSpaceToLines = (context: CommonContext, info: Info) => {
   const config = {
-    original: context.common.config.get('line.original.insert.space', 'line.common.insert.space')!,
-    dynamic: context.common.config.get('line.dynamic.insert.space', 'line.common.insert.space')!,
+    main: context.common.config.get('line.main.insert.space', 'line.common.insert.space')!,
     translate: context.common.config.get('line.extended.translate.insert.space', 'line.common.insert.space')!,
     roman: context.common.config.get('line.extended.roman.insert.space', 'line.common.insert.space')!,
   }
 
   for (const line of info.lines) {
-    if (line.content.dynamic && config.dynamic.enable) {
-      const words = line.content.dynamic.items.map((item) => item.content.original)
-      const result = insertSpaceToWords(words, config.dynamic.types)
-      applySpaceToWords(line.content.dynamic.items, result)
-      line.content.original = line.content.dynamic.items.map((item) => `${item.content.original}${item.config.space.end ? ' ' : ''}`).join('')
-    } else if (line.content.original && config.original.enable) {
-      const result = insertSpace(line.content.original, config.original.types)
-      line.content.original = result
+    if (config.main.enable) {
+      const words = line.content.words.map((item) => item.content.original)
+      const result = insertSpaceToWords(words, config.main.types)
+      applySpaceToWords(line.content.words, result)
+      line.content.original = line.content.words.map((item) => `${item.content.original}${item.config.needSpaceEnd ? ' ' : ''}`).join('')
     }
 
     for (const item of line.content.extended || []) {

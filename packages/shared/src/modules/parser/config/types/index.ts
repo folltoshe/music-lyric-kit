@@ -19,8 +19,7 @@ export interface Full {
   }
   line: {
     common: Line
-    original?: Line
-    dynamic?: Line
+    main?: Line
     extended?: {
       translate?: Line
       roman?: Line
