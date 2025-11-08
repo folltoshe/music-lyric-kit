@@ -1,5 +1,4 @@
-export * as Lyric from './lyric'
-
+export * from './core'
 export * from './modules'
 
 export * from './config'

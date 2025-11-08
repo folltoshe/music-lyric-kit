@@ -1,4 +1,4 @@
-import type { Info, Line } from '@root/lyric'
+import type { Info, Line } from '@root/core/lyric'
 import type { CommonContext } from '@root/modules/parser/plugin'
 
 export const insertGroupCount = (context: CommonContext, info: Info) => {
