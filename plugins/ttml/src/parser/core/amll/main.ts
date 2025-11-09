@@ -44,7 +44,12 @@ const processDynamicItem = (options: DeepRequired<Parser.Config.Line>, item: any
   return word
 }
 
-const processExtendedItem = (context: Context, result: Lyric.Line.Info, item: any, role: string) => {
+const EXTENDED_TYPE_MAP: Record<string, Lyric.Line.Extended.Type> = {
+  'x-translation': 'TRANSLATE',
+  'x-roman': 'ROMAN',
+}
+
+const processExtendedItem = (result: Lyric.Line.Info, item: any, role: string) => {
   const span = readSpan(item)
   if (!span.length) {
     return
@@ -55,14 +60,8 @@ const processExtendedItem = (context: Context, result: Lyric.Line.Info, item: an
     return
   }
 
-  const [type, config]: [Lyric.Line.Extended.Type | null, DeepRequired<Parser.Config.Line> | null] =
-    role === 'x-translation'
-      ? ['TRANSLATE', context.common.config.get('line.extended.translate', 'line.common')!]
-      : role === 'x-roman'
-      ? ['ROMAN', context.common.config.get('line.extended.roman', 'line.common')!]
-      : [null, null]
-
-  if (!config || !type) {
+  const type = EXTENDED_TYPE_MAP[role]
+  if (!type) {
     return
   }
 
@@ -96,8 +95,8 @@ const processBackgroundItem = (context: Context, line: any) => {
     switch (role || '') {
       case 'x-translation':
       case 'x-roman':
-        processExtendedItem(context, result, item, role)
-        break
+        processExtendedItem(result, item, role)
+        continue
     }
 
     const word = processDynamicItem(config, item)
@@ -125,10 +124,8 @@ const processBackgroundItem = (context: Context, line: any) => {
   }
 
   result.time = time
-  result.content = {
-    words,
-    original,
-  }
+  result.content.words = words
+  result.content.original = original
 
   return result
 }
@@ -154,8 +151,8 @@ const processLine = (context: Context, index: number, line: any) => {
     switch (role || '') {
       case 'x-translation':
       case 'x-roman':
-        processExtendedItem(context, result, item, role)
-        break
+        processExtendedItem(result, item, role)
+        continue
       case 'x-bg':
         if (!result.background) {
           result.background = []
@@ -195,10 +192,8 @@ const processLine = (context: Context, index: number, line: any) => {
   result.id = key
   result.group.id = agent
   result.time = time
-  result.content = {
-    words,
-    original,
-  }
+  result.content.words = words
+  result.content.original = original
 
   return result
 }
