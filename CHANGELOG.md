@@ -1,3 +1,18 @@
+## v2.2.0 (2025-11-09)
+
+### Breaking Change
+
+- group field is no longer required in result
+
+### Feature
+
+- update group field type in result ([d806502](https://github.com/folltoshe/music-lyric-kit/commit/d806502))
+
+### Bug Fix
+
+- plugin-ttml
+  - extended lyric not add to result ([2917fff](https://github.com/folltoshe/music-lyric-kit/commit/2917fff))
+
 ## v2.1.0 (2025-11-09)
 
 ### Breaking Change
