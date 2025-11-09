@@ -19,6 +19,6 @@
     "directory": "packages/test"
   },
   "dependencies": {
-    "music-lyric-kit": "workspace:*"
+    "music-lyric-kit": "workspace:^"
   }
 }

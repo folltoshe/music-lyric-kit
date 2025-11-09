@@ -55,8 +55,8 @@ importers:
   packages/test:
     dependencies:
       music-lyric-kit:
-        specifier: workspace:*
-        version: link:../..
+        specifier: workspace:^
+        version: link:../core
 
   plugins/krc: {}
 
