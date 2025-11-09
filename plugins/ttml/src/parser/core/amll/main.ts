@@ -190,10 +190,14 @@ const processLine = (context: Context, index: number, line: any) => {
   }
 
   result.id = key
-  result.group.id = agent
   result.time = time
   result.content.words = words
   result.content.original = original
+
+  if (!result.group) {
+    result.group = cloneDeep(Lyric.EMPTY_GROUP_LINE_INFO)
+  }
+  result.group.id = agent
 
   return result
 }

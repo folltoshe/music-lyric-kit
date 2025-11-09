@@ -5,6 +5,9 @@ export const insertGroupCount = (context: CommonContext, info: Info) => {
   const groups: Record<string, number> = {}
 
   const handleAdd = (line: Line.Info) => {
+    if (!line.group) {
+      return
+    }
     line.group.index = {
       global: currentGroupGlobalIndex,
       block: currentGroupBlockIndex,
@@ -23,7 +26,7 @@ export const insertGroupCount = (context: CommonContext, info: Info) => {
   let currentGroupGlobalIndex = 0
   let currentGroupBlockIndex = 0
   for (const line of info.lines) {
-    if (!line.group.id) {
+    if (!line.group || !line.group.id) {
       continue
     }
 

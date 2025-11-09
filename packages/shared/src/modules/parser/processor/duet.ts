@@ -1,7 +1,9 @@
 import type { Info, Line } from '@root/core/lyric'
 import type { CommonContext } from '@root/modules/parser/plugin'
 
-import { crc32WithHex } from '@root/utils'
+import { Lyric } from '@root/core'
+
+import { cloneDeep, crc32WithHex } from '@root/utils'
 
 const MATCH_REGEXP = /(?:(?:\([^)]*\)|\[[^\]]*\]|\{[^}]*\}|（[^）]*）|【[^】]*】|「[^」]*」)|[^(:：()\[\]{}（）【】「」])*?[:：]/
 
@@ -23,6 +25,9 @@ export const insertDuet = (context: CommonContext, info: Info) => {
   let currentGroupId = ''
 
   const handleAdd = (line: Line.Info) => {
+    if (!line.group) {
+      line.group = cloneDeep(Lyric.EMPTY_GROUP_LINE_INFO)
+    }
     line.group.id = currentGroupId
     lines.push(line)
   }

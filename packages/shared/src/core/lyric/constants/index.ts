@@ -1,9 +1,11 @@
 import type { Info } from '../types'
 
 import { EMPTY_TIME } from './time'
+import { EMPTY_GROUP_LINE_INFO } from './group'
 import { LINE_TYPES, EMPTY_WORD_ITEM, EMPTY_LINE_INFO } from './line'
 
 export { EMPTY_TIME }
+export { EMPTY_GROUP_LINE_INFO }
 export { LINE_TYPES, EMPTY_WORD_ITEM, EMPTY_LINE_INFO }
 
 export const EMPTY_INFO: Info = {

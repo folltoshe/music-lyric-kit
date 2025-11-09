@@ -42,10 +42,10 @@ export namespace Line {
     type: Type
     /** time info (relative to the time of this lyrics) */
     time: Time
-    /** duet group info */
-    group: GroupLineInfo
     /** line content */
     content: Content
+    /** group info */
+    group?: GroupLineInfo
     /** background lyric */
     background?: Info[]
   }

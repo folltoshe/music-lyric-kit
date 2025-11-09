@@ -23,13 +23,6 @@ export const EMPTY_LINE_INFO: Line.Info = {
   id: '',
   type: LINE_TYPES.NORMAL,
   time: EMPTY_TIME,
-  group: {
-    id: '',
-    index: {
-      global: 0,
-      block: 0,
-    },
-  },
   content: {
     words: [],
     original: '',
