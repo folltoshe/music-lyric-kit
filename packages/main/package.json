@@ -35,7 +35,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/folltoshe/music-lyric-kit.git",
-    "directory": "packages/core"
+    "directory": "packages/main"
   },
   "dependencies": {
     "@music-lyric-kit/shared": "workspace:*",

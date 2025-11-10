@@ -30,7 +30,7 @@ importers:
         specifier: ^4.5.4
         version: 4.5.4(@types/node@24.9.1)(rollup@4.52.5)(typescript@5.8.2)(vite@7.1.12(@types/node@24.9.1)(terser@5.44.0))
 
-  packages/core:
+  packages/main:
     dependencies:
       '@music-lyric-kit/plugin-lrc':
         specifier: workspace:*
@@ -56,7 +56,7 @@ importers:
     dependencies:
       music-lyric-kit:
         specifier: workspace:^
-        version: link:../core
+        version: link:../main
 
   plugins/krc: {}
 
