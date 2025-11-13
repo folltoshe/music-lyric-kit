@@ -7,6 +7,12 @@ export const LINE_TYPES: Record<Line.Type, Line.Type> = {
   INTERLUDE: 'INTERLUDE',
 } as const
 
+export const EXTENDED_TYPES: Record<Line.Extended.Type, Line.Extended.Type> = {
+  TRANSLATE: 'TRANSLATE',
+  ROMAN: 'ROMAN',
+  UNKNOWN: 'UNKNOWN',
+}
+
 export const EMPTY_WORD_ITEM: Line.Word = {
   time: EMPTY_TIME,
   content: {
