@@ -1,3 +1,25 @@
+## v2.2.1 (2025-11-13)
+
+### Document
+
+- update readme ([357785e](https://github.com/folltoshe/music-lyric-kit/commit/357785e))
+
+### Feature
+
+- shared
+  - add extended line type constant ([ca58f39](https://github.com/folltoshe/music-lyric-kit/commit/ca58f39))
+- line type use constant in extended line result ([337d318](https://github.com/folltoshe/music-lyric-kit/commit/337d318))
+
+### Bug Fix
+
+- shared
+  - config manager returned bad result when key is empty ([4ba56a2](https://github.com/folltoshe/music-lyric-kit/commit/4ba56a2))
+
+### Code Refactor
+
+- shared
+  - parser processor code ([498b168](https://github.com/folltoshe/music-lyric-kit/commit/498b168))
+
 ## v2.2.0 (2025-11-09)
 
 ### Breaking Change
