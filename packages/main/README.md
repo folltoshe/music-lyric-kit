@@ -20,7 +20,7 @@ const dynamic = ''
 const translate = ''
 const roman = ''
 
-const result = parser.lrc.parse({ original, dynamic, translate, roman })
+const result = parser.lrc.parse({ content: { original, dynamic, translate, roman } })
 
 console.log(result)
 ```

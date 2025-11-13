@@ -14,11 +14,11 @@
   - [ ] KRC
   - [ ] QRC
   - [ ] YRC
-  - [ ] TTML
+  - [x] TTML
 
 - Export Lyric
 
-  - [ ] LRC
+  - [x] LRC
   - [ ] KRC
   - [ ] QRC
   - [ ] YRC
@@ -65,7 +65,7 @@ const dynamic = ''
 const translate = ''
 const roman = ''
 
-const result = parser.lrc.parse({ original, dynamic, translate, roman })
+const result = parser.lrc.parse({ content: { original, dynamic, translate, roman } })
 
 console.log(result)
 ```
