@@ -26,7 +26,7 @@ export class ConfigManager<T extends Record<string, any>> {
   get<K extends NestedKeys<DeepRequired<T>>>(key: K, common?: K): PathValue<T, K>
   get<K extends T | undefined>(key?: K, common?: K): any {
     if (!key) {
-      return this.current
+      return merge({}, this.default, this.current)
     }
 
     const current = get(this.current, key as T)
