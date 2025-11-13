@@ -45,8 +45,8 @@ const processDynamicItem = (options: DeepRequired<Parser.Config.Line>, item: any
 }
 
 const EXTENDED_TYPE_MAP: Record<string, Lyric.Line.Extended.Type> = {
-  'x-translation': 'TRANSLATE',
-  'x-roman': 'ROMAN',
+  'x-translation': Lyric.EXTENDED_TYPES.TRANSLATE,
+  'x-roman': Lyric.EXTENDED_TYPES.ROMAN,
 }
 
 const processExtendedItem = (result: Lyric.Line.Info, item: any, role: string) => {

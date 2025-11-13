@@ -80,7 +80,7 @@ export const processExtendedLyric = (context: Context, info: Lyric.Info, params:
       const target = translateAlign.find((v) => v.time.start === line.time.start) as Lyric.Line.Info
       if (target) {
         result.push({
-          type: 'TRANSLATE',
+          type: Lyric.EXTENDED_TYPES.TRANSLATE,
           content: target.content.original,
         })
       }
@@ -89,7 +89,7 @@ export const processExtendedLyric = (context: Context, info: Lyric.Info, params:
       const target = romanAlign.find((v) => v.time.start === line.time.start) as Lyric.Line.Info
       if (target) {
         result.push({
-          type: 'ROMAN',
+          type: Lyric.EXTENDED_TYPES.ROMAN,
           content: target.content.original,
         })
       }
