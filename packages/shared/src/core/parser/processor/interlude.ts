@@ -1,5 +1,5 @@
 import type { Info } from '@root/core/lyric'
-import type { CommonContext } from '@root/modules/parser/plugin'
+import type { CommonContext } from '@root/core/parser/plugin'
 
 import { EMPTY_LINE_INFO, LINE_TYPES } from '@root/core/lyric'
 

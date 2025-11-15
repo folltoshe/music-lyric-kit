@@ -2,8 +2,8 @@ import type { ConfigManager } from '@root/config'
 import type { ConfigType, Context } from '@root/plugin'
 import type { Info } from '@root/core/lyric'
 
-import type { Full } from './config'
-import { FULL } from './config'
+import type { Full } from '../config'
+import { FULL } from '../config'
 
 import { BasePlugin } from '@root/plugin'
 

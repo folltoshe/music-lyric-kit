@@ -1,5 +1,5 @@
 import type { Info, Line } from '@root/core/lyric'
-import type { CommonContext } from '@root/modules/parser/plugin'
+import type { CommonContext } from '@root/core/parser/plugin'
 
 export const insertGroupCount = (context: CommonContext, info: Info) => {
   const groups: Record<string, number> = {}

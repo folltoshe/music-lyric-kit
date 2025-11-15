@@ -1,6 +1,6 @@
 import { Lyric } from '@root/core'
 import type { Info, Line } from '@root/core/lyric'
-import type { CommonContext } from '@root/modules/parser/plugin'
+import type { CommonContext } from '@root/core/parser/plugin'
 
 import { insertSpace, insertSpaceToWords, removeTextAllSpace } from '@root/utils'
 

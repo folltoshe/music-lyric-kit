@@ -1,5 +1,5 @@
 import type { Line, Producer } from '@root/core/lyric'
-import type { CommonContext } from '@root/modules/parser/plugin'
+import type { CommonContext } from '@root/core/parser/plugin'
 
 import { MATCH_MODE } from '@root/utils'
 import { DEFAULT_PRODUCER_RULES, DEFAULT_PRODUCER_RULES_QUICK_KEYWORDS } from './constants'

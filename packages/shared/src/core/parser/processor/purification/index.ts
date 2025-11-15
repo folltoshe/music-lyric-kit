@@ -1,7 +1,7 @@
 import type { Info, Line } from '@root/core/lyric'
 import type { DeepRequired } from '@root/utils'
-import type { Purification } from '@root/modules/parser/config'
-import type { CommonContext, MusicInfoProps } from '@root/modules/parser/plugin'
+import type { Purification } from '@root/core/parser/config'
+import type { CommonContext, MusicInfoProps } from '@root/core/parser/plugin'
 
 import { MATCH_MODE } from '@root/utils'
 import { DEFAULT_PURIFICATION_RULES, DEFAULT_PURIFICATION_RULES_QUICK_KEYWORDS } from './constants'
