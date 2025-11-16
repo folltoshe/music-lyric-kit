@@ -34,7 +34,7 @@ export abstract class BasePlugin<PluginConfig extends ConfigType, CommonConfig e
     }
   }
 
-  public updateConfig(target: DeepPartial<PluginConfig>) {
+  public updateConfig(target: DeepPartial<CommonConfig & PluginConfig>) {
     this.context.config.set(target)
   }
 }

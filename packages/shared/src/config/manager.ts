@@ -53,7 +53,7 @@ export class ConfigManager<T extends ConfigType, C extends ConfigType = ConfigTy
     return merge({}, def, common, current)
   }
 
-  set(opt: DeepPartial<T>) {
+  set<R extends C & T>(opt: DeepPartial<R>) {
     if (!opt) return
     this.current = merge(this.current, opt)
   }
