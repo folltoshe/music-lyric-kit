@@ -1,3 +1,25 @@
+## v3.0.0 (2025-11-17)
+
+### Breaking Change
+
+- some common config have been moved to plugin config
+- config manager init params have been changed
+
+### Bug Fix
+
+- main
+  - bad type for plugin init config param ([580c44b](https://github.com/folltoshe/music-lyric-kit/commit/580c44b))
+- shared
+  - bad type for update plugin config param ([fd870f3](https://github.com/folltoshe/music-lyric-kit/commit/fd870f3))
+  - config manager can not get common config ([f37d729](https://github.com/folltoshe/music-lyric-kit/commit/f37d729))
+- plugin init config param not optional ([3e22555](https://github.com/folltoshe/music-lyric-kit/commit/3e22555))
+
+### Code Refactor
+
+- shared
+  - parser and builder ([43bb8e6](https://github.com/folltoshe/music-lyric-kit/commit/43bb8e6))
+- config manager and config type ([c0291c5](https://github.com/folltoshe/music-lyric-kit/commit/c0291c5))
+
 ## v2.2.1 (2025-11-13)
 
 ### Document
