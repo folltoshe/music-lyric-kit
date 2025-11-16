@@ -1,4 +1,4 @@
-import type { PathValue, NestedKeys, DeepPartial, DeepRequired } from '@root/utils'
+import type { PathValue, NestedKeys, DeepPartial } from '@root/utils'
 
 import { get, merge } from '@root/utils'
 
@@ -40,7 +40,7 @@ export class ConfigManager<T extends ConfigType, C extends ConfigType = ConfigTy
       return current
     }
 
-    const common = get(this.common, key as any)
+    const common = this.common?.get(key as any)
     if (common !== void 0 && typeof common !== 'object') {
       return common
     }
