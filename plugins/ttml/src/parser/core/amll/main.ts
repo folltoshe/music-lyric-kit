@@ -1,12 +1,11 @@
-import type { DeepRequired } from '@music-lyric-kit/shared'
 import type { Context } from '@parser/core/types'
 
-import { Lyric, Parser } from '@music-lyric-kit/shared'
+import { Lyric } from '@music-lyric-kit/shared'
 
 import { parseTime, cloneDeep, checkIsValidText } from '@music-lyric-kit/shared'
 import { readAttribute, readAttributeValue, readSpan, readSpanText, readTextValue } from '@parser/utils'
 
-const processDynamicItem = (options: DeepRequired<Parser.Config.Line>, item: any) => {
+const processDynamicItem = (item: any) => {
   const span = readSpan(item)
   if (!span.length) {
     return
@@ -87,7 +86,6 @@ const processBackgroundItem = (context: Context, line: any) => {
   const result = cloneDeep(Lyric.EMPTY_LINE_INFO)
   const words: Lyric.Line.Word[] = []
 
-  const config = context.common.config.get('line.main', 'line.common')!
   for (const item of line.span || []) {
     const attr = readAttribute(item)
     const role = readAttributeValue(attr, 'ttm:role')
@@ -99,7 +97,7 @@ const processBackgroundItem = (context: Context, line: any) => {
         continue
     }
 
-    const word = processDynamicItem(config, item)
+    const word = processDynamicItem(item)
     if (word) {
       words.push(word)
       continue
@@ -143,7 +141,6 @@ const processLine = (context: Context, index: number, line: any) => {
   const result = cloneDeep(Lyric.EMPTY_LINE_INFO)
   const words: Lyric.Line.Word[] = []
 
-  const config = context.common.config.get('line.main', 'line.common')!
   for (const item of line.p || []) {
     const attr = readAttribute(item)
     const role = readAttributeValue(attr, 'ttm:role')
@@ -165,7 +162,7 @@ const processLine = (context: Context, index: number, line: any) => {
         continue
     }
 
-    const word = processDynamicItem(config, item)
+    const word = processDynamicItem(item)
     if (word) {
       words.push(word)
       continue

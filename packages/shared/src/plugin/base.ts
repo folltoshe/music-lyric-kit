@@ -6,27 +6,35 @@ import { ConfigManager } from '@root/config'
 export abstract class BasePlugin<PluginConfig extends ConfigType, CommonConfig extends ConfigType> {
   protected context: Context<PluginConfig, CommonConfig>
 
-  constructor(def: PluginConfig, commonDef: CommonConfig, commonGlobal?: ConfigManager<CommonConfig>) {
+  constructor(params: {
+    plugin: {
+      default: PluginConfig
+      init?: DeepPartial<PluginConfig>
+    }
+    common: {
+      default: CommonConfig
+      client?: ConfigManager<CommonConfig>
+    }
+  }) {
+    const common =
+      params.common.client ||
+      new ConfigManager({
+        current: {
+          default: params.common.default,
+        },
+      })
     this.context = {
-      common: {
-        global: !!commonGlobal,
-        config: commonGlobal || new ConfigManager(commonDef),
-      },
-      plugin: {
-        config: new ConfigManager(def),
-      },
+      config: new ConfigManager({
+        current: {
+          default: params.plugin.default,
+          init: params.plugin.init,
+        },
+        common,
+      }),
     }
   }
 
-  public updateCommonConfig(target: DeepPartial<CommonConfig>) {
-    if (this.context.common.global) {
-      console.warn('this plugin is use global common config, skip update.')
-      return
-    }
-    this.context.common.config.set(target)
-  }
-
-  public updatePluginConfig(target: DeepPartial<PluginConfig>) {
-    this.context.plugin.config.set(target)
+  public updateConfig(target: DeepPartial<PluginConfig>) {
+    this.context.config.set(target)
   }
 }

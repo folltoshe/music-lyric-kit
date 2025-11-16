@@ -15,10 +15,7 @@ const { insertInterlude, insertSpaceToLines } = Parser.Processor
 
 export class Plugin extends Parser.Plugin.Base<Config, Params, Result> {
   constructor(options?: Config, global?: ConfigManager<Parser.Config.Full>) {
-    super(DEFAULT_CONFIG, global)
-    if (options) {
-      this.updatePluginConfig(options)
-    }
+    super(DEFAULT_CONFIG, options, global)
   }
 
   override parse(params: Params): Result {

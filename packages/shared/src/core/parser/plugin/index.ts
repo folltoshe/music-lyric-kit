@@ -1,6 +1,7 @@
 import type { ConfigManager } from '@root/config'
 import type { ConfigType, Context } from '@root/plugin'
-import type { Info } from '@root/core/lyric'
+import type { Info } from '@root/core/target'
+import type { DeepPartial } from '@root/utils'
 
 import type { Full } from '../config'
 import { FULL } from '../config'
@@ -12,14 +13,20 @@ export interface MusicInfoProps {
   singer: string[]
 }
 
-export type CommonContext = Context<any, Full>
+export type CommonContext = Context<{}, Full>
 
-export abstract class Base<PluginConfig extends ConfigType, Params = ConfigType, Result = null | undefined | Info> extends BasePlugin<
-  PluginConfig,
-  Full
-> {
-  constructor(def: PluginConfig, global?: ConfigManager<Full>) {
-    super(def, FULL, global)
+export abstract class Base<Config extends ConfigType, Params = ConfigType, Result = null | undefined | Info> extends BasePlugin<Config, Full> {
+  constructor(def: Config, init?: DeepPartial<Config>, global?: ConfigManager<Full>) {
+    super({
+      plugin: {
+        default: def,
+        init,
+      },
+      common: {
+        default: FULL,
+        client: global,
+      },
+    })
   }
 
   abstract parse(props: Params): Result

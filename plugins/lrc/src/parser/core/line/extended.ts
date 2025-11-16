@@ -5,7 +5,7 @@ import { Lyric, Parser } from '@music-lyric-kit/shared'
 import { cloneDeep } from '@music-lyric-kit/shared'
 import { alignLyricWithTime, parseTagTime, checkLineIsValid } from '@parser/utils'
 
-const processLine = (config: Parser.Config.Line, line: MatchItem) => {
+const processLine = (line: MatchItem) => {
   const time = parseTagTime(line.tag) || 0
   const text = line.content.trim()
 
@@ -16,12 +16,12 @@ const processLine = (config: Parser.Config.Line, line: MatchItem) => {
   return result
 }
 
-const processNormal = (config: Parser.Config.Line, lines: MatchItem[]) => {
+const processNormal = (lines: MatchItem[]) => {
   if (lines.length <= 0) return null
 
   const result: Lyric.Line.Info[] = []
   for (const line of lines) {
-    const item = processLine(config, line)
+    const item = processLine(line)
     if (!item) continue
     result.push(item)
   }
@@ -38,9 +38,8 @@ const processNormal = (config: Parser.Config.Line, lines: MatchItem[]) => {
   return result
 }
 
-const processItem = (context: Context, key: keyof Parser.Config.FullRequired['line']['extended'], lines: MatchItem[]) => {
-  const options = context.common.config.get(`line.extended.${key}`, 'line.common')!
-  return processNormal(options, lines)
+const processItem = (lines: MatchItem[]) => {
+  return processNormal(lines)
 }
 
 interface Params {
@@ -56,7 +55,7 @@ export const processExtendedLyric = (context: Context, info: Lyric.Info, params:
   const result = info
   const target = info.lines
 
-  const translate = processItem(context, 'translate', params.translate.line)
+  const translate = processItem(params.translate.line)
   const translateAlign =
     translate && checkLineIsValid(translate)
       ? alignLyricWithTime({
@@ -65,7 +64,7 @@ export const processExtendedLyric = (context: Context, info: Lyric.Info, params:
         })
       : null
 
-  const roman = processItem(context, 'roman', params.roman.line)
+  const roman = processItem(params.roman.line)
   const romanAlign =
     roman && checkLineIsValid(roman)
       ? alignLyricWithTime({

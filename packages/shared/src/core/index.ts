@@ -1,4 +1,4 @@
-export * as Lyric from './lyric'
+export * as Lyric from './target'
 
 export * as Parser from './parser'
 

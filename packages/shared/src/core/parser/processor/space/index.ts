@@ -1,5 +1,5 @@
 import { Lyric } from '@root/core'
-import type { Info, Line } from '@root/core/lyric'
+import type { Info, Line } from '@root/core/target'
 import type { CommonContext } from '@root/core/parser/plugin'
 
 import { insertSpace, insertSpaceToWords, removeTextAllSpace } from '@root/utils'
@@ -42,9 +42,8 @@ const applySpaceToWords = (items: Line.Word[], result: string[]) => {
 
 export const insertSpaceToLines = (context: CommonContext, info: Info) => {
   const config = {
-    main: context.common.config.get('line.main.insert.space', 'line.common.insert.space')!,
-    translate: context.common.config.get('line.extended.translate.insert.space', 'line.common.insert.space')!,
-    roman: context.common.config.get('line.extended.roman.insert.space', 'line.common.insert.space')!,
+    main: context.config.get('line.main.insert.space'),
+    extended: context.config.get('line.extended.insert.space'),
   }
 
   const handleProcess = (line: Lyric.Line.Info) => {
@@ -55,19 +54,10 @@ export const insertSpaceToLines = (context: CommonContext, info: Info) => {
       line.content.original = line.content.words.map((item) => `${item.content.original}${item.config.needSpaceEnd ? ' ' : ''}`).join('')
     }
 
-    for (const item of line.content.extended || []) {
-      const [enable, types] =
-        item.type === 'TRANSLATE'
-          ? [config.translate.enable, config.translate.types]
-          : item.type === 'ROMAN'
-          ? [config.roman.enable, config.roman.types]
-          : [null, null]
-
-      if (!enable) {
-        continue
+    if (config.extended.enable) {
+      for (const item of line.content.extended || []) {
+        item.content = insertSpace(item.content, config.extended.types)
       }
-
-      item.content = insertSpace(item.content, types)
     }
   }
 

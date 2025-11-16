@@ -2,42 +2,55 @@ import type { PathValue, NestedKeys, DeepPartial, DeepRequired } from '@root/uti
 
 import { get, merge } from '@root/utils'
 
-export class ConfigManager<T extends Record<string, any>> {
+type ConfigType = Record<string, any>
+
+export class ConfigManager<T extends ConfigType, C extends ConfigType = ConfigType> {
   private default: T
   private current: DeepPartial<T>
+  private common?: ConfigManager<C>
 
-  constructor(def: T, init?: DeepPartial<T>) {
-    this.default = def
-    if (init) {
-      this.current = init
+  constructor({
+    current,
+    common,
+  }: {
+    current: {
+      default: T
+      init?: DeepPartial<T>
+    }
+    common?: ConfigManager<C>
+  }) {
+    this.default = current.default
+    this.common = common
+    if (current.init) {
+      this.current = current.init
     } else {
       this.current = Object.create({})
     }
   }
 
-  private processCommon(key: any) {
-    const comm = get(this.current, key as T)
-    const def = get(this.default, key as T)
-    return merge({}, def, comm)
-  }
-
-  get(): T
-  get<K extends NestedKeys<DeepRequired<T>>>(key: K): PathValue<T, K>
-  get<K extends NestedKeys<DeepRequired<T>>>(key: K, common?: K): PathValue<T, K>
-  get<K extends T | undefined>(key?: K, common?: K): any {
+  get(): C & T
+  get<R extends C & T, K extends NestedKeys<R>>(key: K): PathValue<R, K>
+  get(key?: T | undefined): any {
     if (!key) {
-      return merge({}, this.default, this.current)
+      return merge({}, this.default, this.common, this.current)
     }
 
-    const current = get(this.current, key as T)
+    const current = get(this.current, key as any)
     if (current !== void 0 && typeof current !== 'object') {
       return current
     }
 
-    const def = get(this.default, key as T)
-    const comm = common ? this.processCommon(common) : null
+    const common = get(this.common, key as any)
+    if (common !== void 0 && typeof common !== 'object') {
+      return common
+    }
 
-    return merge({}, def, comm, current)
+    const def = get(this.default, key as any)
+    if (def !== void 0 && typeof def !== 'object') {
+      return def
+    }
+
+    return merge({}, def, common, current)
   }
 
   set(opt: DeepPartial<T>) {

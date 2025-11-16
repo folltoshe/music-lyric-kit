@@ -1,4 +1,4 @@
-import type { Info, Line } from '@root/core/lyric'
+import type { Info, Line } from '@root/core/target'
 import type { CommonContext } from '@root/core/parser/plugin'
 
 import { Lyric } from '@root/core'
@@ -13,7 +13,7 @@ const createGroupId = (name: string) => {
 }
 
 export const insertDuet = (context: CommonContext, info: Info) => {
-  const options = context.common.config.get('content.duet')
+  const options = context.config.get('content.duet')
   if (!options.enable) {
     return info
   }

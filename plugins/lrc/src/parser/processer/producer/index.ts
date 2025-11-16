@@ -1,10 +1,10 @@
-import type { Line, Producer } from '@root/core/lyric'
-import type { CommonContext } from '@root/core/parser/plugin'
+import type { Lyric } from '@music-lyric-kit/shared'
 
-import { MATCH_MODE } from '@root/utils'
+import { MATCH_MODE } from '@music-lyric-kit/shared'
 import { DEFAULT_PRODUCER_RULES, DEFAULT_PRODUCER_RULES_QUICK_KEYWORDS } from './constants'
 
-import { matchTextIsValid, matchTextWithPercentage, replaceFromText } from '@root/utils'
+import { matchTextIsValid, matchTextWithPercentage, replaceFromText } from '@music-lyric-kit/shared'
+import { Context } from '@root/parser/core/types'
 
 const MATCH_REGEXP = /(?:(?:\([^)]*\)|\[[^\]]*\]|\{[^}]*\}|（[^）]*）|【[^】]*】|「[^」]*」)|[^(:：()\[\]{}（）【】「」])*?[:：]/
 
@@ -15,14 +15,14 @@ const splitNameWithRule = (name: string, rule: string | RegExp) => {
     .filter((item) => !!item)
 }
 
-export const processProducer = (context: CommonContext, infos: Line.Info[]): [Line.Info[], Producer[]] => {
-  const options = context.common.config.get('meta.producer')
+export const processProducer = (context: Context, infos: Lyric.Line.Info[]): [Lyric.Line.Info[], Lyric.Producer[]] => {
+  const options = context.config.get('meta.producer')
   if (!options.enable) {
     return [infos, []]
   }
 
-  const result: Producer[] = []
-  const lines: Line.Info[] = []
+  const result: Lyric.Producer[] = []
+  const lines: Lyric.Line.Info[] = []
 
   const needReplace = options.replace
   const matchRules = [...(options.match.rule.useDefault ? DEFAULT_PRODUCER_RULES : []), ...options.match.rule.custom]
@@ -67,7 +67,7 @@ export const processProducer = (context: CommonContext, infos: Line.Info[]): [Li
       }
     }
 
-    const item: Producer = {
+    const item: Lyric.Producer = {
       role: {
         raw: role,
         parsed: options.role.replace.enable ? replaceFromText(role, '', options.role.replace.rule).trim() : role,

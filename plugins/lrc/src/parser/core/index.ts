@@ -15,10 +15,7 @@ const { purificationLyric, insertInterlude, insertDuet, insertGroupCount, insert
 
 export class Plugin extends Parser.Plugin.Base<Config, Params, Result> {
   constructor(options?: Config, global?: ConfigManager<Parser.Config.Full>) {
-    super(DEFAULT_CONFIG, global)
-    if (options) {
-      this.updatePluginConfig(options)
-    }
+    super(DEFAULT_CONFIG, options, global)
   }
 
   override parse(params: Params): Result {
@@ -44,7 +41,7 @@ export class Plugin extends Parser.Plugin.Base<Config, Params, Result> {
     target = insertDuet(this.context, target)
 
     // group
-    target = insertGroupCount(this.context, target)
+    target = insertGroupCount(target)
 
     // process extended
     target = processExtendedLyric(this.context, target, { translate, roman })

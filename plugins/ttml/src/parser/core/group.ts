@@ -34,7 +34,7 @@ export const processGroup = (context: Context, info: Lyric.Info, head: any) => {
   }
   info.groups = result
 
-  info = insertGroupCount(context, info)
+  info = insertGroupCount(info)
 
   return info
 }

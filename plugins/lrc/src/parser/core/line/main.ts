@@ -8,7 +8,7 @@ import { parseTagTime, processTextToWords, checkLineIsValid, sortLines } from '@
 const DYNAMIC_TIME_AND_CONTENT = /(<[^>]+>)([^<]*)/gu
 const DYNAMIC_TIME_TAG_2 = /<([0-9]+),([0-9]+)\>/
 
-const processDynamicLine = (options: Parser.Config.Line, line: MatchItem) => {
+const processDynamicLine = (options: Parser.Config.Line.Main, line: MatchItem) => {
   const words: Lyric.Line.Word[] = []
 
   const lineTime = parseTagTime(line.tag)
@@ -46,7 +46,7 @@ const processDynamicLine = (options: Parser.Config.Line, line: MatchItem) => {
       original: wordContent,
     }
 
-    if (wordDuration > options.prolongedSound.checkTime) {
+    if (wordDuration > options.insert.prolonged.checkTime) {
       wordResult.config.isProlongedSound = true
     }
 
@@ -74,7 +74,7 @@ const processDynamicLine = (options: Parser.Config.Line, line: MatchItem) => {
   return target
 }
 
-const processDynamic = (options: Parser.Config.Line, matched: MatchItem[]) => {
+const processDynamic = (options: Parser.Config.Line.Main, matched: MatchItem[]) => {
   if (matched.length <= 0) return null
 
   const result: Lyric.Line.Info[] = []
@@ -87,7 +87,7 @@ const processDynamic = (options: Parser.Config.Line, matched: MatchItem[]) => {
   return result
 }
 
-const processNormalLine = (config: Parser.Config.Line, line: MatchItem) => {
+const processNormalLine = (line: MatchItem) => {
   const time = parseTagTime(line.tag) || 0
   const text = line.content.trim()
 
@@ -101,12 +101,12 @@ const processNormalLine = (config: Parser.Config.Line, line: MatchItem) => {
   return result
 }
 
-const processNormal = (config: Parser.Config.Line, lines: MatchItem[]) => {
+const processNormal = (lines: MatchItem[]) => {
   if (lines.length <= 0) return null
 
   const result: Lyric.Line.Info[] = []
   for (const line of lines) {
-    const item = processNormalLine(config, line)
+    const item = processNormalLine(line)
     if (!item) continue
     result.push(item)
   }
@@ -128,13 +128,13 @@ interface Params {
   dynamic: MatchInfo
 }
 
-const processLines = (config: Parser.Config.Line, params: Params): [Lyric.Line.Info[] | null, boolean] => {
+const processLines = (config: Parser.Config.Line.Main, params: Params): [Lyric.Line.Info[] | null, boolean] => {
   const dynamic = processDynamic(config, params.dynamic.line)
   if (dynamic && checkLineIsValid(dynamic)) {
     return [dynamic, true]
   }
 
-  const original = processNormal(config, params.original.line)
+  const original = processNormal(params.original.line)
   if (original && checkLineIsValid(original)) {
     return [original, false]
   }
@@ -143,7 +143,7 @@ const processLines = (config: Parser.Config.Line, params: Params): [Lyric.Line.I
 }
 
 export const processMainLyric = (context: Context, params: Params) => {
-  const config = context.common.config.get('line.main', 'line.common')!
+  const config = context.config.get('line.main')
 
   const [lines, isDynamic] = processLines(config, params)
   if (!lines) {

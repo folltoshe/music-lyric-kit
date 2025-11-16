@@ -11,10 +11,7 @@ import { exportMeta } from './meta'
 
 export class Plugin extends Builder.Plugin.Base<Config, Params, Result> {
   constructor(options?: Config, global?: ConfigManager<Builder.Config.Full>) {
-    super(DEFAULT_CONFIG, global)
-    if (options) {
-      this.updatePluginConfig(options)
-    }
+    super(DEFAULT_CONFIG, options, global)
   }
 
   override build(params: Params): Result {

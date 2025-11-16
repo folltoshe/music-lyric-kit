@@ -20,7 +20,12 @@ export class LyricParser {
 
   constructor(options?: LyricParserOptions) {
     if (options?.common) {
-      this.common = new ConfigManager(Parser.Config.FULL, options.common)
+      this.common = new ConfigManager({
+        current: {
+          default: Parser.Config.FULL,
+          init: options.common,
+        },
+      })
     }
     this.lrc = new LrcPlugin.Parser.Plugin(options?.plugin?.lrc, this.common)
     this.ttml = new TtmlPlugin.Parser.Plugin(options?.plugin?.ttml, this.common)

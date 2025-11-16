@@ -1,11 +1,8 @@
 import type { Lyric } from '@music-lyric-kit/shared'
 import type { Context, MatchItem } from '@parser/core//types'
 
-import { Parser } from '@music-lyric-kit/shared'
-
 import { parseTime } from '@music-lyric-kit/shared'
-
-const { processProducer } = Parser.Processor
+import { processProducer } from '@parser/processer'
 
 const splitNameWithRule = (name: string, rule: string | RegExp) => {
   return name
@@ -77,7 +74,7 @@ const LYRIC_META_REGEXP = /^\s*\[\s*([A-Za-z0-9_-]+)\s*:\s*([^\]]*)\s*\]\s*$/
 const processTag = (context: Context, metas: MatchItem[]) => {
   const result: Lyric.Meta = { offset: { raw: '', parsed: 0 } }
 
-  const options = context.common.config.get('meta.tag')
+  const options = context.config.get('meta.tag')
   if (!options.enable) {
     return result
   }

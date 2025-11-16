@@ -18,7 +18,12 @@ export class LyricBuilder {
 
   constructor(options?: LyricBuilderOptions) {
     if (options?.common) {
-      this.common = new ConfigManager(Builder.Config.FULL, options.common)
+      this.common = new ConfigManager({
+        current: {
+          default: Builder.Config.FULL,
+          init: options.common,
+        },
+      })
     }
     this.lrc = new LrcPlugin.Builder.Plugin(options?.plugin?.lrc)
   }
