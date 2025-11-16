@@ -1,4 +1,4 @@
-import type { ConfigManager } from '@music-lyric-kit/shared'
+import type { ConfigManager, DeepPartial } from '@music-lyric-kit/shared'
 import type { Config } from '@parser/config'
 import type { Params, Result } from '@parser/core/types'
 
@@ -14,7 +14,7 @@ import { processMainLyric, processExtendedLyric } from './line'
 const { purificationLyric, insertInterlude, insertDuet, insertGroupCount, insertSpaceToLines } = Parser.Processor
 
 export class Plugin extends Parser.Plugin.Base<Config, Params, Result> {
-  constructor(options?: Config, global?: ConfigManager<Parser.Config.Full>) {
+  constructor(options?: DeepPartial<Config>, global?: ConfigManager<Parser.Config.Full>) {
     super(DEFAULT_CONFIG, options, global)
   }
 

@@ -1,4 +1,4 @@
-import type { ConfigManager } from '@music-lyric-kit/shared'
+import type { ConfigManager, DeepPartial } from '@music-lyric-kit/shared'
 import type { Config } from '@builder/config'
 import type { Params, Result } from '@builder/core/types'
 
@@ -10,7 +10,7 @@ import { exportLines } from './line'
 import { exportMeta } from './meta'
 
 export class Plugin extends Builder.Plugin.Base<Config, Params, Result> {
-  constructor(options?: Config, global?: ConfigManager<Builder.Config.Full>) {
+  constructor(options?: DeepPartial<Config>, global?: ConfigManager<Builder.Config.Full>) {
     super(DEFAULT_CONFIG, options, global)
   }
 
