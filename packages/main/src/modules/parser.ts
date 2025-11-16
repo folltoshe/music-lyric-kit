@@ -4,11 +4,13 @@ import { ConfigManager, Parser } from '@music-lyric-kit/shared'
 
 import { LrcPlugin, TtmlPlugin } from '@root/plugins'
 
+type PluginConfig<Config> = DeepPartial<Parser.Config.Full & Config>
+
 export interface LyricParserOptions {
   common?: Parser.Config.Full
   plugin?: {
-    lrc?: LrcPlugin.Parser.Config
-    ttml?: TtmlPlugin.Parser.Config
+    lrc?: PluginConfig<LrcPlugin.Parser.Config>
+    ttml?: PluginConfig<TtmlPlugin.Parser.Config>
   }
 }
 

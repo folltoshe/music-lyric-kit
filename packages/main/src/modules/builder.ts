@@ -4,10 +4,12 @@ import { ConfigManager, Builder } from '@music-lyric-kit/shared'
 
 import { LrcPlugin } from '@root/plugins'
 
+type PluginConfig<Config> = DeepPartial<Builder.Config.Full & Config>
+
 export interface LyricBuilderOptions {
   common?: Builder.Config.Full
   plugin?: {
-    lrc?: LrcPlugin.Builder.Config
+    lrc?: PluginConfig<LrcPlugin.Builder.Config>
   }
 }
 
