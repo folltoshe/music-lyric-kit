@@ -35,6 +35,7 @@ const RULES: string[][] = [
   ['大键琴', 'Harpsichord', 'Hpschd'],
   ['电钢琴', 'ElectricPiano', 'Wurlitzer', 'Rhodes', 'EP'],
   ['古琴', '瑶琴', '玉琴', 'Guqin'],
+  ['箱琴', 'AcousticElectricGuitar'],
 
   ['小提琴', '提琴', 'Violin', 'Vln'],
   ['中提琴', 'Viola', 'Vla'],
@@ -70,6 +71,7 @@ const RULES: string[][] = [
   ['大号', 'Tuba', 'Tba'],
   ['圆号', 'FrenchHorn', 'Horn', 'Hn'],
   ['次中音号', 'Euphonium', 'Euph'],
+  ['富鲁格', 'Flugelhorn'],
 
   ['曼陀林', 'Mandolin'],
   ['巴松', 'Bassoon', 'Bsn'],
@@ -96,14 +98,17 @@ const RULES: string[][] = [
   ['巴乌', 'Bawu'],
   ['唢呐', 'Suona'],
   ['马林巴', 'Marimba'],
+  ['葫芦丝', 'Hulusi'],
 
   // Role
 
   ['艺人', 'ArtistsandRepertoire'],
+  ['主创', 'MainCreators'],
+  ['配音', 'CV'],
   ['演奏者', '乐手', '乐师', 'SessionMusician', 'SessionPlayer', 'Musician', 'Performer'],
-  ['原唱', '翻唱', '配唱', '演唱', '唱'],
-  ['童声', '男声', '女声', '人声', '腔', '念白'],
-  ['合声', '合音'],
+  ['原唱', '翻唱', '配唱', '演唱', '唱', 'OriginalSinger', 'CoverSong', 'BackgroundVocals', 'Singing', 'Chorus'],
+  ['童声', '男声', '女声', '人声', '腔', '念白', 'ChildrenVoice', 'MaleVoice', 'FemaleVoice', 'HumanVoice', 'Tone', 'Recitation', 'Voice'],
+  ['合声', '合音', 'Harmony'],
   ['Rap'],
 
   ['制作人', '制作', 'Producer', 'Prod'],
@@ -119,9 +124,10 @@ const RULES: string[][] = [
   ['乐器', 'MusicalInstruments'],
   ['编辑', 'AudioEditor', 'Edit', 'Editor'],
   ['监制', '监', 'Supervisor'],
+  ['录制', 'Recording'],
 
   ['和声编写', '和声', '和音编写', '和音', 'BackingVocalsArranger', 'BVArranger', 'BGVsArranger', 'Bvox'],
-  ['人声编辑', 'VocalEditor', 'VocalEdit'],
+  ['人声编辑', 'VocalEditor', 'VocalEdit', 'Vocal'],
   ['音效设计', '音效', 'SoundEffectsDesigner', 'SFXDesigner'],
 
   ['指挥', 'Conductor', 'Cond'],
@@ -160,11 +166,12 @@ const RULES: string[][] = [
   ['后期制作', '后期', 'Post-production', 'PostProd'],
   ['母带后期', 'PostMastering'],
 
-  ['调校', '调教'],
+  ['调校', '调教', 'Adjustment', 'Training'],
   ['剪辑', 'Cut'],
-  ['美工', '美术', '曲绘'],
-  ['视觉设计', '视觉', '设计'],
-  ['题字', '文案'],
+  ['美工', '美术', '曲绘', 'GraphicDesign', 'FineArts', 'Drawing'],
+  ['视觉设计', '视觉', '设计', 'VisualDesign', 'Visual', 'Design'],
+  ['艺术顾问', '艺术', '顾问', 'ArtConsultant', 'Art', 'Consultant'],
+  ['题字', '文案', 'Inscription', 'Copywriting'],
   ['封面', '海报', '图绘', '映像', '封', 'Cover', 'Image'],
   ['脚本', '分镜', '视频', 'Video', 'PV', 'MV', 'CG'],
   ['OP', 'SP'],
@@ -172,10 +179,12 @@ const RULES: string[][] = [
   ['项目统筹', '统筹', '项目', 'ProjectCoordinator', 'Coordinator'],
   ['发行', '发布', 'Release'],
   ['出品', 'Produced'],
-  ['宣传', '推广', '宣发', '宣推', '营销'],
+  ['宣传', '推广', '宣发', '宣推', '营销', 'Publicity'],
   ['版权', 'Copyright'],
   ['承办单位', '承办', '单位', '业务', '策划', '企划', '策监'],
   ['支持', '鸣谢', '特约嘉宾', '指导'],
+
+  ['PGM'],
 ]
 
 export const DEFAULT_PRODUCER_RULES: RegExp[] = buildRegexpFromWords(RULES)
