@@ -6,6 +6,10 @@
   Music Lyric Parser And Builder
 </div>
 
+> [!WARNING]
+>
+> This project have been move to [music-lyric-kit-node](https://github.com/music-lyric/music-lyric-kit-node)
+
 ## Features
 
 - Format Support
